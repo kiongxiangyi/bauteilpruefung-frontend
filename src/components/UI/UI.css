@@ -1,0 +1,44 @@
+.textInput{
+    border-radius: 5px;
+    width: 10em;
+    background-color: white;
+    height: 50px;
+    font-size: 3em;
+}
+
+.bauteilnummer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+h1 {
+    height: 50px;
+    font-size: 3em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.flex {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    background: #ffe100;
+    color: black;
+    font-size: 2em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+.selectMenu {
+    margin: 20px 0;
+}
+
