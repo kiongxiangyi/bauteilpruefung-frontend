@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../components/Header/Header.js";
 import Select from "react-select";
 import styled from "styled-components";
+import Button from "../../components/UI/Button";
 
 export default function Results() {
   const Table = styled.table`
@@ -24,6 +25,10 @@ export default function Results() {
     { value: "Wert nicht IO", label: "Wert nicht IO" },
   ];
 
+  const handleClick = () => {
+    console.log("Button was clicked!");
+  };
+  
   return (
     <div>
       <Header />
@@ -81,6 +86,7 @@ export default function Results() {
           </tr>
         </tbody>
       </Table>
+      <Button onClick={handleClick}>Save</Button>
     </div>
   );
 }
