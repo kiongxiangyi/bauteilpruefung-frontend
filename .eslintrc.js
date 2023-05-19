@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    node: true, //solve - [eslint] 'module' is not defined. (no-undef)
   },
   extends: ["eslint:recommended", "plugin:react/recommended"],
   overrides: [],
