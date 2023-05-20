@@ -1,24 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+
+import { Table, Th, Td } from '../UI/Table';
 
 export default function FillInTable() {
-  const Table = styled.table`
-    border: 2px solid #999999;
-    text-align: center;
-    margin: 10px;
-    vertical-align: middle;
-  `;
-
-  const Th = styled.th`
-    border: 1px solid;
-  `;
-
-  const Td = styled.td`
-    border: 1px solid;
-  `;
-
   return (
-    <Table className="table">
+    <Table>
       <thead>
         <tr>
           <Th>Position</Th>
