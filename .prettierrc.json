@@ -1,0 +1,17 @@
+{
+  "arrowParens": "always",
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "overrides": [
+    {
+      "files": "*.css",
+      "options": {
+        "parser": "css"
+      }
+    }
+  ]
+}

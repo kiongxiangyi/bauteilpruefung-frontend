@@ -1,21 +1,9 @@
-import React from "react";
+import React, { useId } from "react";
 import "./UI.css";
 
-export default function TextInput() {
-  return (
-    <div className="bauteilnummer">
-      <h1>Bauteilnummer:</h1>
-      <input
-        className="textInput"
-        autoFocus
-        type="text"
-        id="bauteilnummer"
-        name="bauteilnummer"
-        //size="35"
-        pattern="[0-9]+"
-        //value=""
-        //onChange={(e) => setBauteilnummer(e.target.value)}
-      />
-    </div>
-  );
+export default function TextInput({ ...props }) {
+  // useId hook make sures that every TextInput in your application will have a different ID
+  const id = useId();
+
+  return <input className="textInput" type="text" id={id} {...props} />;
 }

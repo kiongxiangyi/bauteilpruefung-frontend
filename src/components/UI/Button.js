@@ -1,21 +1,15 @@
 import React from "react";
 import "./UI.css";
-import PropTypes from "prop-types";
 
+{
+  /* Button should only provide the button and nothing else */
+}
 const Button = ({ children, onClick }) => {
-  //Solve error message “ ‘children’ is missing in props validation eslint(react/prop-types)” - https://forhjy.medium.com/react-solution-for-children-is-missing-in-props-validation-eslint-react-prop-types-2e11bc6043c7
   return (
-    <div className="flex">
-      <button className="button" onClick={onClick}>
-        {children}
-      </button>
-    </div>
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
   );
-};
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.node.isRequired,
 };
 
 export default Button;

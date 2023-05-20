@@ -1,30 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import Select from "react-select";
+import React from 'react';
+import Select from 'react-select';
+
+import { Table, Th, Td } from '../UI/Table';
+
+// The styled components declaration should be outside of the main component
 
 export default function SelectTable() {
-  const Table = styled.table`
-    border: 2px solid #999999;
-    text-align: center;
-    margin: 10px;
-    vertical-align: middle;
-  `;
-
-  const Th = styled.th`
-    border: 1px solid;
-  `;
-
-  const Td = styled.td`
-    border: 1px solid;
-  `;
-
   const options = [
-    { value: "Wert IO", label: "Wert IO" },
-    { value: "Wert nicht IO", label: "Wert nicht IO" },
+    { value: 'Wert IO', label: 'Wert IO' },
+    { value: 'Wert nicht IO', label: 'Wert nicht IO' },
   ];
 
   return (
-    <Table className="table">
+    <Table>
       <thead>
         <tr>
           <Th>Position</Th>

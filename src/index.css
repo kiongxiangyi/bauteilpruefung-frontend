@@ -1,13 +1,14 @@
-body {
+/* We have removed App.css and only kept index.css */
+
+* {
+  /* box-sizing: border-box is the most important CSS rule */
+  box-sizing: border-box;
+
+  /* background-color: white; */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Helvetica Neue LT W1G 400", sans-serif; /* https://www.cdnfonts.com/helvetica-neue-lt-w1g.font */
 }

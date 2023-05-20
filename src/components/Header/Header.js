@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import "./Header.css";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import './Header.css';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderText = styled.h1`
   font-size: 36px;
@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <header className="header">
       <HeaderText>Bauteilprüfung</HeaderText>
-      <button className="homeButton" onClick={() => navigate("/")}>
+      <button className="homeButton" onClick={() => navigate('/')}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </button>
     </header>
