@@ -1,44 +1,63 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import SelectMenu from "../../components/UI/SelectMenu";
-import TextInput from "../../components/UI/TextInput";
-import Button from "../../components/UI/Button";
+import SelectMenu from '../../components/UI/SelectMenu';
+import TextInput from '../../components/UI/TextInput';
+import Button from '../../components/UI/Button';
+
+const H1 = styled.h1`
+  height: 50px;
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0 0 0;
+`;
 
 export default function Homepage() {
-  const [value, setValue] = useState("");
+  const [bauteilnummer, setBauteilnummer] = useState('');
   /* const handleClick = () => {
     console.log("Button was clicked!");
   }; */
   const navigate = useNavigate(); //hook for navigation
 
+  
   function handleSearch() {
-    console.log({ value });
+    console.log({ bauteilnummer });
     // Perform the logic of calling the API with appropriate data
     // If results is successful then navigate to /results route
-    navigate("/results");
+    navigate('/results');
   }
 
   return (
     <div>
-      <SelectMenu />
+      <Div>
+        <SelectMenu />
+      </Div>
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
-      <div className="bauteilnummer">
-        <h1>Bauteilnummer:</h1>
+      <Div>
+        <H1>Bauteilnummer:</H1>
         <TextInput
           autoFocus
           name="bauteilnummer"
           pattern="[0-9]+"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={bauteilnummer}
+          onChange={(e) => setBauteilnummer(e.target.value)}
         />
-      </div>
-
+      </Div>
       {/* Centering the button should be responsibility of the parent component */}
       {/* Button should only provide the button and nothing else */}
-      <div className="flex">
+      <Div>
         <Button onClick={handleSearch}>Search</Button>
-      </div>
+      </Div>
     </div>
   );
 }

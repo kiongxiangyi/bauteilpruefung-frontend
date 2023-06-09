@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Table, Th, Td } from '../UI/Table';
+import { Table, Td, Th } from '../UI/Table';
+
 
 export default function FillInTable() {
   return (
