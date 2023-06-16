@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -21,7 +22,7 @@ const Div = styled.div`
   margin: 30px 0 0 0;
 `;
 
-export default function Results() {
+export default function Results({ auftragPruefpositionen }) {
   // Renaming handleClick to handleSave
   const handleSave = () => {
     console.log('Button was clicked!');

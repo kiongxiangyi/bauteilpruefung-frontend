@@ -11,11 +11,13 @@ const Div = styled.div`
 
 export default function SelectMenu({ optionPruefplan }) {
   const [isSearchable, setIsSearchable] = useState(true);
+  const [selection, setSelection] = useState('');
+
   return (
     <Div>
       <Select
-        styles={{ width: '300px' }}
         isSearchable={isSearchable}
+        onChange={(choice) => setSelection(choice.value)}
         options={optionPruefplan}
       />
     </Div>

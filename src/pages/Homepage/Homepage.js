@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import SelectMenu from '../../components/UI/SelectMenu';
@@ -23,35 +22,12 @@ const Div = styled.div`
   margin: 50px 0 0 0;
 `;
 
-export default function Homepage({ pruefplannummer }) {
+export default function Homepage({ pruefplannummer, handleSearch }) {
   const [bauteilnummer, setBauteilnummer] = useState('');
-  const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
+
   /* const handleClick = () => {
     console.log("Button was clicked!");
   }; */
-  const navigate = useNavigate(); //hook for navigation
-
-  function handleSearch() {
-    console.log({ bauteilnummer });
-    // Perform the logic of calling the API with appropriate data
-    const fetchAuftragPruefpositionen = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefpositionen/pruefplannummer=${}`
-        );
-        const results = await response.json();
-        setAuftragPruefpositionen(results);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchAuftragPruefpositionen();
-
-    console.log(auftragPruefpositionen);
-    // If results is successful then navigate to /results route
-    navigate('/results');
-  }
 
   const optionPruefplan = [];
   const arrPruefplan = pruefplannummer.map(
