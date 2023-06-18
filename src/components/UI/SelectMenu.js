@@ -9,16 +9,22 @@ const Div = styled.div`
   justify-content: center;
 `;
 
-export default function SelectMenu({ optionPruefplan }) {
-  const [isSearchable, setIsSearchable] = useState(true);
-  const [selection, setSelection] = useState('');
+export default function SelectMenu({ ...props }) {
+  /* const handleClick = () => {
+    console.log("Button was clicked!");
+  }; */
 
   return (
     <Div>
       <Select
-        isSearchable={isSearchable}
-        onChange={(choice) => setSelection(choice.value)}
-        options={optionPruefplan}
+        styles={{
+          container: (base) => ({
+            ...base,
+            width: '500px',
+          }),
+        }}
+        isSearchable
+        {...props}
       />
     </Div>
   );

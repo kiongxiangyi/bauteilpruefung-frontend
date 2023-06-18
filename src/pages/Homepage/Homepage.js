@@ -22,29 +22,54 @@ const Div = styled.div`
   margin: 50px 0 0 0;
 `;
 
+const StyleOptionLabel = styled.div`
+  display: flex;
+  flex-direction: row;
+  > div {
+    flex: 1;
+  }
+`;
+
 export default function Homepage({ pruefplannummer, handleSearch }) {
   const [bauteilnummer, setBauteilnummer] = useState('');
+  const [selection, setSelection] = useState('');
 
-  /* const handleClick = () => {
-    console.log("Button was clicked!");
-  }; */
+  //lift the state up from children SelectMenu
+  const handleSelectionChange = (value) => {
+    setSelection(value);
+  };
 
   const optionPruefplan = [];
   const arrPruefplan = pruefplannummer.map(
     (pruefplan) => pruefplan.Pruefplannummer
   );
 
+  const arrPruefplan2 = pruefplannummer.map((pruefplan) => pruefplan.Pruefplan);
+
   for (let i = 0; i < arrPruefplan.length; i++) {
     optionPruefplan.push({
       value: arrPruefplan[i],
       label: arrPruefplan[i],
+      pruefplan: arrPruefplan2[i],
     });
   }
+
+  //for custom option
+  const formatOptionLabel = ({ value, label, pruefplan }) => (
+    <StyleOptionLabel>
+      <div>{label}</div>
+      <div>{pruefplan}</div>
+    </StyleOptionLabel>
+  );
 
   return (
     <div>
       <Div>
-        <SelectMenu optionPruefplan={optionPruefplan} />
+        <SelectMenu
+          onChange={(choice) => handleSelectionChange(choice.value)}
+          options={optionPruefplan}
+          formatOptionLabel={formatOptionLabel}
+        />
       </Div>
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
       <Div>
