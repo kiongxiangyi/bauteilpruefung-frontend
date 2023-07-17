@@ -6,19 +6,20 @@ import Homepage from './pages/Homepage';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
 
-
 function App() {
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
-  const selectedpruefplannummer = 1000;
+  const [selection, setSelection] = useState('');
+
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate(); //hook for navigation
 
   function handleSearch() {
+    console.log(selection);
     // Perform the logic of calling the API with appropriate data
     const fetchAuftragPruefpositionen = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedpruefplannummer}`
+          `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selection}`
         );
         const results = await response.json();
         setAuftragPruefpositionen(results);
@@ -30,7 +31,7 @@ function App() {
     fetchAuftragPruefpositionen();
 
     // If results is successful then navigate to /results route
-     navigate('/results');
+    navigate('/results');
   }
 
   const [pruefplannummer, setPruefplannummer] = useState([]);
@@ -61,27 +62,25 @@ function App() {
   }, []);
 
   return (
-   
-      <Layout>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Homepage
-                pruefplannummer={pruefplannummer}
-                handleSearch={handleSearch}
-              />
-            }
-          />
-          {/* value of path should always be in small case according to the standard */}
-          <Route
-            path="/results"
-            element={
-              <Results auftragPruefpositionen={auftragPruefpositionen} />
-            }
-          />
-        </Routes>
-      </Layout>
+    <Layout>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Homepage
+              pruefplannummer={pruefplannummer}
+              handleSearch={handleSearch}
+              setSelection={setSelection}
+            />
+          }
+        />
+        {/* value of path should always be in small case according to the standard */}
+        <Route
+          path="/results"
+          element={<Results auftragPruefpositionen={auftragPruefpositionen} />}
+        />
+      </Routes>
+    </Layout>
   );
 }
 

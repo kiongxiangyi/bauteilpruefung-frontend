@@ -1,12 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { Table, Td, Th } from '../UI/Table';
 
-
 export default function FillInTable() {
+  const Thead = styled.thead`
+    color: black;
+    background: #ffe100;
+    vertical-align: middle;
+  `;
+
   return (
     <Table>
-      <thead>
+      <Thead>
         <tr>
           <Th>Position</Th>
           <Th>Artikel</Th>
@@ -17,7 +23,7 @@ export default function FillInTable() {
           <Th>Ergebnis</Th>
           <Th>Bemerkung</Th>
         </tr>
-      </thead>
+      </Thead>
       <tbody>
         <tr>
           <Td>1</Td>

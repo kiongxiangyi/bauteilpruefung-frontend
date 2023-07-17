@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+// @ts-ignore
 import Select from 'react-select';
 import styled from 'styled-components';
 
@@ -20,7 +21,7 @@ export default function SelectMenu({ ...props }) {
         styles={{
           container: (base) => ({
             ...base,
-            width: '500px',
+            width: '33rem',
           }),
         }}
         isSearchable

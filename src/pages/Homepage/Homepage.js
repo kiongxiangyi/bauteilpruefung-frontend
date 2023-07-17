@@ -6,9 +6,8 @@ import SelectMenu from '../../components/UI/SelectMenu';
 import TextInput from '../../components/UI/TextInput';
 import Button from '../../components/UI/Button';
 
-const H1 = styled.h1`
-  height: 50px;
-  font-size: 3em;
+const P = styled.p`
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,9 +29,12 @@ const StyleOptionLabel = styled.div`
   }
 `;
 
-export default function Homepage({ pruefplannummer, handleSearch }) {
+export default function Homepage({
+  pruefplannummer,
+  handleSearch,
+  setSelection,
+}) {
   const [bauteilnummer, setBauteilnummer] = useState('');
-  const [selection, setSelection] = useState('');
 
   //lift the state up from children SelectMenu
   const handleSelectionChange = (value) => {
@@ -73,7 +75,7 @@ export default function Homepage({ pruefplannummer, handleSearch }) {
       </Div>
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
       <Div>
-        <H1>Bauteilnummer:</H1>
+        <P>Bauteilnummer:</P>
         <TextInput
           autoFocus
           name="bauteilnummer"

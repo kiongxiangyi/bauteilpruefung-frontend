@@ -5,8 +5,8 @@ const Input = styled.input`
   border-radius: 5px;
   width: 10em;
   background-color: white;
-  height: 50px;
-  font-size: 3em;
+  height: 3rem;
+  font-size: 1.6rem;
 `;
 
 export default function TextInput({ ...props }) {

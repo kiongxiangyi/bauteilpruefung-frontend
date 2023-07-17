@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+// @ts-ignore
 import { useNavigate } from 'react-router-dom';
 
 const HeaderText = styled.h1`
   font-size: 36px;
-  padding: 5px 5px;
+  padding: 8px 8px;
 `;
 
 const Button = styled.button`
