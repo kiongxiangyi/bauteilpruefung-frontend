@@ -5,21 +5,41 @@ import { useNavigate } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
+import Finalpage from './pages/Finalpage';
 
 function App() {
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
-  const [selection, setSelection] = useState('');
+  const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
+  const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
 
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate(); //hook for navigation
 
+  // Renaming handleClick to handleSave
+  const handleSubmit = () => {
+    const fetchAuftragPruefdaten = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/AuftragPruefdaten/${selectedPruefplannummer}`
+        );
+        const results = await response.json();
+        setAuftragPruefdaten(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchAuftragPruefdaten();
+
+    navigate('/finalpage');
+  };
+
   function handleSearch() {
-    console.log(selection);
     // Perform the logic of calling the API with appropriate data
     const fetchAuftragPruefpositionen = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selection}`
+          `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
         );
         const results = await response.json();
         setAuftragPruefpositionen(results);
@@ -70,14 +90,23 @@ function App() {
             <Homepage
               pruefplannummer={pruefplannummer}
               handleSearch={handleSearch}
-              setSelection={setSelection}
+              setSelectedPruefplannummer={setSelectedPruefplannummer}
             />
           }
         />
         {/* value of path should always be in small case according to the standard */}
         <Route
           path="/results"
-          element={<Results auftragPruefpositionen={auftragPruefpositionen} />}
+          element={
+            <Results
+              auftragPruefpositionen={auftragPruefpositionen}
+              handleSubmit={handleSubmit}
+            />
+          }
+        />
+        <Route
+          path="/finalpage"
+          element={<Finalpage auftragPruefdaten={auftragPruefdaten} />}
         />
       </Routes>
     </Layout>

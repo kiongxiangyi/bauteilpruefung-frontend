@@ -32,13 +32,13 @@ const StyleOptionLabel = styled.div`
 export default function Homepage({
   pruefplannummer,
   handleSearch,
-  setSelection,
+  setSelectedPruefplannummer,
 }) {
   const [bauteilnummer, setBauteilnummer] = useState('');
 
   //lift the state up from children SelectMenu
   const handleSelectionChange = (value) => {
-    setSelection(value);
+    setSelectedPruefplannummer(value);
   };
 
   const optionPruefplan = [];
