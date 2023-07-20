@@ -22,16 +22,19 @@ const Input = styled.input`
 
 export default function TableAuftragPruefpositionen({
   auftragPruefpositionen,
-  setResult,
 }) {
   //save the input value according to name(Bezeichnung) of each row
-  const handleChange = (e) => {
+  /*   const handleChange = (e) => {
     let name = e.name;
     let value = e.value;
 
     setResult((prev) => {
       return { ...prev, [name]: value };
     });
+  }; */
+
+  const handleChange = () => {
+  
   };
 
   /* //Handling Text Field with Decimal and Numbers Only
@@ -67,24 +70,27 @@ export default function TableAuftragPruefpositionen({
             <Td>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
-                  name="inputresult"
-                  onChange={(options) => handleChange(options)}
+                  id={`${item.ID}_istWert`}
+                  name="selectIstWert"
+                  onChange={handleChange}
                 />
               ) : (
                 <Input
-                  name="inputresult"
+                  id={`${item.ID}_istWert`}
+                  name="istWert"
                   type="number"
                   pattern="[0-9]*"
                   step="0.01"
-                  onChange={(e) => handleChange(e.target)}
+                  onChange={handleChange}
                 ></Input>
               )}
             </Td>
             <Td>
               <Input
+                id={`${item.ID}_bemerkung`}
                 name="bemerkung"
                 type="text"
-                onChange={(e) => handleChange(e.target)}
+                onChange={handleChange}
               ></Input>
             </Td>
           </Tr>

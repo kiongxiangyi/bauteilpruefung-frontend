@@ -12,19 +12,38 @@ function App() {
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
   const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
-  const [result, setResult] = useState({
-    Prüfplannummer: '',
-    Position: '',
-    Bezeichnung: '',
-    IstWert: '',
-    Bemerkung: '',
-  });
-  // eslint-disable-next-line no-unused-vars
+  const [result, setResult] = useState([]);
   const navigate = useNavigate(); //hook for navigation
 
   // Renaming handleClick to handleSave
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    auftragPruefpositionen.forEach((element) => {
+      let bemerkung = document.getElementById(element.ID + '_bemerkung').value; //get value of bemerkung according to the id
+
+      let domEleIstWert = document.getElementById(element.ID + '_istWert'); //get value of istWert according to the id
+      let istWert = domEleIstWert.value;
+      if (!istWert) {
+        istWert = domEleIstWert.querySelector(
+          'input[name="selectIstWert"]'
+        ).value; //get value of options as it is not input field
+        if (!istWert) {
+          alert('Fehler beim auslesen des IstWerts!'); //if no options selected, alert
+          return;
+        }
+      }
+
+      result.push({
+        id: element.ID,
+        pruefplannummer: element.Pruefplannummer,
+        position: element.Position,
+        bezeichnung: element.Bezeichnung,
+        istWert: istWert,
+        bemerkung: bemerkung,
+        bauteilnummer: bauteilnummer,
+      });
+    });
     console.log(result);
 
     const fetchAuftragPruefdaten = async () => {
@@ -39,20 +58,17 @@ function App() {
             },
 
             body: JSON.stringify({
-              bauteilnummer,
-              pruefplannummer,
               result,
             }),
           }
         )
           .then((res) => res.json())
+          .then((res) => {
+            setResult([]); //reset result array after writing in DB
+            setBauteilnummer('');
+            setAuftragPruefdaten(res);
+          })
           .catch((err) => console.log(err));
-
-        const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefdaten/${selectedPruefplannummer}`
-        );
-        const results = await response.json();
-        setAuftragPruefdaten(results);
       } catch (err) {
         console.log(err);
       }

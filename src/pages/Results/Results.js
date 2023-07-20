@@ -16,15 +16,16 @@ const Div = styled.div`
 export default function Results({
   auftragPruefpositionen,
   handleSubmit,
-  setResult,result
+  setResult,
+  result,
 }) {
-
   return (
     <form onSubmit={handleSubmit}>
       <TableDiv>
         <TableAuftragPruefpositionen
           auftragPruefpositionen={auftragPruefpositionen}
           setResult={setResult}
+          result={result}
         />
       </TableDiv>
       <Div>
