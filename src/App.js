@@ -8,17 +8,46 @@ import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
 
 function App() {
+  const [bauteilnummer, setBauteilnummer] = useState('');
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
   const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
-
+  const [result, setResult] = useState({
+    Prüfplannummer: '',
+    Position: '',
+    Bezeichnung: '',
+    IstWert: '',
+    Bemerkung: '',
+  });
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate(); //hook for navigation
 
   // Renaming handleClick to handleSave
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(result);
+
     const fetchAuftragPruefdaten = async () => {
       try {
+        await fetch(
+          `${process.env.REACT_APP_API}/AuftragPruefdaten/createNewRecords`,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+              bauteilnummer,
+              pruefplannummer,
+              result,
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .catch((err) => console.log(err));
+
         const response = await fetch(
           `${process.env.REACT_APP_API}/AuftragPruefdaten/${selectedPruefplannummer}`
         );
@@ -91,6 +120,8 @@ function App() {
               pruefplannummer={pruefplannummer}
               handleSearch={handleSearch}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
+              bauteilnummer={bauteilnummer}
+              setBauteilnummer={setBauteilnummer}
             />
           }
         />
@@ -101,6 +132,8 @@ function App() {
             <Results
               auftragPruefpositionen={auftragPruefpositionen}
               handleSubmit={handleSubmit}
+              setResult={setResult}
+              result={result}
             />
           }
         />

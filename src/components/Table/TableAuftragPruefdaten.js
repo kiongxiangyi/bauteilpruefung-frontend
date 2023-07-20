@@ -19,7 +19,7 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
           <Tr key={i}>
             <Td>{item.Pruefplannummer}</Td>
             <Td>{item.Position}</Td>
-            <Td>{item.Bezeichnung}</Td>
+            <Td>{item.Auftragsnummer}</Td>
             <Td>{item.Istwert}</Td>
             <Td>{item.WertIO}</Td>
           </Tr>

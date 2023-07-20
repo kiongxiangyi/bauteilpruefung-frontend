@@ -13,10 +13,11 @@ const Div = styled.div`
   margin: 30px 0 0 0;
 `;
 
-export default function Results({ auftragPruefpositionen, handleSubmit }) {
-  const [result, setResult] = useState([]);
-
-  console.log(result);
+export default function Results({
+  auftragPruefpositionen,
+  handleSubmit,
+  setResult,result
+}) {
 
   return (
     <form onSubmit={handleSubmit}>
@@ -24,7 +25,6 @@ export default function Results({ auftragPruefpositionen, handleSubmit }) {
         <TableAuftragPruefpositionen
           auftragPruefpositionen={auftragPruefpositionen}
           setResult={setResult}
-          result={result}
         />
       </TableDiv>
       <Div>

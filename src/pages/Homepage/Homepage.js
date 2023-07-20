@@ -33,9 +33,9 @@ export default function Homepage({
   pruefplannummer,
   handleSearch,
   setSelectedPruefplannummer,
+  bauteilnummer,
+  setBauteilnummer,
 }) {
-  const [bauteilnummer, setBauteilnummer] = useState('');
-
   //lift the state up from children SelectMenu
   const handleSelectionChange = (value) => {
     setSelectedPruefplannummer(value);

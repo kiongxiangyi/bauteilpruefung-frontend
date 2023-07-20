@@ -8,27 +8,50 @@ const Input = styled.input`
   width: 100%;
   height: 2rem;
   font-size: 2rem;
+  //input without an arrow
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
 `;
 
 export default function TableAuftragPruefpositionen({
   auftragPruefpositionen,
   setResult,
-  result,
 }) {
-  console.log(result);
-
   //save the input value according to name(Bezeichnung) of each row
-  const updateResult = (value, name) => {
-    setResult({
-      ...result,
-      [name]: value,
+  const handleChange = (e) => {
+    let name = e.name;
+    let value = e.value;
+
+    setResult((prev) => {
+      return { ...prev, [name]: value };
     });
   };
+
+  /* //Handling Text Field with Decimal and Numbers Only
+  handleChange = (event) => {
+    const { value } = event.target;
+    const validValue = parseFloat(value.replace(/[^0-9.]/g, ''));
+    if (!isNaN(validValue)) {
+    }
+    this.setState({ value: validValue });
+  }
+  render() {
+    return <input type="text" value={this.state.value} onChange={this.handleChange} />;
+  }
+   */
 
   return (
     <Table>
       <Thead>
         <Tr>
+          <Th>Prüfplannummer</Th>
           <Th>Position</Th>
           <Th>Bezeichnung</Th>
           <Th>Ergebnis</Th>
@@ -38,25 +61,31 @@ export default function TableAuftragPruefpositionen({
       <tbody>
         {auftragPruefpositionen.map((item, i) => (
           <Tr key={i}>
+            <Td>{item.Pruefplannummer}</Td>
             <Td>{item.Position}</Td>
             <Td>{item.Bezeichnung}</Td>
             <Td>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
-                  onChange={(options) =>
-                    updateResult(options.value, item.Bezeichnung)
-                  }
+                  name="inputresult"
+                  onChange={(options) => handleChange(options)}
                 />
               ) : (
                 <Input
-                  name={item.Bezeichnung}
-                  type="text"
-                  onChange={(e) => updateResult(e.target.value, e.target.name)}
+                  name="inputresult"
+                  type="number"
+                  pattern="[0-9]*"
+                  step="0.01"
+                  onChange={(e) => handleChange(e.target)}
                 ></Input>
               )}
             </Td>
             <Td>
-              <Input></Input>
+              <Input
+                name="bemerkung"
+                type="text"
+                onChange={(e) => handleChange(e.target)}
+              ></Input>
             </Td>
           </Tr>
         ))}
