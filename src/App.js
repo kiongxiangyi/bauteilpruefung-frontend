@@ -16,29 +16,26 @@ function App() {
   const navigate = useNavigate(); //hook for navigation
 
   const handleInputChange = (id, KeineWerteingabe, event) => {
-    const newAuftragPruefpositionen = auftragPruefpositionen.map((input) => {
-      if (input.id !== id) {
-        return input;
-      }
+    setAuftragPruefpositionen(
+      auftragPruefpositionen.map((input) => {
+        if (input.ID !== id) {
+          return input;
+        }
 
-      return { ...input, value: event.target.value };
-      /*  if (KeineWerteingabe) {
-        return { ...input, value: event.value };
-      } else {
-        return { ...input, value: event.target.value };
-      } */
-    });
-    console.log(newAuftragPruefpositionen);
-    setResult(newAuftragPruefpositionen);
+        if (KeineWerteingabe) {
+          return { ...input, value: event.value };
+        } else {
+          return { ...input, value: event.target.value };
+        }
+      })
+    );
   };
-
   // Renaming handleClick to handleSave
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('auftragPruefpositionen', auftragPruefpositionen);
 
-    console.log(result);
-    setAuftragPruefdaten([]);
-    /* const fetchAuftragPruefdaten = async () => {
+    const fetchAuftragPruefdaten = async () => {
       try {
         await fetch(
           `${process.env.REACT_APP_API}/AuftragPruefdaten/createNewRecords`,
@@ -51,14 +48,14 @@ function App() {
 
             body: JSON.stringify({
               auftragPruefpositionen,
+              bauteilnummer,
             }),
           }
         )
           .then((res) => res.json())
           .then((res) => {
-            setResult([]); //reset result array after writing in DB
-            setBauteilnummer('');
             setAuftragPruefdaten(res);
+            setBauteilnummer('');
           })
           .catch((err) => console.log(err));
       } catch (err) {
@@ -66,9 +63,10 @@ function App() {
       }
     };
 
+    console.log(auftragPruefdaten);
     fetchAuftragPruefdaten();
 
-    navigate('/finalpage'); */
+    //navigate('/finalpage');
   };
 
   function handleSearch() {

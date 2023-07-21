@@ -49,22 +49,24 @@ export default function TableAuftragPruefpositionen({
         </Tr>
       </Thead>
       <tbody>
-        {auftragPruefpositionen.map((item, i) => (
-          <Tr key={i}>
+        {auftragPruefpositionen.map((item) => (
+          <Tr key={item.ID}>
             <Td>{item.Pruefplannummer}</Td>
             <Td>{item.Position}</Td>
             <Td>{item.Bezeichnung}</Td>
             <Td>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
+                  name="value"
                   onChange={(event) =>
                     handleInputChange(item.ID, item.KeineWerteingabe, event)
                   }
                 />
               ) : (
                 <Input
+                  name="value"
                   type="number"
-                  pattern="[0-9]*"
+                  pattern="[0-9]+"
                   step="0.01"
                   onChange={(event) =>
                     handleInputChange(item.ID, item.KeineWerteingabe, event)
@@ -74,6 +76,7 @@ export default function TableAuftragPruefpositionen({
             </Td>
             <Td>
               <Input
+                name="bemerkung"
                 type="text"
                 onChange={(event) =>
                   handleInputChange(item.ID, item.KeineWerteingabe, event)
