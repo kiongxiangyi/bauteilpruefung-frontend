@@ -15,38 +15,30 @@ function App() {
   const [result, setResult] = useState([]);
   const navigate = useNavigate(); //hook for navigation
 
+  const handleInputChange = (id, KeineWerteingabe, event) => {
+    const newAuftragPruefpositionen = auftragPruefpositionen.map((input) => {
+      if (input.id !== id) {
+        return input;
+      }
+
+      return { ...input, value: event.target.value };
+      /*  if (KeineWerteingabe) {
+        return { ...input, value: event.value };
+      } else {
+        return { ...input, value: event.target.value };
+      } */
+    });
+    console.log(newAuftragPruefpositionen);
+    setResult(newAuftragPruefpositionen);
+  };
+
   // Renaming handleClick to handleSave
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    auftragPruefpositionen.forEach((element) => {
-      let bemerkung = document.getElementById(element.ID + '_bemerkung').value; //get value of bemerkung according to the id
-
-      let domEleIstWert = document.getElementById(element.ID + '_istWert'); //get value of istWert according to the id
-      let istWert = domEleIstWert.value;
-      if (!istWert) {
-        istWert = domEleIstWert.querySelector(
-          'input[name="selectIstWert"]'
-        ).value; //get value of options as it is not input field
-        if (!istWert) {
-          alert('Fehler beim auslesen des IstWerts!'); //if no options selected, alert
-          return;
-        }
-      }
-
-      result.push({
-        id: element.ID,
-        pruefplannummer: element.Pruefplannummer,
-        position: element.Position,
-        bezeichnung: element.Bezeichnung,
-        istWert: istWert,
-        bemerkung: bemerkung,
-        bauteilnummer: bauteilnummer,
-      });
-    });
     console.log(result);
-
-    const fetchAuftragPruefdaten = async () => {
+    setAuftragPruefdaten([]);
+    /* const fetchAuftragPruefdaten = async () => {
       try {
         await fetch(
           `${process.env.REACT_APP_API}/AuftragPruefdaten/createNewRecords`,
@@ -58,7 +50,7 @@ function App() {
             },
 
             body: JSON.stringify({
-              result,
+              auftragPruefpositionen,
             }),
           }
         )
@@ -76,7 +68,7 @@ function App() {
 
     fetchAuftragPruefdaten();
 
-    navigate('/finalpage');
+    navigate('/finalpage'); */
   };
 
   function handleSearch() {
@@ -87,7 +79,15 @@ function App() {
           `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
         );
         const results = await response.json();
-        setAuftragPruefpositionen(results);
+
+        const newResults = results.map((item) => ({
+          ...item,
+          value: '',
+          //value: item.KeineWerteingabe ? { value: '', label: '' } : '', // your default value
+          bemerkung: '', // your default remarks
+        }));
+
+        setAuftragPruefpositionen(newResults);
       } catch (err) {
         console.log(err);
       }
@@ -150,6 +150,7 @@ function App() {
               handleSubmit={handleSubmit}
               setResult={setResult}
               result={result}
+              handleInputChange={handleInputChange}
             />
           }
         />

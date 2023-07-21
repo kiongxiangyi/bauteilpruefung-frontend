@@ -18,6 +18,7 @@ export default function Results({
   handleSubmit,
   setResult,
   result,
+  handleInputChange,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -26,6 +27,7 @@ export default function Results({
           auftragPruefpositionen={auftragPruefpositionen}
           setResult={setResult}
           result={result}
+          handleInputChange={handleInputChange}
         />
       </TableDiv>
       <Div>
