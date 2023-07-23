@@ -18,14 +18,32 @@ function App() {
   const handleInputChange = (id, KeineWerteingabe, event) => {
     setAuftragPruefpositionen(
       auftragPruefpositionen.map((input) => {
+        //if id not the same, return the original values
         if (input.ID !== id) {
           return input;
         }
 
-        if (KeineWerteingabe) {
-          return { ...input, value: event.value };
-        } else {
-          return { ...input, value: event.target.value };
+        //if changes in select, update value of SelectRow options
+        if (event.name === 'select' && KeineWerteingabe) {
+          return {
+            ...input,
+            value: event.value,
+          };
+          //if changes in value, update value
+        } else if (
+          event.target.name === 'value' &&
+          KeineWerteingabe === false
+        ) {
+          return {
+            ...input,
+            value: event.target.value,
+          };
+          //if changes in remarks, update remarks
+        } else if (event.target.name === 'bemerkung') {
+          return {
+            ...input,
+            bemerkung: event.target.value,
+          };
         }
       })
     );
@@ -33,7 +51,6 @@ function App() {
   // Renaming handleClick to handleSave
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('auftragPruefpositionen', auftragPruefpositionen);
 
     const fetchAuftragPruefdaten = async () => {
       try {
@@ -63,10 +80,9 @@ function App() {
       }
     };
 
-    console.log(auftragPruefdaten);
     fetchAuftragPruefdaten();
 
-    //navigate('/finalpage');
+    navigate('/finalpage');
   };
 
   function handleSearch() {

@@ -57,7 +57,6 @@ export default function TableAuftragPruefpositionen({
             <Td>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
-                  name="value"
                   onChange={(event) =>
                     handleInputChange(item.ID, item.KeineWerteingabe, event)
                   }
