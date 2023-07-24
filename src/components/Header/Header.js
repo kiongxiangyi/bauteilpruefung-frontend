@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <HeaderCSS>
       <HeaderText>Bauteilprüfung</HeaderText>
-      <Button onClick={() => navigate('/')}>
+      <Button onClick={() => navigate('/homepage')}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </Button>
     </HeaderCSS>

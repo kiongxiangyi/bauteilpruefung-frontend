@@ -5,20 +5,22 @@ import styled from 'styled-components';
 import SelectMenu from '../../components/UI/SelectMenu';
 import TextInput from '../../components/UI/TextInput';
 import Button from '../../components/UI/Button';
+import { NumberInputSmall } from '../../components/UI/NumberInput';
 
-const P = styled.p`
+const H2 = styled.h2`
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin: 2rem 0 0 0;
+  padding: 0 1rem;
 `;
 
 const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 50px 0 0 0;
+  margin: 1rem 0 0 0;
 `;
 
 const StyleOptionLabel = styled.div`
@@ -32,54 +34,58 @@ const StyleOptionLabel = styled.div`
 export default function Homepage({
   pruefplannummer,
   handleSearch,
+  selectedPruefplannummer,
   setSelectedPruefplannummer,
   bauteilnummer,
   setBauteilnummer,
 }) {
   //lift the state up from children SelectMenu
-  const handleSelectionChange = (value) => {
-    setSelectedPruefplannummer(value);
+  const handleSelectionChange = (pruefplannummer) => {
+    setSelectedPruefplannummer(pruefplannummer);
   };
 
-  const optionPruefplan = [];
+  const optionPruefplan = []; //array for selected option
+  //match Prüfplannummer of DB
   const arrPruefplan = pruefplannummer.map(
-    (pruefplan) => pruefplan.Pruefplannummer
+    (tblAuftragPruefplan) => tblAuftragPruefplan.Pruefplannummer
   );
 
-  const arrPruefplan2 = pruefplannummer.map((pruefplan) => pruefplan.Pruefplan);
+  //match Prüfplan of DB
+  const arrPruefplan2 = pruefplannummer.map(
+    (tblAuftragPruefplan) => tblAuftragPruefplan.Pruefplan
+  );
 
   for (let i = 0; i < arrPruefplan.length; i++) {
     optionPruefplan.push({
-      value: arrPruefplan[i],
-      label: arrPruefplan[i],
+      pruefplannummer: arrPruefplan[i], //value is Prüfplannummer
       pruefplan: arrPruefplan2[i],
     });
   }
 
   //for custom option
-  const formatOptionLabel = ({ value, label, pruefplan }) => (
+  const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
     <StyleOptionLabel>
-      <div>{label}</div>
+      <div>{pruefplannummer}</div>
       <div>{pruefplan}</div>
     </StyleOptionLabel>
   );
 
   return (
     <div>
+      <H2>Bitte Prüfplannummer auswählen:</H2>
       <Div>
         <SelectMenu
-          onChange={(choice) => handleSelectionChange(choice.value)}
+          onChange={(choice) => handleSelectionChange(choice.pruefplannummer)}
           options={optionPruefplan}
           formatOptionLabel={formatOptionLabel}
         />
       </Div>
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
+      <H2>Bauteilnummer:</H2>
       <Div>
-        <P>Bauteilnummer:</P>
-        <TextInput
+        <NumberInputSmall
           autoFocus
           name="bauteilnummer"
-          pattern="[0-9]+"
           value={bauteilnummer}
           onChange={(e) => setBauteilnummer(e.target.value)}
         />
@@ -87,7 +93,7 @@ export default function Homepage({
       {/* Centering the button should be responsibility of the parent component */}
       {/* Button should only provide the button and nothing else */}
       <Div>
-        <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={handleSearch}>Suchen</Button>
       </Div>
     </div>
   );

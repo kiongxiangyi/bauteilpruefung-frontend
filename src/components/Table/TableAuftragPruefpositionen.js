@@ -1,24 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Table, Td, Th, Tr, Thead } from '../UI/Table';
 import SelectRow from './SelectRow';
-
-const Input = styled.input`
-  width: 100%;
-  height: 2rem;
-  font-size: 2rem;
-  //input without an arrow
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  ::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  -moz-appearance: textfield;
-`;
+import { NumberInput } from '../UI/NumberInput';
+import TextInput from '../UI/TextInput';
 
 export default function TableAuftragPruefpositionen({
   auftragPruefpositionen,
@@ -62,25 +47,23 @@ export default function TableAuftragPruefpositionen({
                   }
                 />
               ) : (
-                <Input
+                <NumberInput
                   name="value"
-                  type="number"
-                  pattern="[0-9]+"
                   step="0.01"
                   onChange={(event) =>
                     handleInputChange(item.ID, item.KeineWerteingabe, event)
                   }
-                ></Input>
+                ></NumberInput>
               )}
             </Td>
             <Td>
-              <Input
+              <TextInput
                 name="bemerkung"
                 type="text"
                 onChange={(event) =>
                   handleInputChange(item.ID, item.KeineWerteingabe, event)
                 }
-              ></Input>
+              ></TextInput>
             </Td>
           </Tr>
         ))}

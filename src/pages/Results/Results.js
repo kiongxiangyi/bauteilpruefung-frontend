@@ -19,9 +19,10 @@ export default function Results({
   setResult,
   result,
   handleInputChange,
+  handleClickPreviousPage,
 }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <TableDiv>
         <TableAuftragPruefpositionen
           auftragPruefpositionen={auftragPruefpositionen}
@@ -31,8 +32,9 @@ export default function Results({
         />
       </TableDiv>
       <Div>
-        <Button>Speichern</Button>
+        <Button onClick={handleClickPreviousPage}>Zurück</Button>
+        <Button onClick={handleSubmit}>Speichern</Button>
       </Div>
-    </form>
+    </>
   );
 }

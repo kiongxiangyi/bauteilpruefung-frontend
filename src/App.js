@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+// eslint-disable-next-line no-unused-vars
+import toast, { Toaster } from 'react-hot-toast';
 import Homepage from './pages/Homepage';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
@@ -52,6 +53,13 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    for (let i = 0; i < auftragPruefpositionen.length; i++) {
+      if (auftragPruefpositionen[i].value === '') {
+        toast.error('Bitte alle Ergebnisse eingeben!');
+        return;
+      }
+    }
+
     const fetchAuftragPruefdaten = async () => {
       try {
         await fetch(
@@ -79,38 +87,53 @@ function App() {
         console.log(err);
       }
     };
-
     fetchAuftragPruefdaten();
 
     navigate('/finalpage');
   };
 
+  const handleClickPreviousPage = () => {
+    setSelectedPruefplannummer('');
+    setBauteilnummer('');
+    navigate('/homepage');
+  };
+
+  const handleClickHomepage = () => {
+    navigate('/homepage');
+  };
+
   function handleSearch() {
-    // Perform the logic of calling the API with appropriate data
-    const fetchAuftragPruefpositionen = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
-        );
-        const results = await response.json();
+    if (!selectedPruefplannummer) {
+      toast.error('Bitte Prüfplannummer auswählen!');
+    } else if (selectedPruefplannummer && !bauteilnummer) {
+      toast.error('Bitte Bauteilnummer eingeben!');
+    } else {
+      // Perform the logic of calling the API with appropriate data
+      const fetchAuftragPruefpositionen = async () => {
+        try {
+          const response = await fetch(
+            `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
+          );
+          const results = await response.json();
 
-        const newResults = results.map((item) => ({
-          ...item,
-          value: '',
-          //value: item.KeineWerteingabe ? { value: '', label: '' } : '', // your default value
-          bemerkung: '', // your default remarks
-        }));
+          const newResults = results.map((item) => ({
+            ...item,
+            value: '',
+            //value: item.KeineWerteingabe ? { value: '', label: '' } : '', // your default value
+            bemerkung: '', // your default remarks
+          }));
 
-        setAuftragPruefpositionen(newResults);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+          setAuftragPruefpositionen(newResults);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
-    fetchAuftragPruefpositionen();
+      fetchAuftragPruefpositionen();
 
-    // If results is successful then navigate to /results route
-    navigate('/results');
+      // If results is successful then navigate to /results route
+      navigate('/results');
+    }
   }
 
   const [pruefplannummer, setPruefplannummer] = useState([]);
@@ -142,13 +165,24 @@ function App() {
 
   return (
     <Layout>
+      <Toaster
+        toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid',
+            fontSize: '30px',
+            maxWidth: 1000,
+          },
+        }}
+      />
       <Routes>
         <Route
-          path="/"
+          path="/homepage"
           element={
             <Homepage
               pruefplannummer={pruefplannummer}
               handleSearch={handleSearch}
+              selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
               bauteilnummer={bauteilnummer}
               setBauteilnummer={setBauteilnummer}
@@ -165,12 +199,18 @@ function App() {
               setResult={setResult}
               result={result}
               handleInputChange={handleInputChange}
+              handleClickPreviousPage={handleClickPreviousPage}
             />
           }
         />
         <Route
           path="/finalpage"
-          element={<Finalpage auftragPruefdaten={auftragPruefdaten} />}
+          element={
+            <Finalpage
+              auftragPruefdaten={auftragPruefdaten}
+              handleClickHomepage={handleClickHomepage}
+            />
+          }
         />
       </Routes>
     </Layout>

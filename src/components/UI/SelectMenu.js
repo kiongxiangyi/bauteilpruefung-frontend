@@ -11,17 +11,13 @@ const Div = styled.div`
 `;
 
 export default function SelectMenu({ ...props }) {
-  /* const handleClick = () => {
-    console.log("Button was clicked!");
-  }; */
-
   return (
     <Div>
       <Select
         styles={{
           container: (base) => ({
             ...base,
-            width: '33rem',
+            width: '32.5rem',
           }),
         }}
         isSearchable
