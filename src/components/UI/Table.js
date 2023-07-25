@@ -16,7 +16,7 @@ export const Th = styled.th`
 `;
 
 export const Td = styled.td`
-  padding: 2px 0;
+  padding: 2px 2px;
 `;
 
 export const TableDiv = styled.div`
@@ -30,6 +30,6 @@ export const TableDiv = styled.div`
 
 export const Thead = styled.thead`
   color: black;
-  background: #ffe100;
+  background: rgb(12, 168, 206);
   vertical-align: middle;
 `;

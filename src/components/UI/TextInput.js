@@ -2,10 +2,10 @@ import React, { useId } from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
- border-radius: 5px;
+  border-radius: 5px;
   width: 100%;
   height: 48px;
-  font-size: 30px; 
+  font-size: 30px;
 `;
 
 export default function TextInput({ ...props }) {

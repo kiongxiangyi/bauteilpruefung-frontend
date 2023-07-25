@@ -10,9 +10,9 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
           <Th>Prüfplannummer</Th>
           <Th>Bauteilnummer</Th>
           <Th>Position</Th>
-          <Th>Bezeichnung</Th>
+          <Th>Messmittel</Th>
           <Th>Istwert</Th>
-          <Th>WertIO</Th>
+          <Th>Bewertung</Th>
           <Th>Bemerkung</Th>
         </Tr>
       </Thead>
@@ -24,7 +24,7 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
             <Td>{item.Position}</Td>
             <Td>{item.Artikel}</Td>
             <Td>{item.Istwert}</Td>
-            <Td>{item.WertIO === true ? 'Wert IO' : 'Wert nicht IO'}</Td>
+            <Td>{item.WertIO === true ? 'i.O' : 'n.i.O'}</Td>
             <Td>{item.Bemerkung}</Td>
           </Tr>
         ))}

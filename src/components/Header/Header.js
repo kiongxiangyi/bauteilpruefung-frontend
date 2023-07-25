@@ -19,7 +19,7 @@ const Button = styled.button`
 `;
 
 const HeaderCSS = styled.header`
-  background-color: #ffe100;
+  background-color: rgb(12, 168, 206);
   display: flex;
   position: relative;
   border-radius: 5px;

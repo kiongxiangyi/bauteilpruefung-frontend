@@ -38,6 +38,7 @@ export default function Homepage({
   setSelectedPruefplannummer,
   bauteilnummer,
   setBauteilnummer,
+  logoPath,
 }) {
   //lift the state up from children SelectMenu
   const handleSelectionChange = (pruefplannummer) => {
@@ -75,9 +76,10 @@ export default function Homepage({
       <H2>Bitte Prüfplannummer auswählen:</H2>
       <Div>
         <SelectMenu
-          onChange={(choice) => handleSelectionChange(choice.pruefplannummer)}
+          onChange={(option) => handleSelectionChange(option.pruefplannummer)}
           options={optionPruefplan}
           formatOptionLabel={formatOptionLabel}
+          getOptionValue={(option) => option.pruefplannummer} //only selected are blue colour shown, if not all are blue
         />
       </Div>
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
@@ -94,6 +96,14 @@ export default function Homepage({
       {/* Button should only provide the button and nothing else */}
       <Div>
         <Button onClick={handleSearch}>Suchen</Button>
+      </Div>
+      <Div>
+        <img
+          src="./pictures/Aicom_logo.jpg"
+          alt="logo"
+          height="400px"
+          width="320px"
+        ></img>
       </Div>
     </div>
   );

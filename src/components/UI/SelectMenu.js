@@ -20,6 +20,7 @@ export default function SelectMenu({ ...props }) {
             width: '32.5rem',
           }),
         }}
+        getOptionValue
         isSearchable
         {...props}
       />

@@ -15,6 +15,7 @@ function App() {
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
   const [result, setResult] = useState([]);
   const navigate = useNavigate(); //hook for navigation
+  const [logoPath, setLogoPath] = useState('');
 
   const handleInputChange = (id, KeineWerteingabe, event) => {
     setAuftragPruefpositionen(
@@ -163,6 +164,16 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API}/readFile/config`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLogoPath(data.logoPath);
+      });
+  }, []);
+
+  console.log(logoPath);
+
   return (
     <Layout>
       <Toaster
@@ -186,6 +197,7 @@ function App() {
               setSelectedPruefplannummer={setSelectedPruefplannummer}
               bauteilnummer={bauteilnummer}
               setBauteilnummer={setBauteilnummer}
+              logoPath={logoPath}
             />
           }
         />

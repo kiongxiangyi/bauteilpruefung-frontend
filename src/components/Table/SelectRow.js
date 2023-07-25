@@ -3,8 +3,8 @@ import Select from 'react-select';
 
 export default function SelectRow({ ...props }) {
   const options = [
-    { value: 'Wert IO', label: 'Wert IO', name: 'select' },
-    { value: 'Wert nicht IO', label: 'Wert nicht IO', name: 'select' },
+    { value: 'i.O', label: 'i.O', name: 'select' },
+    { value: 'n.i.O', label: 'n.i.O', name: 'select' },
   ];
 
   return <Select options={options} {...props} />;

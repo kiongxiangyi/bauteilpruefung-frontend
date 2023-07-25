@@ -11,6 +11,7 @@ const ButtonCSS = styled.button`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid;
   padding: 1rem 1rem;
+  border-radius: 5px;
 `;
 
 export default function Button({ children, onClick }) {
