@@ -115,6 +115,7 @@ function App() {
           const response = await fetch(
             `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
+          console.log(response);
           const results = await response.json();
 
           const newResults = results.map((item) => ({
@@ -172,7 +173,7 @@ function App() {
       });
   }, []);
 
-  console.log(logoPath);
+  //console.log(logoPath);
 
   return (
     <Layout>

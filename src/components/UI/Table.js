@@ -12,7 +12,7 @@ export const Table = styled.table`
 export const Tr = styled.tr``;
 
 export const Th = styled.th`
-  padding: 1% 0;
+  padding: 0 2px;
 `;
 
 export const Td = styled.td`

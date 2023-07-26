@@ -9,27 +9,19 @@ export default function TableAuftragPruefpositionen({
   auftragPruefpositionen,
   handleInputChange,
 }) {
-  /* //Handling Text Field with Decimal and Numbers Only
-  handleChange = (event) => {
-    const { value } = event.target;
-    const validValue = parseFloat(value.replace(/[^0-9.]/g, ''));
-    if (!isNaN(validValue)) {
-    }
-    this.setState({ value: validValue });
-  }
-  render() {
-    return <input type="text" value={this.state.value} onChange={this.handleChange} />;
-  }
-   */
-
   return (
     <Table>
       <Thead>
         <Tr>
           <Th>Prüfplannummer</Th>
-          <Th>Position</Th>
-          <Th>Bezeichnung</Th>
-          <Th>Ergebnis</Th>
+          <Th>Pos.</Th>
+          <Th>Prüfmerkmal</Th>
+          <Th>Messmittel</Th>
+          <Th>Min-Wert</Th>
+          <Th>Max-Wert</Th>
+          <Th>Soll-Wert</Th>
+          <Th>IST-Wert</Th>
+          <Th>Bewertung</Th>
           <Th>Bemerkung</Th>
         </Tr>
       </Thead>
@@ -39,23 +31,41 @@ export default function TableAuftragPruefpositionen({
             <Td>{item.Pruefplannummer}</Td>
             <Td>{item.Position}</Td>
             <Td>{item.Bezeichnung}</Td>
+            <Td>{item.Zusatztext1}</Td>
+            <Td>{item.MinWert}</Td>
+            <Td>{item.MaxWert}</Td>
+            <Td>{item.Sollwert}</Td>
             <Td>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
-                  onChange={(event) =>
-                    handleInputChange(item.ID, item.KeineWerteingabe, event)
-                  }
+                  onChange={(event) => {
+                    handleInputChange(
+                      item.ID,
+                      item.KeineWerteingabe,
+                      event,
+                      item.MinWert,
+                      item.MaxWert
+                    );
+                  }}
                 />
               ) : (
                 <NumberInput
                   name="value"
-                  step="0.01"
-                  onChange={(event) =>
-                    handleInputChange(item.ID, item.KeineWerteingabe, event)
-                  }
+                  step="0.001"
+                  min="0"
+                  onChange={(event) => {
+                    handleInputChange(
+                      item.ID,
+                      item.KeineWerteingabe,
+                      event,
+                      item.MinWert,
+                      item.MaxWert
+                    );
+                  }}
                 ></NumberInput>
               )}
             </Td>
+            <Td>{}</Td>
             <Td>
               <TextInput
                 name="bemerkung"
