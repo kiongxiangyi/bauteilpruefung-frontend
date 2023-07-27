@@ -12,11 +12,14 @@ export const Table = styled.table`
 export const Tr = styled.tr``;
 
 export const Th = styled.th`
-  padding: 0 2px;
+  margin: 0;
+  padding: 3px;
 `;
 
 export const Td = styled.td`
   padding: 2px 2px;
+  background-color: ${(props) =>
+    props.bewertung === 'i.O' ? 'white' : '#FF3333'}; //change color depending on prop bewertung
 `;
 
 export const TableDiv = styled.div`

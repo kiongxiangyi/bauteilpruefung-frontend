@@ -17,7 +17,26 @@ function App() {
   const navigate = useNavigate(); //hook for navigation
   const [logoPath, setLogoPath] = useState('');
 
-  const handleInputChange = (id, KeineWerteingabe, event) => {
+  const handleIstWertChange = (id, newIstWert) => {
+    setAuftragPruefpositionen((prevData) => {
+      return prevData.map((item) => {
+        if (item.ID === id) {
+          return {
+            ...item,
+            value: newIstWert,
+            bewertung:
+              newIstWert >= item.minWert && newIstWert <= item.maxWert
+                ? 'okay'
+                : 'not okay',
+          };
+        }
+        return item;
+      });
+    });
+    console.log(auftragPruefpositionen);
+  };
+
+  const handleInputChange = (id, KeineWerteingabe, event, minWert, maxWert) => {
     setAuftragPruefpositionen(
       auftragPruefpositionen.map((input) => {
         //if id not the same, return the original values
@@ -30,6 +49,7 @@ function App() {
           return {
             ...input,
             value: event.value,
+            bewertung: event.value === 'i.O' ? 'i.O' : 'n.i.O',
           };
           //if changes in value, update value
         } else if (
@@ -39,6 +59,12 @@ function App() {
           return {
             ...input,
             value: event.target.value,
+            bewertung:
+              event.target.value.replace(',', '.') >=
+                minWert.replace(',', '.') &&
+              event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
+                ? 'i.O'
+                : 'n.i.O',
           };
           //if changes in remarks, update remarks
         } else if (event.target.name === 'bemerkung') {
@@ -123,6 +149,7 @@ function App() {
             value: '',
             //value: item.KeineWerteingabe ? { value: '', label: '' } : '', // your default value
             bemerkung: '', // your default remarks
+            bewertung: '',
           }));
 
           setAuftragPruefpositionen(newResults);
@@ -213,6 +240,7 @@ function App() {
               result={result}
               handleInputChange={handleInputChange}
               handleClickPreviousPage={handleClickPreviousPage}
+              handleIstWertChange={handleIstWertChange}
             />
           }
         />

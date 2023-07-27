@@ -28,24 +28,18 @@ export default function TableAuftragPruefpositionen({
       <tbody>
         {auftragPruefpositionen.map((item) => (
           <Tr key={item.ID}>
-            <Td>{item.Pruefplannummer}</Td>
-            <Td>{item.Position}</Td>
-            <Td>{item.Bezeichnung}</Td>
-            <Td>{item.Zusatztext1}</Td>
-            <Td>{item.MinWert}</Td>
-            <Td>{item.MaxWert}</Td>
-            <Td>{item.Sollwert}</Td>
-            <Td>
+            <Td bewertung={item.bewertung}>{item.Pruefplannummer}</Td>
+            <Td bewertung={item.bewertung}>{item.Position}</Td>
+            <Td bewertung={item.bewertung}>{item.Bezeichnung}</Td>
+            <Td bewertung={item.bewertung}>{item.Zusatztext1}</Td>
+            <Td bewertung={item.bewertung}>{item.MinWert}</Td>
+            <Td bewertung={item.bewertung}>{item.MaxWert}</Td>
+            <Td bewertung={item.bewertung}>{item.Sollwert}</Td>
+            <Td bewertung={item.bewertung}>
               {item.KeineWerteingabe === true ? (
                 <SelectRow
                   onChange={(event) => {
-                    handleInputChange(
-                      item.ID,
-                      item.KeineWerteingabe,
-                      event,
-                      item.MinWert,
-                      item.MaxWert
-                    );
+                    handleInputChange(item.ID, item.KeineWerteingabe, event);
                   }}
                 />
               ) : (
@@ -65,8 +59,8 @@ export default function TableAuftragPruefpositionen({
                 ></NumberInput>
               )}
             </Td>
-            <Td>{}</Td>
-            <Td>
+            <Td bewertung={item.bewertung}>{item.bewertung}</Td>
+            <Td bewertung={item.bewertung}>
               <TextInput
                 name="bemerkung"
                 type="text"
