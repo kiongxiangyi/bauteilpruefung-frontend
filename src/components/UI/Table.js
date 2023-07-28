@@ -12,22 +12,22 @@ export const Table = styled.table`
 export const Tr = styled.tr``;
 
 export const Th = styled.th`
-  margin: 0;
   padding: 3px;
 `;
 
 export const Td = styled.td`
   padding: 2px 2px;
   background-color: ${(props) =>
-    props.bewertung === 'i.O' ? 'white' : '#FF3333'}; //change color depending on prop bewertung
+    props.bewertung === 'i.O' || props.bewertung === ''
+      ? 'white'
+      : '#FF3333'}; //change color depending on prop bewertung
 `;
 
 export const TableDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5px 0 0 0;
-  padding: 10px;
+  margin: 0 0.1rem;
   font-size: 30px;
 `;
 
