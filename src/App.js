@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
+import Menu from './pages/Menu';
 
 function App() {
   const [bauteilnummer, setBauteilnummer] = useState('');
@@ -215,6 +216,7 @@ function App() {
         }}
       />
       <Routes>
+        <Route path="/menu" element={<Menu />} />
         <Route
           path="/homepage"
           element={

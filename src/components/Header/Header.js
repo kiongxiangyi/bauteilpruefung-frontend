@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// @ts-ignore
 import { useNavigate } from 'react-router-dom';
 
 const HeaderText = styled.h1`
@@ -31,7 +30,7 @@ export default function Header() {
   return (
     <HeaderCSS>
       <HeaderText>Bauteilprüfung</HeaderText>
-      <Button onClick={() => navigate('/homepage')}>
+      <Button onClick={() => navigate('/menu')}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </Button>
     </HeaderCSS>
