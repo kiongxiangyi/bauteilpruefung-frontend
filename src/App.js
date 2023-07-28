@@ -17,6 +17,7 @@ function App() {
   const [result, setResult] = useState([]);
   const navigate = useNavigate(); //hook for navigation
   const [logoPath, setLogoPath] = useState('');
+  const [promptSerialnumberMsg, setPromptSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
 
   const handleIstWertChange = (id, newIstWert) => {
     setAuftragPruefpositionen((prevData) => {
@@ -169,31 +170,6 @@ function App() {
   const [pruefplannummer, setPruefplannummer] = useState([]);
 
   useEffect(() => {
-    // let interval; // interval tutorial - https://www.codingdeft.com/posts/react-useeffect-hook/
-    const fetchPruefplan = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefplan`
-        );
-        const results = await response.json();
-        setPruefplannummer(results);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchPruefplan();
-
-    const interval = setInterval(() => {
-      fetchPruefplan();
-    }, 1 * 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/readFile/config`)
       .then((res) => res.json())
       .then((data) => {
@@ -216,12 +192,21 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/menu" element={<Menu />} />
+        <Route
+          path="/menu"
+          element={
+            <Menu
+              promptSerialnumberMsg={promptSerialnumberMsg}
+              setPromptSerialnumberMsg={setPromptSerialnumberMsg}
+            />
+          }
+        />
         <Route
           path="/homepage"
           element={
             <Homepage
               pruefplannummer={pruefplannummer}
+              setPruefplannummer={setPruefplannummer}
               handleSearch={handleSearch}
               selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}

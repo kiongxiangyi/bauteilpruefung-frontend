@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import SelectMenu from '../../components/UI/SelectMenu';
@@ -32,6 +32,7 @@ const StyleOptionLabel = styled.div`
 `;
 
 export default function Homepage({
+  setPruefplannummer,
   pruefplannummer,
   handleSearch,
   selectedPruefplannummer,
@@ -70,6 +71,31 @@ export default function Homepage({
       <div>{pruefplan}</div>
     </StyleOptionLabel>
   );
+
+  useEffect(() => {
+    // let interval; // interval tutorial - https://www.codingdeft.com/posts/react-useeffect-hook/
+    const fetchPruefplan = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/AuftragPruefplan`
+        );
+        const results = await response.json();
+        setPruefplannummer(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchPruefplan();
+
+    const interval = setInterval(() => {
+      fetchPruefplan();
+    }, 1 * 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div>
