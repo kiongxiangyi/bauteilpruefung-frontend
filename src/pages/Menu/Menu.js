@@ -16,22 +16,22 @@ const MenuButton = styled.button`
   width: 30rem;
 `;
 
-const Div = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 2rem;
 `;
 
-const B = styled.b`
-  display: block;
+const ToastContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
-export default function Menu({
-  promptSerialnumberMsg,
-  setPromptSerialnumberMsg,
-}) {
+export default function Menu() {
   const navigate = useNavigate(); //hook for navigation
+  const [showSerialnumberMsg, setShowSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
 
   const createNewSerialnumber = async () => {
     try {
@@ -53,18 +53,17 @@ export default function Menu({
       console.log(err);
     }
   };
-  console.log(promptSerialnumberMsg);
 
   const promptSerialnummer = () => {
     toast(
       (t) => (
-        <>
-          <B>Wollen Sie eine Serialnummer anfordern?</B>
+        <ToastContent>
+          <b>Wollen Sie eine Serialnummer anfordern?</b>
           <Button
             onClick={() => {
               createNewSerialnumber();
               toast.dismiss(t.id);
-              setPromptSerialnumberMsg(false);
+              setShowSerialnumberMsg(false);
             }}
           >
             Ja
@@ -72,20 +71,20 @@ export default function Menu({
           <Button
             onClick={() => {
               toast.dismiss(t.id);
-              setPromptSerialnumberMsg(false);
+              setShowSerialnumberMsg(false);
             }}
           >
             Nein
           </Button>
-        </>
+        </ToastContent>
       ),
       {
-        duration: 60000, //toast appear for one second
+        duration: Infinity, //duration of toast appearance forever
       }
     );
   };
 
-  if (promptSerialnumberMsg) {
+  if (showSerialnumberMsg) {
     promptSerialnummer();
   }
 
@@ -101,16 +100,16 @@ export default function Menu({
           },
         }}
       />
-      <Div>
+      <ButtonWrapper>
         <MenuButton onClick={() => navigate('/homepage')}>
           Bauteilprüfung
         </MenuButton>
-      </Div>
-      <Div>
-        <MenuButton onClick={() => setPromptSerialnumberMsg(true)}>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <MenuButton onClick={() => setShowSerialnumberMsg(true)}>
           Serialnummer anfordern
         </MenuButton>
-      </Div>
+      </ButtonWrapper>
     </>
   );
 }

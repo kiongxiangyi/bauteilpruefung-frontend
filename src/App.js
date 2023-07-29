@@ -9,15 +9,17 @@ import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
 import Menu from './pages/Menu';
 
+const API_URL = process.env.REACT_APP_API;
+
 function App() {
   const [bauteilnummer, setBauteilnummer] = useState('');
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
   const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
   const [result, setResult] = useState([]);
-  const navigate = useNavigate(); //hook for navigation
   const [logoPath, setLogoPath] = useState('');
-  const [promptSerialnumberMsg, setPromptSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
+
+  const navigate = useNavigate(); //hook for navigation
 
   const handleIstWertChange = (id, newIstWert) => {
     setAuftragPruefpositionen((prevData) => {
@@ -91,43 +93,36 @@ function App() {
 
     const fetchAuftragPruefdaten = async () => {
       try {
-        await fetch(
-          `${process.env.REACT_APP_API}/AuftragPruefdaten/createNewRecords`,
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
+        await fetch(`${API_URL}/AuftragPruefdaten/createNewRecords`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
 
-            body: JSON.stringify({
-              auftragPruefpositionen,
-              bauteilnummer,
-            }),
-          }
-        )
+          body: JSON.stringify({
+            auftragPruefpositionen,
+            bauteilnummer,
+          }),
+        })
           .then((res) => res.json())
           .then((res) => {
             setAuftragPruefdaten(res);
             setBauteilnummer('');
+            navigate('/finalpage'); //sucess then go next page
           })
           .catch((err) => console.log(err));
       } catch (err) {
         console.log(err);
+        toast.error(err);
       }
     };
     fetchAuftragPruefdaten();
-
-    navigate('/finalpage');
   };
 
   const handleClickPreviousPage = () => {
     setSelectedPruefplannummer('');
     setBauteilnummer('');
-    navigate('/homepage');
-  };
-
-  const handleClickHomepage = () => {
     navigate('/homepage');
   };
 
@@ -141,7 +136,7 @@ function App() {
       const fetchAuftragPruefpositionen = async () => {
         try {
           const response = await fetch(
-            `${process.env.REACT_APP_API}/AuftragPruefpositionen/${selectedPruefplannummer}`
+            `${API_URL}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
           console.log(response);
           const results = await response.json();
@@ -155,22 +150,21 @@ function App() {
           }));
 
           setAuftragPruefpositionen(newResults);
+
+          // If results is successful then navigate to /results route
+          navigate('/results');
         } catch (err) {
           console.log(err);
+          toast.error(err);
         }
       };
 
       fetchAuftragPruefpositionen();
-
-      // If results is successful then navigate to /results route
-      navigate('/results');
     }
   }
 
-  const [pruefplannummer, setPruefplannummer] = useState([]);
-
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/readFile/config`)
+    fetch(`${API_URL}/readFile/config`)
       .then((res) => res.json())
       .then((data) => {
         setLogoPath(data.logoPath);
@@ -192,21 +186,11 @@ function App() {
         }}
       />
       <Routes>
-        <Route
-          path="/menu"
-          element={
-            <Menu
-              promptSerialnumberMsg={promptSerialnumberMsg}
-              setPromptSerialnumberMsg={setPromptSerialnumberMsg}
-            />
-          }
-        />
+        <Route path="/menu" element={<Menu />} />
         <Route
           path="/homepage"
           element={
             <Homepage
-              pruefplannummer={pruefplannummer}
-              setPruefplannummer={setPruefplannummer}
               handleSearch={handleSearch}
               selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
@@ -233,12 +217,7 @@ function App() {
         />
         <Route
           path="/finalpage"
-          element={
-            <Finalpage
-              auftragPruefdaten={auftragPruefdaten}
-              handleClickHomepage={handleClickHomepage}
-            />
-          }
+          element={<Finalpage auftragPruefdaten={auftragPruefdaten} />}
         />
       </Routes>
     </Layout>

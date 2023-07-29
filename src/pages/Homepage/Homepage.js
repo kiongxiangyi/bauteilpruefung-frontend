@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import SelectMenu from '../../components/UI/SelectMenu';
-import TextInput from '../../components/UI/TextInput';
 import Button from '../../components/UI/Button';
 import { NumberInputSmall } from '../../components/UI/NumberInput';
 
@@ -16,11 +15,13 @@ const H2 = styled.h2`
   padding: 0 1rem;
 `;
 
-const Div = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0 0 0;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 1rem;
 `;
 
 const StyleOptionLabel = styled.div`
@@ -31,16 +32,21 @@ const StyleOptionLabel = styled.div`
   }
 `;
 
+//for custom option
+const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
+  <StyleOptionLabel>
+    <div>{pruefplannummer}</div>
+    <div>{pruefplan}</div>
+  </StyleOptionLabel>
+);
+
 export default function Homepage({
-  setPruefplannummer,
-  pruefplannummer,
   handleSearch,
-  selectedPruefplannummer,
   setSelectedPruefplannummer,
   bauteilnummer,
   setBauteilnummer,
-  logoPath,
 }) {
+  const [pruefplannummer, setPruefplannummer] = useState([]);
   //lift the state up from children SelectMenu
   const handleSelectionChange = (pruefplannummer) => {
     setSelectedPruefplannummer(pruefplannummer);
@@ -64,14 +70,6 @@ export default function Homepage({
     });
   }
 
-  //for custom option
-  const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
-    <StyleOptionLabel>
-      <div>{pruefplannummer}</div>
-      <div>{pruefplan}</div>
-    </StyleOptionLabel>
-  );
-
   useEffect(() => {
     // let interval; // interval tutorial - https://www.codingdeft.com/posts/react-useeffect-hook/
     const fetchPruefplan = async () => {
@@ -90,7 +88,7 @@ export default function Homepage({
 
     const interval = setInterval(() => {
       fetchPruefplan();
-    }, 1 * 10000);
+    }, 1 * 5000);
 
     return () => {
       clearInterval(interval);
@@ -98,39 +96,37 @@ export default function Homepage({
   }, []);
 
   return (
-    <div>
+    <Wrapper>
       <H2>Bitte Prüfplannummer auswählen:</H2>
-      <Div>
-        <SelectMenu
-          onChange={(option) => handleSelectionChange(option.pruefplannummer)}
-          options={optionPruefplan}
-          formatOptionLabel={formatOptionLabel}
-          getOptionValue={(option) => option.pruefplannummer} //only selected are blue colour shown, if not all are blue
-        />
-      </Div>
+
+      <SelectMenu
+        onChange={(option) => handleSelectionChange(option.pruefplannummer)}
+        options={optionPruefplan}
+        formatOptionLabel={formatOptionLabel}
+        getOptionValue={(option) => option.pruefplannummer} //only selected are blue colour shown, if not all are blue
+      />
+
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
       <H2>Bauteilnummer:</H2>
-      <Div>
-        <NumberInputSmall
-          autoFocus
-          name="bauteilnummer"
-          value={bauteilnummer}
-          onChange={(e) => setBauteilnummer(e.target.value)}
-        />
-      </Div>
+
+      <NumberInputSmall
+        autoFocus
+        name="bauteilnummer"
+        value={bauteilnummer}
+        onChange={(e) => setBauteilnummer(e.target.value)}
+      />
+
       {/* Centering the button should be responsibility of the parent component */}
       {/* Button should only provide the button and nothing else */}
-      <Div>
-        <Button onClick={handleSearch}>Suchen</Button>
-      </Div>
-      <Div>
-        <img
-          src="./pictures/Aicom_logo.jpg"
-          alt="logo"
-          height="400px"
-          width="320px"
-        ></img>
-      </Div>
-    </div>
+
+      <Button onClick={handleSearch}>Suchen</Button>
+
+      <img
+        src="./pictures/Aicom_logo.jpg"
+        alt="logo"
+        height="400px"
+        width="320px"
+      ></img>
+    </Wrapper>
   );
 }
