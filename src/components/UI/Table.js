@@ -24,11 +24,13 @@ export const Td = styled.td`
 `;
 
 export const TableDiv = styled.div`
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0.1rem;
+  margin: 0.5rem 0.1rem;
   font-size: 30px;
+  overflow: scroll;
+  //max-height: 30rem; //for vertical scroll
 `;
 
 export const Thead = styled.thead`

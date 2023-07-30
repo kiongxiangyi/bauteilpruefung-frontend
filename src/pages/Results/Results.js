@@ -6,10 +6,11 @@ import Button from '../../components/UI/Button';
 import TableAuftragPruefpositionen from '../../components/Table/TableAuftragPruefpositionen';
 import { TableDiv } from '../../components/UI/Table';
 
-const Div = styled.div`
+const ButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0.5rem 0;
 `;
 
 const DivImage = styled.div`
@@ -39,9 +40,9 @@ export default function Results({
 
   return (
     <>
-      <Div>
-        <Button onClick={handleClickOpenImage}>Zeichnung ansehen</Button>
-      </Div>
+      <ButtonDiv>
+        <Button onClick={handleClickOpenImage}>Zeichnung anzeigen</Button>
+      </ButtonDiv>
       {showImage && (
         <DivImage>
           <Image
@@ -60,11 +61,10 @@ export default function Results({
           handleInputChange={handleInputChange}
         />
       </TableDiv>
-      <Div>
+      <ButtonDiv>
         <Button onClick={handleClickPreviousPage}>Zurück</Button>
-
         <Button onClick={handleSubmit}>Speichern</Button>
-      </Div>
+      </ButtonDiv>
     </>
   );
 }

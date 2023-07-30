@@ -6,11 +6,11 @@ import styled from 'styled-components';
 const ButtonCSS = styled.button`
   background-color: #e7e7e7;
   color: black;
-  margin: .5rem .5rem;
+  margin: 0 0.5rem;
   font-size: 2rem;
   //box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid;
-  padding: .5rem .5rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 5px;
 `;
 

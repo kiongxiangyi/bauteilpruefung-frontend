@@ -138,7 +138,6 @@ function App() {
           const response = await fetch(
             `${API_URL}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
-          console.log(response);
           const results = await response.json();
 
           const newResults = results.map((item) => ({
@@ -194,7 +193,6 @@ function App() {
               handleSearch={handleSearch}
               selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
-              bauteilnummer={bauteilnummer}
               setBauteilnummer={setBauteilnummer}
               logoPath={logoPath}
             />

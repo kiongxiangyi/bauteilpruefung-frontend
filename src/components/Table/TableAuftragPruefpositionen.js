@@ -13,13 +13,14 @@ export default function TableAuftragPruefpositionen({
     <Table>
       <Thead>
         <Tr>
-          <Th>Prüfplannummer</Th>
+          <Th>Prüfplannr.</Th>
           <Th>Pos.</Th>
           <Th>Prüfmerkmal</Th>
           <Th>Messmittel</Th>
-          <Th>Min-Wert</Th>
-          <Th>Max-Wert</Th>
-          <Th>Soll-Wert</Th>
+          <Th>Formelementnr.</Th>
+          <Th>Min.</Th>
+          <Th>Max.</Th>
+          <Th>Soll</Th>
           <Th>IST-Wert</Th>
           <Th>Bewertung</Th>
           <Th>Bemerkung</Th>
@@ -32,6 +33,7 @@ export default function TableAuftragPruefpositionen({
             <Td bewertung={item.bewertung}>{item.Position}</Td>
             <Td bewertung={item.bewertung}>{item.Bezeichnung}</Td>
             <Td bewertung={item.bewertung}>{item.Zusatztext1}</Td>
+            <Td bewertung={item.bewertung}>{item.Formelementnummer}</Td>
             <Td bewertung={item.bewertung}>{item.MinWert}</Td>
             <Td bewertung={item.bewertung}>{item.MaxWert}</Td>
             <Td bewertung={item.bewertung}>{item.Sollwert}</Td>

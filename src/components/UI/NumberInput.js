@@ -18,21 +18,9 @@ const Input = styled.input`
   -moz-appearance: textfield;
 `;
 
-const InputSmall = styled(Input)`
-  width: 520px;
-  height: 38px;
-`;
-
 export function NumberInput({ ...props }) {
   // useId hook make sures that every TextInput in your application will have a different ID
   const id = useId();
 
   return <Input type="number" pattern="[0-9]+" id={id} {...props} />;
-}
-
-export function NumberInputSmall({ ...props }) {
-  // useId hook make sures that every TextInput in your application will have a different ID
-  const id = useId();
-
-  return <InputSmall type="number" pattern="[0-9]+" id={id} {...props} />;
 }

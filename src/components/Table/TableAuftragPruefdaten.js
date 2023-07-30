@@ -2,16 +2,21 @@ import React from 'react';
 
 import { Table, Td, Th, Tr, Thead } from '../UI/Table';
 
+const bewertung = (item) => {
+  return item.WertIO === true ? 'i.O' : 'n.i.O';
+};
+
 export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
   return (
     <Table>
       <Thead>
         <Tr>
-          <Th>Prüfplannummer</Th>
-          <Th>Bauteilnummer</Th>
+          <Th>Prüfplannr.</Th>
+          <Th>Bauteilnr.</Th>
           <Th>Position</Th>
           <Th>Messmittel</Th>
-          <Th>Istwert</Th>
+          <Th>Formelementnr.</Th>
+          <Th>IST-Wert</Th>
           <Th>Bewertung</Th>
           <Th>Bemerkung</Th>
         </Tr>
@@ -19,13 +24,14 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
       <tbody>
         {auftragPruefdaten.map((item, i) => (
           <Tr key={i}>
-            <Td>{item.Pruefplannummer}</Td>
-            <Td>{item.Bauteilnummer}</Td>
-            <Td>{item.Position}</Td>
-            <Td>{item.Artikel}</Td>
-            <Td>{item.Istwert}</Td>
-            <Td>{item.WertIO === true ? 'i.O' : 'n.i.O'}</Td>
-            <Td>{item.Bemerkung}</Td>
+            <Td bewertung={bewertung(item)}>{item.Pruefplannummer}</Td>
+            <Td bewertung={bewertung(item)}>{item.Bauteilnummer}</Td>
+            <Td bewertung={bewertung(item)}>{item.Position}</Td>
+            <Td bewertung={bewertung(item)}>{item.Artikel}</Td>
+            <Td bewertung={bewertung(item)}></Td>
+            <Td bewertung={bewertung(item)}>{item.Istwert}</Td>
+            <Td bewertung={bewertung(item)}>{bewertung(item)}</Td>
+            <Td bewertung={bewertung(item)}>{item.Bemerkung}</Td>
           </Tr>
         ))}
       </tbody>

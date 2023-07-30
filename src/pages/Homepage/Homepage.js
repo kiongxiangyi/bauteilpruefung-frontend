@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import SelectMenu from '../../components/UI/SelectMenu';
 import Button from '../../components/UI/Button';
-import { NumberInputSmall } from '../../components/UI/NumberInput';
 
 const H2 = styled.h2`
   font-size: 2rem;
@@ -43,16 +42,32 @@ const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
 export default function Homepage({
   handleSearch,
   setSelectedPruefplannummer,
-  bauteilnummer,
   setBauteilnummer,
 }) {
   const [pruefplannummer, setPruefplannummer] = useState([]);
+  const [serialnummern, setSerialnummern] = useState([]);
+  const optionPruefplan = []; //array for selected option
+
   //lift the state up from children SelectMenu
   const handleSelectionChange = (pruefplannummer) => {
     setSelectedPruefplannummer(pruefplannummer);
   };
 
-  const optionPruefplan = []; //array for selected option
+  const handleSelectionSerialNumberChange = (serialnummer) => {
+    setBauteilnummer(serialnummer);
+  };
+
+  const optionSerialnummern = [];
+  const arrSerialnummern = serialnummern.map(
+    (tblSerialnummern) => tblSerialnummern.Serialnummer
+  );
+  for (let i = 0; i < arrSerialnummern.length; i++) {
+    optionSerialnummern.push({
+      value: arrSerialnummern[i],
+      label: arrSerialnummern[i],
+    });
+  }
+
   //match Prüfplannummer of DB
   const arrPruefplan = pruefplannummer.map(
     (tblAuftragPruefplan) => tblAuftragPruefplan.Pruefplannummer
@@ -79,6 +94,12 @@ export default function Homepage({
         );
         const results = await response.json();
         setPruefplannummer(results);
+
+        const response2 = await fetch(
+          `${process.env.REACT_APP_API}/Serialnummern`
+        );
+        const results2 = await response2.json();
+        setSerialnummern(results2);
       } catch (err) {
         console.log(err);
       }
@@ -107,26 +128,18 @@ export default function Homepage({
       />
 
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
-      <H2>Bauteilnummer:</H2>
+      <H2>Bitte Bauteilnummer auswählen:</H2>
 
-      <NumberInputSmall
-        autoFocus
-        name="bauteilnummer"
-        value={bauteilnummer}
-        onChange={(e) => setBauteilnummer(e.target.value)}
+      <SelectMenu
+        onChange={(option) => handleSelectionSerialNumberChange(option.value)}
+        options={optionSerialnummern}
+        getOptionValue={(option) => option.value}
       />
 
       {/* Centering the button should be responsibility of the parent component */}
       {/* Button should only provide the button and nothing else */}
 
       <Button onClick={handleSearch}>Suchen</Button>
-
-      <img
-        src="./pictures/Aicom_logo.jpg"
-        alt="logo"
-        height="400px"
-        width="320px"
-      ></img>
     </Wrapper>
   );
 }
