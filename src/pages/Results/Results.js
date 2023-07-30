@@ -19,8 +19,6 @@ const DivImage = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const Image = styled.img``;
-
 export default function Results({
   auftragPruefpositionen,
   handleSubmit,
@@ -45,11 +43,11 @@ export default function Results({
       </ButtonDiv>
       {showImage && (
         <DivImage>
-          <Image
+          <img
             src="./pictures/copiedImage.jpg"
             alt="copiedImage"
-            width="20%"
-            height="20%"
+            width="25%"
+            height="25%"
           />
         </DivImage>
       )}

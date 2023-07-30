@@ -17,8 +17,7 @@ function App() {
   const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
   const [result, setResult] = useState([]);
-  const [logoPath, setLogoPath] = useState('');
-
+  const [color, setColor] = useState([]);
   const navigate = useNavigate(); //hook for navigation
 
   const handleIstWertChange = (id, newIstWert) => {
@@ -165,15 +164,11 @@ function App() {
   useEffect(() => {
     fetch(`${API_URL}/readFile/config`)
       .then((res) => res.json())
-      .then((data) => {
-        setLogoPath(data.logoPath);
-      });
+      .then((rgbColors) => setColor(rgbColors));
   }, []);
 
-  //console.log(logoPath);
-
   return (
-    <Layout>
+    <Layout color={color}>
       <Toaster
         toastOptions={{
           className: '',
@@ -194,7 +189,6 @@ function App() {
               selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
               setBauteilnummer={setBauteilnummer}
-              logoPath={logoPath}
             />
           }
         />

@@ -13,14 +13,14 @@ const LogoDiv = styled.div`
 
 // The Layout component take cares of the core layout of our application
 // The layout component can have Header, Footer, Side Navigation etc
-export default function Layout({ children }) {
+export default function Layout({ children, color }) {
   return (
     <>
-      <Header />
+      <Header color={color} />
       <main>{children}</main>
       <LogoDiv>
         <img
-          src="./pictures/Aicom_logo.jpg"
+          src="./pictures/copiedLogo.jpg"
           alt="logo"
           height="400px"
           width="320px"
