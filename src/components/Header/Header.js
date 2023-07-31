@@ -17,7 +17,7 @@ const Button = styled.button`
   }
 `;
 
-const HeaderCSS = styled.header`
+const HeaderComponent = styled.header`
   background-color: ${({ red, green, blue }) =>
     `rgb(${red}, ${green}, ${blue})`};
   display: flex;
@@ -29,7 +29,7 @@ export default function Header({ color }) {
   const navigate = useNavigate(); //hook for navigation
 
   return (
-    <HeaderCSS
+    <HeaderComponent
       red={color.HeaderRot}
       green={color.HeaderGruen}
       blue={color.HeaderBlau}
@@ -38,6 +38,6 @@ export default function Header({ color }) {
       <Button onClick={() => navigate('/menu')}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </Button>
-    </HeaderCSS>
+    </HeaderComponent>
   );
 }
