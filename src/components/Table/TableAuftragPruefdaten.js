@@ -6,10 +6,14 @@ const bewertung = (item) => {
   return item.WertIO === true ? 'i.O' : 'n.i.O';
 };
 
-export default function TableAuftragPruefdaten({ auftragPruefdaten }) {
+export default function TableAuftragPruefdaten({ auftragPruefdaten, color }) {
   return (
     <Table>
-      <Thead>
+      <Thead
+        red={color.HeaderRot}
+        green={color.HeaderGruen}
+        blue={color.HeaderBlau}
+      >
         <Tr>
           <Th>Prüfplannr.</Th>
           <Th>Bauteilnr.</Th>

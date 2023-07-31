@@ -13,12 +13,15 @@ const Div = styled.div`
   margin: 30px 0 0 0;
 `;
 
-export default function Finalpage({ auftragPruefdaten }) {
+export default function Finalpage({ auftragPruefdaten, color }) {
   const navigate = useNavigate(); //hook for navigation
   return (
     <>
       <TableDiv>
-        <TableAuftragPruefdaten auftragPruefdaten={auftragPruefdaten} />
+        <TableAuftragPruefdaten
+          auftragPruefdaten={auftragPruefdaten}
+          color={color}
+        />
       </TableDiv>
       <Div>
         <Button onClick={() => navigate('/menu')}>Schließen</Button>

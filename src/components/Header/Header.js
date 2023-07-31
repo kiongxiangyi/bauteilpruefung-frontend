@@ -18,17 +18,22 @@ const Button = styled.button`
 `;
 
 const HeaderCSS = styled.header`
-  background-color: rgb(12, 168, 206);
+  background-color: ${({ red, green, blue }) =>
+    `rgb(${red}, ${green}, ${blue})`};
   display: flex;
   position: relative;
   border-radius: 5px;
 `;
 
-export default function Header() {
+export default function Header({ color }) {
   const navigate = useNavigate(); //hook for navigation
 
   return (
-    <HeaderCSS>
+    <HeaderCSS
+      red={color.HeaderRot}
+      green={color.HeaderGruen}
+      blue={color.HeaderBlau}
+    >
       <HeaderText>Bauteilprüfung</HeaderText>
       <Button onClick={() => navigate('/menu')}>
         <img src="./pictures/home-btn.png" alt="home"></img>

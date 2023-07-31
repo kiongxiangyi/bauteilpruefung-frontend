@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from '../../components/UI/Button';
 import TableAuftragPruefpositionen from '../../components/Table/TableAuftragPruefpositionen';
 import { TableDiv } from '../../components/UI/Table';
+import ImageModal from '../../components/Image/ImageModal';
 
 const ButtonDiv = styled.div`
   display: flex;
@@ -13,11 +14,7 @@ const ButtonDiv = styled.div`
   margin: 0.5rem 0;
 `;
 
-const DivImage = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-`;
+
 
 export default function Results({
   auftragPruefpositionen,
@@ -26,6 +23,7 @@ export default function Results({
   result,
   handleInputChange,
   handleClickPreviousPage,
+  color,
 }) {
   const [showImage, setShowImage] = useState(false);
   const handleClickOpenImage = () => {
@@ -41,22 +39,14 @@ export default function Results({
       <ButtonDiv>
         <Button onClick={handleClickOpenImage}>Zeichnung anzeigen</Button>
       </ButtonDiv>
-      {showImage && (
-        <DivImage>
-          <img
-            src="./pictures/copiedImage.jpg"
-            alt="copiedImage"
-            width="25%"
-            height="25%"
-          />
-        </DivImage>
-      )}
+      {showImage && <ImageModal imageUrl="./pictures/copiedImage.jpg" />}
       <TableDiv>
         <TableAuftragPruefpositionen
           auftragPruefpositionen={auftragPruefpositionen}
           setResult={setResult}
           result={result}
           handleInputChange={handleInputChange}
+          color={color}
         />
       </TableDiv>
       <ButtonDiv>

@@ -204,12 +204,15 @@ function App() {
               handleInputChange={handleInputChange}
               handleClickPreviousPage={handleClickPreviousPage}
               handleIstWertChange={handleIstWertChange}
+              color={color}
             />
           }
         />
         <Route
           path="/finalpage"
-          element={<Finalpage auftragPruefdaten={auftragPruefdaten} />}
+          element={
+            <Finalpage auftragPruefdaten={auftragPruefdaten} color={color} />
+          }
         />
       </Routes>
     </Layout>

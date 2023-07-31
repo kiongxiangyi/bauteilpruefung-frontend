@@ -8,10 +8,15 @@ import TextInput from '../UI/TextInput';
 export default function TableAuftragPruefpositionen({
   auftragPruefpositionen,
   handleInputChange,
+  color,
 }) {
   return (
     <Table>
-      <Thead>
+      <Thead
+        red={color.HeaderRot}
+        green={color.HeaderGruen}
+        blue={color.HeaderBlau}
+      >
         <Tr>
           <Th>Prüfplannr.</Th>
           <Th>Pos.</Th>

@@ -35,6 +35,6 @@ export const TableDiv = styled.div`
 
 export const Thead = styled.thead`
   color: black;
-  background: rgb(12, 168, 206);
+  background: ${(props) => `rgb(${props.red}, ${props.green}, ${props.blue})`};
   vertical-align: middle;
 `;
