@@ -14,8 +14,6 @@ const ButtonDiv = styled.div`
   margin: 0.5rem 0;
 `;
 
-
-
 export default function Results({
   auftragPruefpositionen,
   handleSubmit,
@@ -25,19 +23,25 @@ export default function Results({
   handleClickPreviousPage,
   color,
 }) {
+  const [showImageText, setShowImageText] = useState('Zeichnung öffnen');
   const [showImage, setShowImage] = useState(false);
+
   const handleClickOpenImage = () => {
     if (showImage) {
       setShowImage(false);
+      setShowImageText('Zeichnung öffnen');
     } else {
       setShowImage(true);
+      setShowImageText('Zeichnung schließen');
     }
   };
 
   return (
     <>
       <ButtonDiv>
-        <Button onClick={handleClickOpenImage}>Zeichnung anzeigen</Button>
+        <Button size="medium" onClick={handleClickOpenImage}>
+          {showImageText}
+        </Button>
       </ButtonDiv>
       {showImage && <ImageModal imageUrl="./pictures/copiedImage.jpg" />}
       <TableDiv>
@@ -50,8 +54,12 @@ export default function Results({
         />
       </TableDiv>
       <ButtonDiv>
-        <Button onClick={handleClickPreviousPage}>Zurück</Button>
-        <Button onClick={handleSubmit}>Speichern</Button>
+        <Button size="small" onClick={handleClickPreviousPage}>
+          Zurück
+        </Button>
+        <Button size="small" onClick={handleSubmit}>
+          Speichern
+        </Button>
       </ButtonDiv>
     </>
   );

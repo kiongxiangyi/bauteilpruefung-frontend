@@ -5,17 +5,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 import Button from '../../components/UI/Button';
 
-const MenuButton = styled.button`
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border-radius: 2rem;
-  color: black;
-  font-size: 3rem;
-  letter-spacing: 0.15rem;
-  height: 10rem;
-  width: 30rem;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -101,14 +90,14 @@ export default function Menu() {
         }}
       />
       <ButtonWrapper>
-        <MenuButton onClick={() => navigate('/homepage')}>
+        <Button size="big" onClick={() => navigate('/homepage')}>
           Bauteilprüfung
-        </MenuButton>
+        </Button>
       </ButtonWrapper>
       <ButtonWrapper>
-        <MenuButton onClick={() => setShowSerialnumberMsg(true)}>
+        <Button size="big" onClick={() => setShowSerialnumberMsg(true)}>
           Serialnummer anfordern
-        </MenuButton>
+        </Button>
       </ButtonWrapper>
     </>
   );

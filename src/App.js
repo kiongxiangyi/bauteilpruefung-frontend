@@ -36,7 +36,6 @@ function App() {
         return item;
       });
     });
-    console.log(auftragPruefpositionen);
   };
 
   const handleInputChange = (id, KeineWerteingabe, event, minWert, maxWert) => {
@@ -129,7 +128,7 @@ function App() {
     if (!selectedPruefplannummer) {
       toast.error('Bitte Prüfplannummer auswählen!');
     } else if (selectedPruefplannummer && !bauteilnummer) {
-      toast.error('Bitte Bauteilnummer eingeben!');
+      toast.error('Bitte Bauteilnummer auswählen!');
     } else {
       // Perform the logic of calling the API with appropriate data
       const fetchAuftragPruefpositionen = async () => {

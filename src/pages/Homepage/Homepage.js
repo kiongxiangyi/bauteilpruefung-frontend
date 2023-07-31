@@ -139,7 +139,9 @@ export default function Homepage({
       {/* Centering the button should be responsibility of the parent component */}
       {/* Button should only provide the button and nothing else */}
 
-      <Button onClick={handleSearch}>Suchen</Button>
+      <Button size="small" onClick={handleSearch}>
+        Suchen
+      </Button>
     </Wrapper>
   );
 }

@@ -24,7 +24,9 @@ export default function Finalpage({ auftragPruefdaten, color }) {
         />
       </TableDiv>
       <Div>
-        <Button onClick={() => navigate('/menu')}>Schließen</Button>
+        <Button size="small" onClick={() => navigate('/menu')}>
+          Schließen
+        </Button>
       </Div>
     </>
   );

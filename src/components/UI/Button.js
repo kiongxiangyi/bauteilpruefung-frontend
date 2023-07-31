@@ -1,19 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Button should only provide the button and nothing else
+//Tutorial: A single button component should be able to handle all types of button
+//https://codesandbox.io/s/jwc-button-exercise-solution-4dbpw?file=/src/Button.js
 
-const ButtonCSS = styled.button`
+const Button = ({ size, children, onClick }) => {
+  let Component;
+  if (size === 'small') {
+    Component = SmallButton;
+  } else if (size === 'medium') {
+    Component = MediumButton;
+  } else if (size === 'big') {
+    Component = BigButton;
+  } else {
+    throw new Error(`Unrecognized Button size: ${size}`);
+  }
+
+  return <Component onClick={onClick}>{children}</Component>;
+};
+
+const ButtonBase = styled.button`
   background-color: #e7e7e7;
   color: black;
   margin: 0 0.5rem;
   font-size: 2rem;
-  //box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid;
   padding: 0.5rem 0.5rem;
   border-radius: 5px;
+
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
-export default function Button({ children, onClick }) {
-  return <ButtonCSS onClick={onClick}>{children}</ButtonCSS>;
-}
+const SmallButton = styled(ButtonBase)`
+  width: 200px;
+`;
+const MediumButton = styled(ButtonBase)`
+  width: 400px;
+`;
+
+const BigButton = styled(ButtonBase)`
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  color: black;
+  font-size: 3rem;
+  letter-spacing: 0.15rem;
+  height: 10rem;
+  width: 30rem;
+`;
+export default Button;

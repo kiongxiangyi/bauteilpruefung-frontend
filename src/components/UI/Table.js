@@ -7,6 +7,7 @@ export const Table = styled.table`
   text-align: center;
   vertical-align: middle;
   width: 100%;
+  overflow: scroll;
 `;
 
 export const Tr = styled.tr``;
@@ -27,10 +28,13 @@ export const TableDiv = styled.div`
   //display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0.1rem;
+  margin: 0.5rem 0.1srem;
   font-size: 30px;
-  overflow: scroll;
-  //max-height: 30rem; //for vertical scroll
+  //max-height: 300rem; //for vertical scroll
+  //overflow: scroll; //in chrome does not work, need to do some setting in chrome
+  /* Disable Overlay Scrollbars Flag
+Step 1: Launch Chrome > search chrome://flags > type Overlay Scrollbars in the search bar.
+Step 2: Click Disabled in the drop-down menu. */
 `;
 
 export const Thead = styled.thead`

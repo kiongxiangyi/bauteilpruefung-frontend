@@ -16,7 +16,7 @@ const Modal = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1; //react select is blocking the image, with z-index let the image show on top
+  z-index: 2; //react select is blocking the image, with z-index let the image show on top
 `;
 
 const ModalImage = styled.img`
