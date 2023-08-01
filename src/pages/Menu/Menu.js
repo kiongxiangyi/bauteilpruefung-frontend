@@ -15,7 +15,9 @@ const ButtonWrapper = styled.div`
 const ToastContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 3rem;
+  margin: 5rem;
 `;
 
 export default function Menu() {
@@ -37,6 +39,23 @@ export default function Menu() {
         }
       )
         .then((res) => res.json())
+        .then((data) => {
+          toast((t) => (
+            <ToastContent>
+              Serialnummer {data.Serialnummer} wurde erstellt!
+              <ButtonWrapper>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                  }}
+                >
+                  Schließen
+                </Button>
+              </ButtonWrapper>
+            </ToastContent>
+          ));
+        })
         .catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
@@ -48,23 +67,28 @@ export default function Menu() {
       (t) => (
         <ToastContent>
           <b>Wollen Sie eine Serialnummer anfordern?</b>
-          <Button
-            onClick={() => {
-              createNewSerialnumber();
-              toast.dismiss(t.id);
-              setShowSerialnumberMsg(false);
-            }}
-          >
-            Ja
-          </Button>
-          <Button
-            onClick={() => {
-              toast.dismiss(t.id);
-              setShowSerialnumberMsg(false);
-            }}
-          >
-            Nein
-          </Button>
+
+          <ButtonWrapper>
+            <Button
+              size="small"
+              onClick={() => {
+                createNewSerialnumber();
+                toast.dismiss(t.id);
+                setShowSerialnumberMsg(false);
+              }}
+            >
+              Ja
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                toast.dismiss(t.id);
+                setShowSerialnumberMsg(false);
+              }}
+            >
+              Nein
+            </Button>
+          </ButtonWrapper>
         </ToastContent>
       ),
       {
