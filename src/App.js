@@ -19,6 +19,7 @@ function App() {
   const [result, setResult] = useState([]);
   const [color, setColor] = useState([]);
   const navigate = useNavigate(); //hook for navigation
+  const [picturePath, setPicturePath] = useState('');
 
   const handleIstWertChange = (id, newIstWert) => {
     setAuftragPruefpositionen((prevData) => {
@@ -133,6 +134,12 @@ function App() {
       // Perform the logic of calling the API with appropriate data
       const fetchAuftragPruefpositionen = async () => {
         try {
+          const picture = await fetch(
+            `${API_URL}/AuftragPruefplan/${selectedPruefplannummer}`
+          );
+          const pictureResult = await picture.json();
+          setPicturePath(pictureResult);
+          console.log(pictureResult);
           const response = await fetch(
             `${API_URL}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
@@ -204,6 +211,7 @@ function App() {
               handleClickPreviousPage={handleClickPreviousPage}
               handleIstWertChange={handleIstWertChange}
               color={color}
+              picturePath={picturePath}
             />
           }
         />
