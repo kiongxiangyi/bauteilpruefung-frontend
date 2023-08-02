@@ -78,6 +78,7 @@ export default function Results({
       setShowImage(false);
       setShowImageText('Zeichnung öffnen');
     } else {
+      //show image when click on the button
       setShowImage(true);
       setShowImageText('Zeichnung schließen');
     }
