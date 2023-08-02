@@ -42,7 +42,7 @@ export default function Menu() {
         .then((data) => {
           toast((t) => (
             <ToastContent>
-              Serialnummer {data.Serialnummer} wurde erstellt!
+              Serialnummer {data.Serialnummer} wurde erstellt.
               <ButtonWrapper>
                 <Button
                   size="small"

@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import toast, { Toaster } from 'react-hot-toast';
 
-import Button from '../../components/UI/Button';
+import Button, {
+  ButtonWrapper,
+  ToastContent,
+} from '../../components/UI/Button';
 import TableAuftragPruefpositionen from '../../components/Table/TableAuftragPruefpositionen';
 import { TableDiv } from '../../components/UI/Table';
 import ImageModal from '../../components/Image/ImageModal';
@@ -13,21 +16,6 @@ const ButtonDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0.5rem 0;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem;
-`;
-
-const ToastContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 3rem;
-  margin: 5rem;
 `;
 
 export default function Results({
@@ -76,7 +64,7 @@ export default function Results({
           </ButtonWrapper>
         </ToastContent>
       ));
-    } else if (showImage && picturePath === 'Copy File successfully.') {
+    } else if (showImage) {
       setShowImage(false);
       setShowImageText('Zeichnung öffnen');
     } else {
@@ -102,7 +90,11 @@ export default function Results({
           {showImageText}
         </Button>
       </ButtonDiv>
-      {showImage && <ImageModal imageUrl="./pictures/copiedImage.jpg" />}
+      {showImage && (
+        <ImageModal
+          imageUrl={`./pictures/${auftragPruefpositionen[0].Pruefplannummer}.jpg`}
+        />
+      )}
       <TableDiv>
         <TableAuftragPruefpositionen
           auftragPruefpositionen={auftragPruefpositionen}

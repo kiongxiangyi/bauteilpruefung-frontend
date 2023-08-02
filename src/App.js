@@ -8,6 +8,7 @@ import Results from './pages/Results';
 import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
 import Menu from './pages/Menu';
+import Button, { ButtonWrapper, ToastContent } from './components/UI/Button';
 
 const API_URL = process.env.REACT_APP_API;
 
@@ -20,6 +21,7 @@ function App() {
   const [color, setColor] = useState([]);
   const navigate = useNavigate(); //hook for navigation
   const [picturePath, setPicturePath] = useState('');
+  const [logoPath, setLogoPath] = useState('');
 
   const handleIstWertChange = (id, newIstWert) => {
     setAuftragPruefpositionen((prevData) => {
@@ -139,7 +141,7 @@ function App() {
           );
           const pictureResult = await picture.json();
           setPicturePath(pictureResult);
-          console.log(pictureResult);
+          
           const response = await fetch(
             `${API_URL}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
@@ -167,8 +169,46 @@ function App() {
     }
   }
 
+  if (logoPath === 'No logo path is found.') {
+    toast((t) => (
+      <ToastContent>
+        Es gibt keinen Pfad des Logos.
+        <ButtonWrapper>
+          <Button
+            size="small"
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+          >
+            Schließen
+          </Button>
+        </ButtonWrapper>
+      </ToastContent>
+    ));
+  } else if (logoPath === 'No such file or directory for logo.') {
+    toast((t) => (
+      <ToastContent>
+        Der angegebene Pfad des Logos ist nicht vorhanden.
+        <ButtonWrapper>
+          <Button
+            size="small"
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+          >
+            Schließen
+          </Button>
+        </ButtonWrapper>
+      </ToastContent>
+    ));
+  }
+
   useEffect(() => {
-    fetch(`${API_URL}/readFile/config`)
+    fetch(`${API_URL}/readFile/config/logo`)
+      .then((res) => res.json())
+      .then((res) => setLogoPath(res));
+
+    fetch(`${API_URL}/readFile/config/color`)
       .then((res) => res.json())
       .then((rgbColors) => setColor(rgbColors));
   }, []);

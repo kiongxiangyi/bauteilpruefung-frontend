@@ -50,4 +50,20 @@ const BigButton = styled(ButtonBase)`
   height: 10rem;
   width: 30rem;
 `;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+`;
+
+export const ToastContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 3rem;
+  margin: 5rem;
+`;
+
 export default Button;

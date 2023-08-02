@@ -28,7 +28,7 @@ export const TableDiv = styled.div`
   //display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0.1srem;
+  margin: 0.5rem 0.1rem;
   font-size: 30px;
   //max-height: 300rem; //for vertical scroll
   //overflow: scroll; //in chrome does not work, need to do some setting in chrome

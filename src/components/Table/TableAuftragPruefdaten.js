@@ -18,8 +18,8 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten, color }) {
           <Th>Prüfplannr.</Th>
           <Th>Bauteilnr.</Th>
           <Th>Position</Th>
-          <Th>Messmittel</Th>
           <Th>Formelementnr.</Th>
+          <Th>Messmittel</Th>
           <Th>IST-Wert</Th>
           <Th>Bewertung</Th>
           <Th>Bemerkung</Th>
@@ -31,8 +31,8 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten, color }) {
             <Td bewertung={bewertung(item)}>{item.Pruefplannummer}</Td>
             <Td bewertung={bewertung(item)}>{item.Bauteilnummer}</Td>
             <Td bewertung={bewertung(item)}>{item.Position}</Td>
+            <Td bewertung={bewertung(item)}>{item.Positionstext}</Td>
             <Td bewertung={bewertung(item)}>{item.Artikel}</Td>
-            <Td bewertung={bewertung(item)}></Td>
             <Td bewertung={bewertung(item)}>{item.Istwert}</Td>
             <Td bewertung={bewertung(item)}>{bewertung(item)}</Td>
             <Td bewertung={bewertung(item)}>{item.Bemerkung}</Td>
