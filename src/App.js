@@ -141,7 +141,7 @@ function App() {
           );
           const pictureResult = await picture.json();
           setPicturePath(pictureResult);
-          
+
           const response = await fetch(
             `${API_URL}/AuftragPruefpositionen/${selectedPruefplannummer}`
           );
@@ -170,37 +170,47 @@ function App() {
   }
 
   if (logoPath === 'No logo path is found.') {
-    toast((t) => (
-      <ToastContent>
-        Es gibt keinen Pfad des Logos.
-        <ButtonWrapper>
-          <Button
-            size="small"
-            onClick={() => {
-              toast.dismiss(t.id);
-            }}
-          >
-            Schließen
-          </Button>
-        </ButtonWrapper>
-      </ToastContent>
-    ));
+    toast(
+      (t) => (
+        <ToastContent>
+          Es gibt keinen Pfad des Logos.
+          <ButtonWrapper>
+            <Button
+              size="small"
+              onClick={() => {
+                toast.dismiss(t.id);
+              }}
+            >
+              Schließen
+            </Button>
+          </ButtonWrapper>
+        </ToastContent>
+      ),
+      {
+        duration: Infinity, //duration of toast appearance forever
+      }
+    );
   } else if (logoPath === 'No such file or directory for logo.') {
-    toast((t) => (
-      <ToastContent>
-        Der angegebene Pfad des Logos ist nicht vorhanden.
-        <ButtonWrapper>
-          <Button
-            size="small"
-            onClick={() => {
-              toast.dismiss(t.id);
-            }}
-          >
-            Schließen
-          </Button>
-        </ButtonWrapper>
-      </ToastContent>
-    ));
+    toast(
+      (t) => (
+        <ToastContent>
+          Der angegebene Pfad des Logos ist nicht vorhanden.
+          <ButtonWrapper>
+            <Button
+              size="small"
+              onClick={() => {
+                toast.dismiss(t.id);
+              }}
+            >
+              Schließen
+            </Button>
+          </ButtonWrapper>
+        </ToastContent>
+      ),
+      {
+        duration: Infinity, //duration of toast appearance forever
+      }
+    );
   }
 
   useEffect(() => {

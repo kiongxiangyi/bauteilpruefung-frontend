@@ -103,16 +103,6 @@ export default function Menu() {
 
   return (
     <>
-      <Toaster
-        toastOptions={{
-          style: {
-            border: '1px solid',
-            fontSize: '30px',
-            maxWidth: 2000,
-            top: 100,
-          },
-        }}
-      />
       <ButtonWrapper>
         <Button size="big" onClick={() => navigate('/homepage')}>
           Bauteilprüfung

@@ -33,37 +33,47 @@ export default function Results({
 
   const handleClickOpenImage = () => {
     if (picturePath === 'No path is found.') {
-      toast((t) => (
-        <ToastContent>
-          Es gibt keine Zeichnung für die Prüfplannummer.
-          <ButtonWrapper>
-            <Button
-              size="small"
-              onClick={() => {
-                toast.dismiss(t.id);
-              }}
-            >
-              Schließen
-            </Button>
-          </ButtonWrapper>
-        </ToastContent>
-      ));
+      toast(
+        (t) => (
+          <ToastContent>
+            Es gibt keinen Pfad der Zeichnung.
+            <ButtonWrapper>
+              <Button
+                size="small"
+                onClick={() => {
+                  toast.dismiss(t.id);
+                }}
+              >
+                Schließen
+              </Button>
+            </ButtonWrapper>
+          </ToastContent>
+        ),
+        {
+          duration: Infinity, //duration of toast appearance forever
+        }
+      );
     } else if (picturePath === 'No such file or directory.') {
-      toast((t) => (
-        <ToastContent>
-          Der Pfad der Zeichnung ist nicht verfügbar.
-          <ButtonWrapper>
-            <Button
-              size="small"
-              onClick={() => {
-                toast.dismiss(t.id);
-              }}
-            >
-              Schließen
-            </Button>
-          </ButtonWrapper>
-        </ToastContent>
-      ));
+      toast(
+        (t) => (
+          <ToastContent>
+            Der angegebene Pfad der Zeichnung ist nicht vorhanden.
+            <ButtonWrapper>
+              <Button
+                size="small"
+                onClick={() => {
+                  toast.dismiss(t.id);
+                }}
+              >
+                Schließen
+              </Button>
+            </ButtonWrapper>
+          </ToastContent>
+        ),
+        {
+          duration: Infinity, //duration of toast appearance forever
+        }
+      );
     } else if (showImage) {
       setShowImage(false);
       setShowImageText('Zeichnung öffnen');
@@ -75,16 +85,6 @@ export default function Results({
 
   return (
     <>
-      <Toaster
-        toastOptions={{
-          className: '',
-          style: {
-            border: '1px solid',
-            fontSize: '30px',
-            maxWidth: 2000,
-          },
-        }}
-      />
       <ButtonDiv>
         <Button size="medium" onClick={handleClickOpenImage}>
           {showImageText}
