@@ -128,7 +128,7 @@ export default function Homepage({
       />
 
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
-      <H2>Bitte Bauteilnummer auswählen:</H2>
+      <H2>Bitte Serialnummer auswählen:</H2>
 
       <SelectMenu
         onChange={(option) => handleSelectionSerialNumberChange(option.value)}
@@ -140,7 +140,7 @@ export default function Homepage({
       {/* Button should only provide the button and nothing else */}
 
       <Button size="small" onClick={handleSearch}>
-        Suchen
+        Anlegen
       </Button>
     </Wrapper>
   );

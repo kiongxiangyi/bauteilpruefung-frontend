@@ -36,7 +36,7 @@ export default function Results({
       toast(
         (t) => (
           <ToastContent>
-            Es gibt keinen Pfad der Zeichnung.
+           Keine Zeichnung vorhanden.
             <ButtonWrapper>
               <Button
                 size="small"

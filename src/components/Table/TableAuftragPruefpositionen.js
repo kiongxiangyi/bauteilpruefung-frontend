@@ -18,9 +18,9 @@ export default function TableAuftragPruefpositionen({
         blue={color.HeaderBlau}
       >
         <Tr>
-          <Th>Prüfplannr.</Th>
+          <Th>Prüfplan</Th>
           <Th>Pos.</Th>
-          <Th>Formelementnr.</Th>
+          <Th>Formelement</Th>
           <Th>Prüfmerkmal</Th>
           <Th>Messmittel</Th>
           <Th>Min.</Th>

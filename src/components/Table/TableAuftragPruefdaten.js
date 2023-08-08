@@ -15,10 +15,10 @@ export default function TableAuftragPruefdaten({ auftragPruefdaten, color }) {
         blue={color.HeaderBlau}
       >
         <Tr>
-          <Th>Prüfplannr.</Th>
-          <Th>Bauteilnr.</Th>
+          <Th>Prüfplan</Th>
+          <Th>Serialnr.</Th>
           <Th>Position</Th>
-          <Th>Formelementnr.</Th>
+          <Th>Formelement</Th>
           <Th>Messmittel</Th>
           <Th>IST-Wert</Th>
           <Th>Bewertung</Th>
