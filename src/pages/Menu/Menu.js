@@ -12,57 +12,11 @@ const ButtonWrapper = styled.div`
   margin: 2rem;
 `;
 
-const ToastContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 3rem;
-  margin: 5rem;
-`;
-
 export default function Menu() {
   const navigate = useNavigate(); //hook for navigation
   const [showSerialnumberMsg, setShowSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
 
-  const createNewSerialnumber = async () => {
-    try {
-      await fetch(
-        `${process.env.REACT_APP_API}/Serialnummern/createNewRecord`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({}),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          toast((t) => (
-            <ToastContent>
-              Serialnummer {data.Serialnummer} wurde erstellt.
-              <ButtonWrapper>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    toast.dismiss(t.id);
-                  }}
-                >
-                  Schließen
-                </Button>
-              </ButtonWrapper>
-            </ToastContent>
-          ));
-        })
-        .catch((err) => console.log(err));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const promptSerialnummer = () => {
+  /*  const promptSerialnummer = () => {
     toast(
       (t) => (
         <ToastContent>
@@ -95,21 +49,21 @@ export default function Menu() {
         duration: Infinity, //duration of toast appearance forever
       }
     );
-  };
+  }; 
 
   if (showSerialnumberMsg) {
     promptSerialnummer();
   }
-
+*/
   return (
     <>
       <ButtonWrapper>
-        <Button size="big" onClick={() => navigate('/homepage')}>
+        <Button size="big" onClick={() => navigate('/bauteilpruefung')}>
           Bauteilprüfung
         </Button>
       </ButtonWrapper>
       <ButtonWrapper>
-        <Button size="big" onClick={() => setShowSerialnumberMsg(true)}>
+        <Button size="big" onClick={() => navigate('/serialnummer')}>
           Serialnummer anfordern
         </Button>
       </ButtonWrapper>

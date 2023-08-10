@@ -39,7 +39,7 @@ const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
   </StyleOptionLabel>
 );
 
-export default function Homepage({
+export default function Bauteilpruefung({
   handleSearch,
   setSelectedPruefplannummer,
   setBauteilnummer,
@@ -118,7 +118,7 @@ export default function Homepage({
 
   return (
     <Wrapper>
-      <H2>Bitte Prüfplannummer auswählen:</H2>
+      <H2>Bitte eine Prüfplannummer auswählen:</H2>
 
       <SelectMenu
         onChange={(option) => handleSelectionChange(option.pruefplannummer)}
@@ -128,7 +128,7 @@ export default function Homepage({
       />
 
       {/* The TextInput should only provide input box and nothing else, otherwise it would become less reusable */}
-      <H2>Bitte Serialnummer auswählen:</H2>
+      <H2>Bitte eine Serialnummer auswählen:</H2>
 
       <SelectMenu
         onChange={(option) => handleSelectionSerialNumberChange(option.value)}

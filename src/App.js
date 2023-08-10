@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import toast, { Toaster } from 'react-hot-toast';
-import Homepage from './pages/Homepage';
+import Bauteilpruefung from './pages/Bauteilpruefung';
+import Serialnummer from './pages/Serialnummer';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
@@ -17,6 +18,7 @@ function App() {
   const [auftragPruefpositionen, setAuftragPruefpositionen] = useState([]);
   const [selectedPruefplannummer, setSelectedPruefplannummer] = useState('');
   const [auftragPruefdaten, setAuftragPruefdaten] = useState([]);
+  const [selectedBauteil, setSelectedBauteil] = useState('');
   const [result, setResult] = useState([]);
   const [color, setColor] = useState([]);
   const navigate = useNavigate(); //hook for navigation
@@ -124,7 +126,7 @@ function App() {
   const handleClickPreviousPage = () => {
     setSelectedPruefplannummer('');
     setBauteilnummer('');
-    navigate('/homepage');
+    navigate('/bauteilpruefung');
   };
 
   function handleSearch() {
@@ -168,6 +170,51 @@ function App() {
       fetchAuftragPruefpositionen();
     }
   }
+
+  const createNewSerialnumber = async () => {
+    if (!selectedBauteil) {
+      toast.error('Bitte ein Bauteil auswählen!');
+    } else {
+      toast.remove(); //remove toast when selected Bauteil
+      try {
+        await fetch(
+          `${process.env.REACT_APP_API}/Serialnummern/createNewRecord`,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({}),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            toast((t) => (
+              <ToastContent>
+                Serialnummer {data.Serialnummer} wurde erstellt.
+                <ButtonWrapper>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      toast.dismiss(t.id);
+                      navigate('/bauteilpruefung');
+                    }}
+                  >
+                    Schließen
+                  </Button>
+                </ButtonWrapper>
+              </ToastContent>
+            ));
+          })
+          .then(() => setSelectedBauteil(''))
+          .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   if (logoPath === 'No logo path is found.') {
     toast(
@@ -238,13 +285,22 @@ function App() {
       <Routes>
         <Route path="/menu" element={<Menu />} />
         <Route
-          path="/homepage"
+          path="/bauteilpruefung"
           element={
-            <Homepage
+            <Bauteilpruefung
               handleSearch={handleSearch}
               selectedPruefplannummer={selectedPruefplannummer}
               setSelectedPruefplannummer={setSelectedPruefplannummer}
               setBauteilnummer={setBauteilnummer}
+            />
+          }
+        />
+        <Route
+          path="/serialnummer"
+          element={
+            <Serialnummer
+              createNewSerialnumber={createNewSerialnumber}
+              setSelectedBauteil={setSelectedBauteil}
             />
           }
         />
