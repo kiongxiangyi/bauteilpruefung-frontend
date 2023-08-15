@@ -41,6 +41,7 @@ const formatOptionLabel = ({ pruefplannummer, pruefplan }) => (
 
 export default function Bauteilpruefung({
   handleSearch,
+  selectedPruefplannummer,
   setSelectedPruefplannummer,
   setBauteilnummer,
 }) {
@@ -61,6 +62,7 @@ export default function Bauteilpruefung({
   const arrSerialnummern = serialnummern.map(
     (tblSerialnummern) => tblSerialnummern.Serialnummer
   );
+
   for (let i = 0; i < arrSerialnummern.length; i++) {
     optionSerialnummern.push({
       value: arrSerialnummern[i],
@@ -89,17 +91,12 @@ export default function Bauteilpruefung({
     // let interval; // interval tutorial - https://www.codingdeft.com/posts/react-useeffect-hook/
     const fetchPruefplan = async () => {
       try {
+        setSelectedPruefplannummer('');
         const response = await fetch(
           `${process.env.REACT_APP_API}/AuftragPruefplan`
         );
         const results = await response.json();
         setPruefplannummer(results);
-
-        const response2 = await fetch(
-          `${process.env.REACT_APP_API}/Serialnummern`
-        );
-        const results2 = await response2.json();
-        setSerialnummern(results2);
       } catch (err) {
         console.log(err);
       }
@@ -107,14 +104,30 @@ export default function Bauteilpruefung({
 
     fetchPruefplan();
 
-    const interval = setInterval(() => {
+    /*    const interval = setInterval(() => {
       fetchPruefplan();
     }, 1 * 5000);
 
     return () => {
       clearInterval(interval);
-    };
+    }; */
   }, []);
+
+  //if selected a Prüfplannummer
+  if (selectedPruefplannummer) {
+    const fetchSerialnumber = async () => {
+      try {
+        const response2 = await fetch(
+          `${process.env.REACT_APP_API}/Serialnummern/${selectedPruefplannummer}`
+        );
+        const results2 = await response2.json();
+        setSerialnummern(results2);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchSerialnumber();
+  }
 
   return (
     <Wrapper>

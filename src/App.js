@@ -63,6 +63,14 @@ function App() {
           event.target.name === 'value' &&
           KeineWerteingabe === false
         ) {
+          console.log(
+            event.target.value.replace(',', '.') >= minWert.replace(',', '.') && event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
+              ? 'i.O'
+              : 'n.i.O'
+          );
+          console.log('ist', event.target.value.replace(',', '.'));
+          console.log('min', minWert.replace(',', '.'));
+          console.log('max', maxWert.replace(',', '.'));
           return {
             ...input,
             value: event.target.value,
@@ -186,7 +194,7 @@ function App() {
               'Content-Type': 'application/json',
             },
 
-            body: JSON.stringify({}),
+            body: JSON.stringify({ selectedBauteil }),
           }
         )
           .then((res) => res.json())
