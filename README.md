@@ -1,71 +1,115 @@
-# Getting Started with Create React App
+# About The Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a web application developed for a research project AICoM. There are two main functions:
 
-## Available Scripts
+1. Users can create a new serial number for an inspection.
+2. Users can start an inspection of a component. It is required to enter all the inspection's results after starting the inspection. The app will evaluate the results immediately for the users and save them in DB.
 
-In the project directory, you can run:
+![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
-### `npm start`
+For more info about the research project: [Artificial Intelligence Controlled Milling (AICoM)](https://lernendewerkzeugmaschine.de/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Getting Started](#getting-started)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [User Interface](#user-interface)
+- [Data Management](#data-management)
+- [State Management](#state-management)
+- [Styling](#styling)
+- [Troubleshooting](#troubleshooting)
+- [Resources](#resources)
+- [Conclusion](#conclusion)
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Maintain the prerequisite data in GTMS. Refer to the "Bauteilpruefung_GTMS-Anleitung" Manual.
+2. Visit http://localhost:7000 to start the app.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React
+- Fetch API for data fetching
+- Styled-components for styling
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+├── src/  
+│ ├── components/  
+│ │ ├── Header/  
+│ │ │ ├── Header.js # Navigation bar with Home-Button  
+│ │ │ ├── index.js  
+│ │ ├── Image/  
+│ │ │ ├── ImageModal.js # To enlarge the image of inspected component in Result page  
+│ │ │ ├── index.js  
+│ │ ├── Table/  
+│ │ │ ├── SelectRow.js # Select "okay" or "not okay" for rows  
+│ │ │ ├── TableAuftragPruefdaten.js # Show the table of the inspected results  
+│ │ │ ├── TableAuftragPruefpositionen.js # Show the table for inspection  
+│ │ ├── UI/ # Styles of UI components  
+│ │ │ ├── Button.js  
+│ │ │ ├── NumberInput.js  
+│ │ │ ├── SelectMenu.js  
+│ │ │ ├── Table.js  
+│ │ │ ├── TextInput.js  
+│ ├── layouts/  
+│ │ ├── Layout.js # Layout for every page  
+│ ├── pages/  
+│ │ ├── Bauteilpruefung/  
+│ │ │ ├── Bauteilpruefung.js # The first function in homepage to select the inspection number and serial number  
+│ │ │ ├── index.js  
+│ │ ├── Finalpage/  
+│ │ │ ├── Finalpage.js # Show the saved evaluated results  
+│ │ │ ├── index.js  
+│ │ ├── Menu/  
+│ │ │ ├── Menu.js # The homepage with two functions  
+│ │ │ ├── index.js  
+│ │ ├── Results/  
+│ │ │ ├── Results.js # For users to input inspection's value and it shows the evaluated results  
+│ │ │ ├── index.js  
+│ │ ├── Serialnummer/ # The second function in homepage to assign new serial number  
+│ │ │ ├── Serialnummer.js  
+│ │ │ ├── index.js  
+│ ├── App.js # App main component  
+│ ├── index.js # Entry pint of app  
+├── public/  
+│ ├── pictures/  
+│ ├── index.html
 
-### `npm run eject`
+## User Interface
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This app consists of the following main UI components:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Header: Navigation bar with Home-Button.
+- ImageModal: To enlarge the image of a inspected component.
+- Table: Display the table of inspection's parameters and the table of the inspection's results.
+- UI: Different UI components such as Button, Select Input, Number Input, Text Input and styles for Table
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Data Management
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Data is fetched from a backend API using Fetch API and displayed in the UI components.
 
-## Learn More
+## State Management
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The React useState Hook is used.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Styling
 
-### Code Splitting
+Styling is done using styled-components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Troubleshooting
 
-### Analyzing the Bundle Size
+If you encounter any issues, try the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Restart the backend API.
 
-### Making a Progressive Web App
+## Resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Fetch API Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+- [Styled-components Documentation](https://styled-components.com/docs)
 
-### Advanced Configuration
+## Conclusion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# bauteilpruefung-frontend
+Thank you for checking out this app!
