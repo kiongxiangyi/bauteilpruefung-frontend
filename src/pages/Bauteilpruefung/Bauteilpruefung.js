@@ -52,6 +52,20 @@ export default function Bauteilpruefung({
   //lift the state up from children SelectMenu
   const handleSelectionChange = (pruefplannummer) => {
     setSelectedPruefplannummer(pruefplannummer);
+
+    //find serial number according to selected option
+    const fetchSerialnumber = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/Serialnummern/${pruefplannummer}`
+        );
+        const results = await response.json();
+        setSerialnummern(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchSerialnumber();
   };
 
   const handleSelectionSerialNumberChange = (serialnummer) => {
@@ -112,22 +126,6 @@ export default function Bauteilpruefung({
       clearInterval(interval);
     }; */
   }, []);
-
-  //if selected a Prüfplannummer
-  if (selectedPruefplannummer) {
-    const fetchSerialnumber = async () => {
-      try {
-        const response2 = await fetch(
-          `${process.env.REACT_APP_API}/Serialnummern/${selectedPruefplannummer}`
-        );
-        const results2 = await response2.json();
-        setSerialnummern(results2);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchSerialnumber();
-  }
 
   return (
     <Wrapper>

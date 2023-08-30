@@ -64,7 +64,8 @@ function App() {
           KeineWerteingabe === false
         ) {
           console.log(
-            event.target.value.replace(',', '.') >= minWert.replace(',', '.') && event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
+            event.target.value.replace(',', '.') >= minWert.replace(',', '.') &&
+              event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
               ? 'i.O'
               : 'n.i.O'
           );
