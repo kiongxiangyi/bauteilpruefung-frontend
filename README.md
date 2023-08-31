@@ -2,10 +2,24 @@
 
 This project is a web application developed for a research project AICoM. There are two main functions:
 
-1. Users can create a new serial number for an inspection.
-2. Users can start an inspection of a component. It is required to enter all the inspection's results after starting the inspection. The app will evaluate the results immediately for the users and save them in DB.
+1. Users can inspect a component. It is compulsory to input all the measurements. The app will evaluate the measurements immediately and the users can save the evaluation results in DB.
+2. Users can create a new serial number for an inspection.
 
+Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
+
+First function: Inspect a component  
+First page - Select an inspection number and a serial number  
+![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
+
+Second page - Input the measurements  
+![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
+
+Final page - Inspection results  
+![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
+
+Second function: Create a serial number  
+![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/c9332a95-5cfc-46ea-ab59-41d3cfd65fd0)
 
 For more info about the research project: [Artificial Intelligence Controlled Milling (AICoM)](https://lernendewerkzeugmaschine.de/)
 
@@ -24,8 +38,8 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 
 ## Getting Started
 
-1. Maintain the prerequisite data in GTMS. Refer to the "Bauteilpruefung_GTMS-Anleitung" Manual.
-2. Visit http://localhost:7000 to start the app.
+1. Maintain the prerequisite data in GTMS. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung".
+2. Visit http://localhost:7000/menu to start the app.
 
 ## Technologies Used
 
@@ -35,56 +49,66 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 
 ## Project Structure
 
+├── node_modules/ # Dependencies  
+├── public/  
+│ ├── pictures/ # Logo and inspected components' pictures  
+│ ├── index.html
 ├── src/  
 │ ├── components/  
 │ │ ├── Header/  
 │ │ │ ├── Header.js # Navigation bar with Home-Button  
 │ │ │ ├── index.js  
 │ │ ├── Image/  
-│ │ │ ├── ImageModal.js # To enlarge the image of inspected component in Result page  
+│ │ │ ├── ImageModal.js # To enlarge the image of inspected component in Results page  
 │ │ │ ├── index.js  
 │ │ ├── Table/  
-│ │ │ ├── SelectRow.js # Select "okay" or "not okay" for rows  
-│ │ │ ├── TableAuftragPruefdaten.js # Show the table of the inspected results  
-│ │ │ ├── TableAuftragPruefpositionen.js # Show the table for inspection  
-│ │ ├── UI/ # Styles of UI components  
+│ │ │ ├── SelectRow.js # Selection of inspection results "okay" or "not okay" for rows  
+│ │ │ ├── TableAuftragPruefdaten.js # Table of the inspected results  
+│ │ │ ├── TableAuftragPruefpositionen.js # Table for input measurements
+│ │ ├── UI/ # Styling of UI components  
 │ │ │ ├── Button.js  
 │ │ │ ├── NumberInput.js  
 │ │ │ ├── SelectMenu.js  
 │ │ │ ├── Table.js  
 │ │ │ ├── TextInput.js  
 │ ├── layouts/  
-│ │ ├── Layout.js # Layout for every page  
+│ │ ├── Layout.js # Standard layout for every page  
 │ ├── pages/  
 │ │ ├── Bauteilpruefung/  
-│ │ │ ├── Bauteilpruefung.js # The first function in homepage to select the inspection number and serial number  
+│ │ │ ├── Bauteilpruefung.js # First page of first function for selecting an inspection number and a serial number  
 │ │ │ ├── index.js  
 │ │ ├── Finalpage/  
-│ │ │ ├── Finalpage.js # Show the saved evaluated results  
+│ │ │ ├── Finalpage.js # Final page of first function to show the saved evaluated results  
 │ │ │ ├── index.js  
 │ │ ├── Menu/  
-│ │ │ ├── Menu.js # The homepage with two functions  
+│ │ │ ├── Menu.js # Homepage with two functions: Inspect a component and create serial number  
 │ │ │ ├── index.js  
 │ │ ├── Results/  
-│ │ │ ├── Results.js # For users to input inspection's value and it shows the evaluated results  
+│ │ │ ├── Results.js # Second page of first function for input measurements and it shows the evaluated results immediately  
 │ │ │ ├── index.js  
-│ │ ├── Serialnummer/ # The second function in homepage to assign new serial number  
-│ │ │ ├── Serialnummer.js  
+│ │ ├── Serialnummer/  
+│ │ │ ├── Serialnummer.js # Second function for assigning a new serial number  
 │ │ │ ├── index.js  
 │ ├── App.js # App main component  
-│ ├── index.js # Entry pint of app  
-├── public/  
-│ ├── pictures/  
-│ ├── index.html
+│ ├── index.css # Standard CSS styling for app  
+│ ├── index.js # Entry point of app  
+├── .env.local # Sensitive credentials  
+├── .eslintrc.js # Static code analysis tool  
+├── .gitignore # Ignore files or folders in Git  
+├── .prettierrc.json # Opinionated code formatter  
+├── jsconfig.json # JavaScript language service  
+├── package-lock.json # Generated by npm when installing packages  
+├── package.json # npm dependencies and run scripts  
+├── Readme.md # Documentation
 
 ## User Interface
 
 This app consists of the following main UI components:
 
 - Header: Navigation bar with Home-Button.
-- ImageModal: To enlarge the image of a inspected component.
-- Table: Display the table of inspection's parameters and the table of the inspection's results.
-- UI: Different UI components such as Button, Select Input, Number Input, Text Input and styles for Table
+- Image: Enlargement of the image of a inspected component.
+- Table: Table for users to input measurements
+- UI: Styling for UI components Button, Select Input, Number Input, Text Input and Table
 
 ## Data Management
 
@@ -102,7 +126,7 @@ Styling is done using styled-components.
 
 If you encounter any issues, try the following:
 
-- Restart the backend API.
+- Restart the backend API "AICoM ModuleWorks API" at Windows Task Scheduler.
 
 ## Resources
 
