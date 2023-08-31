@@ -1,4 +1,4 @@
-# About The Project
+# About The Project - Bauteilprüfung
 
 This project is a web application developed for a research project AICoM. There are two main functions:
 
@@ -34,7 +34,7 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 - [Styling](#styling)
 - [Troubleshooting](#troubleshooting)
 - [Resources](#resources)
-- [Conclusion](#conclusion)
+- [Contact](#contact)
 
 ## Getting Started
 
