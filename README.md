@@ -40,7 +40,6 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 - [Project Structure](#project-structure)
 - [User Interface](#user-interface)
 - [Data Management](#data-management)
-- [State Management](#state-management)
 - [Styling](#styling)
 - [Troubleshooting](#troubleshooting)
 - [Resources](#resources)
@@ -56,9 +55,13 @@ This app is sharing the same DB with Gühring Tool Management Software (GTMS). G
 
 ## Technologies Used
 
-- React
-- Fetch API for data fetching
-- Styled-components for styling
+- [React](https://reactjs.org/docs/getting-started.html)
+- JavaScript
+- [Styled-components for styling](https://styled-components.com/docs)
+
+## Environment Setup
+
+- [Node v18.15.0](https://nodejs.org/en)
 
 ## Project Structure
 
@@ -119,21 +122,18 @@ This app is sharing the same DB with Gühring Tool Management Software (GTMS). G
 This app consists of the following main UI components:
 
 - Header: Header with Home-Button.
-- Image: Enlargement of the image of a inspected component.
+- Image: Image Enlargement upon Component Click: A user interface feature or interaction where an image associated with a specific component enlarges or magnifies when the user clicks on (or taps, in touch interfaces) that component.
 - Table: Table for users to input measurements and showing evaluation results
-- UI: Styling for UI components Button, Select Input, Number Input, Text Input and Table
+- UI: Styling for common UI components Button, Select Input, Number Input, Text Input and Table
 
 ## Data Management
 
 Data is fetched from a backend API using Fetch API and displayed in the UI components.
 
-## State Management
-
-The React useState Hook is used.
-
 ## Styling
 
 Styling is done using styled-components.
+Example:
 
 ## Troubleshooting
 
@@ -141,10 +141,11 @@ If you encounter any issues, try the following:
 
 - Restart the backend API "AICoM Bauteilpruefung Backend API" at Windows Task Scheduler.
 
+Please contact software developer [Xiang Yi Kiong](xiangyi.kiong@guehring.de) for support.
+
 ## Resources
 
 - [React Documentation](https://reactjs.org/docs/getting-started.html)
-- [Fetch API Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - [Styled-components Documentation](https://styled-components.com/docs)
 
 ## Contact
