@@ -1,13 +1,15 @@
 # About The Project
 
-This project is a web application developed for a research project AICoM. It is used for inspection of components.
+This project is a web application developed for a research project Artificial Intelligence Controlled Milling (AICoM). The app is used for inspection of components.
 
-On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspectin of a component) and "Serialnummer anfordern" (create a serial number).
+Visit the link for more info about the research project: [AICoM](https://lernendewerkzeugmaschine.de/)
+
+## Screenshots
 
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
-The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
+On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspectin of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
 
 First page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
@@ -18,33 +20,39 @@ Second page
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
 
 Users are required to fill in the "IST-Wert" (current value) for each feature.  
-The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." minimum value.  
+The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." (minimum value).  
 If it is within the range, the column "Bewertung" (evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red.  
 Users can then click "Speichern" (save) to save the measurement data. After clicking save, it goes to the final page. Users can also click the button "Zurück" (back) to go back to the previous page.
 
-Final page - Inspection results  
+Final page
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
 
-The final page shows the evaluated measurement data. The measurement is createed. Users can click "Schließen" (close) to go back to homepage to create a new measurement.
+The final page shows the evaluated measurement results. Users can click "Schließen" (close) to go back to homepage to create another measurement
 
-On the homepage, the second button "Serialnummer anfordern" is used to create a new serial number for a component.
+Homepage  
+![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
-Serialnummer anfordern (Create a serial number):
+On the homepage, the second button "Serialnummer anfordern" is used to create a new serial number for a component. Click it.
+
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/c9332a95-5cfc-46ea-ab59-41d3cfd65fd0)
 
-After clicking it, users can choose the components which is going to be inspected. Then, click on "Anlegen" (create) and the app will show a message that a new serial number X is created.
+After clicking it, users are directed to the page to choose the components that needs a serial number. Then, click on "Anlegen" (create) to create a new serial number.
 
-For more info about the research project: [Artificial Intelligence Controlled Milling (AICoM)](https://lernendewerkzeugmaschine.de/)
+![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/36443008-8511-4562-96f7-3340366fe98d)
+
+The app shows a message box that a new serial number XXX is created.
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
 - [Technologies Used](#technologies-used)
+- [Environment Setup](#environment-setup)
 - [Project Structure](#project-structure)
 - [User Interface](#user-interface)
 - [Data Management](#data-management)
 - [Styling](#styling)
 - [Troubleshooting](#troubleshooting)
+- [ESLint and Prettier Setup](#eslint-and-prettier-setup)
 - [Resources](#resources)
 - [Contact](#contact)
 
@@ -146,7 +154,7 @@ If you encounter any issues, try the following:
 
 For more support, please contact software developer [Xiang Yi Kiong](xiangyi.kiong@guehring.de).
 
-## Setting Up ESLint & Prettier
+## ESLint and Prettier Setup
 
 [ESLint](https://eslint.org/docs/latest/use/configure/configuration-files) is a static code analysis tool for identifying problematic patterns found in JavaScript code.
 
@@ -155,7 +163,6 @@ You can configure ESLint via .eslintrc.js file. It is in the root directory of t
 [Prettier](https://prettier.io/docs/en/configuration.html) is an opinionated code formatter.
 
 You can configure Prettier via .prettierrc.json file. It is in the root directory of this project.
-
 
 ## Resources
 
