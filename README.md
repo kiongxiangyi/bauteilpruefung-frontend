@@ -1,6 +1,6 @@
 # About The Project
 
-This project is a web application developed for a research project Artificial Intelligence Controlled Milling (AICoM). The app is used for inspection of components.
+This project is a German web application developed for a research project Artificial Intelligence Controlled Milling (AICoM). The app is used for inspection of components.
 
 Visit the link for more info about the research project: [AICoM](https://lernendewerkzeugmaschine.de/)
 
@@ -9,7 +9,7 @@ Visit the link for more info about the research project: [AICoM](https://lernend
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
-On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspectin of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
+On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspection of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
 
 First page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
@@ -19,8 +19,8 @@ Users have to choose an inspection number and a serial number of the component, 
 Second page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
 
-Users are required to fill in the "IST-Wert" (current value) for each feature.  
-The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." (minimum value).  
+Users can click the button "Zeichnung öffnen" (open drawing) to see the picture of the component. In this page, users are required to fill in the "IST-Wert" (actual value) for each feature.  
+The app evaluates automatically the input actual value by checking if it is within the "Max." (maximum value) and "Min." (minimum value).  
 If it is within the range, the column "Bewertung" (evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red.  
 Users can then click "Speichern" (save) to save the measurement data. After clicking save, it goes to the final page. Users can also click the button "Zurück" (back) to go back to the previous page.
 
@@ -60,7 +60,7 @@ The app shows a message box that a new serial number XXX is created.
 
 This app is sharing the same DB with Gühring Tool Management Software (GTMS). GTMS is used to maintain the details and tolerance of the measurement of components.
 
-1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" for a step by step guide to maintain the prerequisite data in GTMS. The manual is in the folder: D:\GTMS\Batueilpruefung.
+1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" for a step by step guide to maintain the prerequisite measurement features and their tolerances in GTMS. The manual is in the folder D:\GTMS\Batueilpruefung.
 
 2. User can see the app on the following URL: http://localhost:7000/menu
 
@@ -78,22 +78,22 @@ This app is sharing the same DB with Gühring Tool Management Software (GTMS). G
 
 ├── node_modules/ # Dependencies  
 ├── public/  
-│ ├── pictures/ # Logo and inspected components' pictures  
+│ ├── pictures/ # All the pictures used in the app such as logo, home button and components for inspection  
 │ ├── index.html  
 ├── src/  
 │ ├── components/  
 │ │ ├── Header/  
-│ │ │ ├── Header.js # Header with Home-Button  
+│ │ │ ├── Header.js # Header with title of the app and home button  
 │ │ │ ├── index.js  
 │ │ ├── Image/  
-│ │ │ ├── ImageModal.js # To enlarge the image of inspected component in Results page  
+│ │ │ ├── ImageModal.js # Image enlargement upon image click. It is used in the Results page  
 │ │ │ ├── index.js  
 │ │ ├── Table/  
-│ │ │ ├── SelectRow.js # Selection of inspection results "okay" or "not okay" for rows  
-│ │ │ ├── TableAuftragPruefdaten.js # Table of the inspected results  
-│ │ │ ├── TableAuftragPruefpositionen.js # Table for input measurements  
-│ │ ├── UI/ # Styling of UI components  
-│ │ │ ├── Button.js  
+│ │ │ ├── SelectRow.js # Selection of "i.O" (okay) or "n.i.O" (not okay) for the column "Bewertung" (evaluation) in each row of a table. If the measurement feature of a row has no value input, then these selections are provided and shown in the row of the table.  
+│ │ │ ├── TableAuftragPruefdaten.js # This is the table shown in final page. Tt shows all the measurement data of the inspection of a component done by users.  
+│ │ │ ├── TableAuftragPruefpositionen.js # This is the table shown in second page. It shows all the measurement features of the inspected component. Users have to fill in the "IST-Wert" (actual value) in this table.  
+│ │ ├── UI/ # Styling of common UI components using styled-components  
+│ │ │ ├── Button.js # There are three styles of button: small, medium and big  
 │ │ │ ├── NumberInput.js  
 │ │ │ ├── SelectMenu.js  
 │ │ │ ├── Table.js  
@@ -132,9 +132,9 @@ This app is sharing the same DB with Gühring Tool Management Software (GTMS). G
 
 This app consists of the following main UI components:
 
-- Header: Header with Home-Button.
-- Image: Image Enlargement upon Component Click: A user interface feature or interaction where an image associated with a specific component enlarges or magnifies when the user clicks on (or taps, in touch interfaces) that component.
-- Table: Table for users to input measurements and showing evaluation results
+- Header: Header with home button.
+- Image: Image enlargement upon component click: A user interface feature or interaction where an image associated with a specific component enlarges or magnifies when the user clicks on (or taps, in touch interfaces) that component.
+- Table: Table for users to input measurement. It contains the measurement details such as "Prüfplan" (inspection number), "Serialnr." (serial number), "Position" (position), "Formelement" (process number), "Messmittel" (measuring tools), "Min." (minimum value), "Max." (maximum value), "Soll" (desired value), "IST-Wert" (actual value), "Bewertung" (evaluation) and "Bemerkung" (remark).
 - UI: Styling for common UI components Button, Select Input, Number Input, Text Input and Table
 
 ## Data Management
@@ -143,8 +143,31 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 ## Styling
 
-Styling is done using styled-components.
-Example:
+Styling is done using [styled-components](https://styled-components.com/docs/basics#installation). It utilises tagged template literals to style the components.
+
+This is an example from styled-components docs. It creates two simple components, a wrapper and a title, with some styles attached to it:
+
+```js
+// Create a Title component that'll render an <h1> tag with some styles
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: #bf4f74;
+`;
+
+// Create a Wrapper component that'll render a <section> tag with some styles
+const Wrapper = styled.section`
+  padding: 4em;
+  background: papayawhip;
+`;
+
+// Use Title and Wrapper like any other React component – except they're styled!
+render(
+  <Wrapper>
+    <Title>Hello World!</Title>
+  </Wrapper>
+);
+```
 
 ## Troubleshooting
 
