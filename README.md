@@ -2,7 +2,7 @@
 
 This project is a web application developed for a research project AICoM. It is used for inspection of components.
 
-On the homepage, there are two buttons.
+On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspectin of a component) and "Serialnummer anfordern" (create a serial number).
 
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
@@ -12,17 +12,20 @@ The first button "Bauteilprüfung" is used to inspect a component. By clicking i
 First page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
 
-Users have to choose an inspection number and a serial number of the component, and click "Anlegen" to start a measurement. Now on the second page, the app will show all the required measurement feature saved in DB.
+Users have to choose an inspection number and a serial number of the component, and click "Anlegen" to create a measurement. Now on the second page, the app will show all the measurement features saved in DB.
 
 Second page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
 
-Users are required to fill in the "IST-Wert" (current value) for each feature. The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." minimum value. If it is within the range, the column "Bewertung" (Evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red. Users can then click "Speichern" (save) to save the measurement data. After clicking save, it goes to the final page. If users want to go back to the previous page which is the first page, they can click the button "Zurück".
+Users are required to fill in the "IST-Wert" (current value) for each feature.  
+The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." minimum value.  
+If it is within the range, the column "Bewertung" (evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red.  
+Users can then click "Speichern" (save) to save the measurement data. After clicking save, it goes to the final page. Users can also click the button "Zurück" (back) to go back to the previous page.
 
 Final page - Inspection results  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
 
-The final page shows the evaluated measurement data. Users can click "Schließen" (close) to go back to homepage.
+The final page shows the evaluated measurement data. The measurement is createed. Users can click "Schließen" (close) to go back to homepage to create a new measurement.
 
 On the homepage, the second button "Serialnummer anfordern" is used to create a new serial number for a component.
 
@@ -47,7 +50,7 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 
 ## Getting Started
 
-This app is sharing the same DB with Gühring Tool Management Software (GTMS). GTMS contains the details and tolerance of the measurement of components.
+This app is sharing the same DB with Gühring Tool Management Software (GTMS). GTMS is used to maintain the details and tolerance of the measurement of components.
 
 1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" for a step by step guide to maintain the prerequisite data in GTMS. The manual is in the folder: D:\GTMS\Batueilpruefung.
 
@@ -61,7 +64,7 @@ This app is sharing the same DB with Gühring Tool Management Software (GTMS). G
 
 ## Environment Setup
 
-- [Node v18.15.0](https://nodejs.org/en)
+- [Node.js (version 18.15.0 or higher)](https://nodejs.org/en)
 
 ## Project Structure
 
@@ -141,7 +144,18 @@ If you encounter any issues, try the following:
 
 - Restart the backend API "AICoM Bauteilpruefung Backend API" at Windows Task Scheduler.
 
-Please contact software developer [Xiang Yi Kiong](xiangyi.kiong@guehring.de) for support.
+For more support, please contact software developer [Xiang Yi Kiong](xiangyi.kiong@guehring.de).
+
+## Setting Up ESLint & Prettier
+
+[ESLint](https://eslint.org/docs/latest/use/configure/configuration-files) is a static code analysis tool for identifying problematic patterns found in JavaScript code.
+
+You can configure ESLint via .eslintrc.js file. It is in the root directory of this project.
+
+[Prettier](https://prettier.io/docs/en/configuration.html) is an opinionated code formatter.
+
+You can configure Prettier via .prettierrc.json file. It is in the root directory of this project.
+
 
 ## Resources
 
