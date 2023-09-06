@@ -1,25 +1,35 @@
-# About The Project - Bauteilprüfung
+# About The Project
 
-This project is a web application developed for a research project AICoM. There are two main functions:
+This project is a web application developed for a research project AICoM. It is used for inspection of components.
 
-1. Users can inspect a component. It is compulsory to input all the measurements. The app will evaluate the measurements immediately and the users can save the evaluation results in database (DB).
-2. Users can create a new serial number for an inspection.
+On the homepage, there are two buttons.
 
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
-First function: Inspect a component  
-First page - Select an inspection number and a serial number  
+The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
+
+First page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
 
-Second page - Input the measurements  
+Users have to choose an inspection number and a serial number of the component, and click "Anlegen" to start a measurement. Now on the second page, the app will show all the required measurement feature saved in DB.
+
+Second page  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
+
+Users are required to fill in the "IST-Wert" (current value) for each feature. The app evaluates automatically the input current value by checking if it is within the "Max." (maximum value) and "Min." minimum value. If it is within the range, the column "Bewertung" (Evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red. Users can then click "Speichern" (save) to save the measurement data. After clicking save, it goes to the final page. If users want to go back to the previous page which is the first page, they can click the button "Zurück".
 
 Final page - Inspection results  
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
 
-Second function: Create a serial number  
+The final page shows the evaluated measurement data. Users can click "Schließen" (close) to go back to homepage.
+
+On the homepage, the second button "Serialnummer anfordern" is used to create a new serial number for a component.
+
+Serialnummer anfordern (Create a serial number):
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/c9332a95-5cfc-46ea-ab59-41d3cfd65fd0)
+
+After clicking it, users can choose the components which is going to be inspected. Then, click on "Anlegen" (create) and the app will show a message that a new serial number X is created.
 
 For more info about the research project: [Artificial Intelligence Controlled Milling (AICoM)](https://lernendewerkzeugmaschine.de/)
 
@@ -38,8 +48,11 @@ For more info about the research project: [Artificial Intelligence Controlled Mi
 
 ## Getting Started
 
-1. Maintain the prerequisite data in Gühring Tool Management System (GTMS). Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" in D:\GTMS\Batueilpruefung.
-2. Visit http://localhost:7000/menu to start the app.
+This app is sharing the same DB with Gühring Tool Management Software (GTMS). GTMS contains the details and tolerance of the measurement of components.
+
+1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" for a step by step guide to maintain the prerequisite data in GTMS. The manual is in the folder: D:\GTMS\Batueilpruefung.
+
+2. User can see the app on the following URL: http://localhost:7000/menu
 
 ## Technologies Used
 
