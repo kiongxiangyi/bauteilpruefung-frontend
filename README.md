@@ -4,19 +4,22 @@ This project is a German web application developed for a research project Artifi
 
 Visit this link for more info about the research project: [AICoM](https://lernendewerkzeugmaschine.de/)
 
-## Screenshots
+## Application Flow 1
 
-Homepage  
+### Homepage
+
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
 On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspection of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
 
-First page  
+### First page
+
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
 
 Users have to choose an inspection number and a serial number of the component, and click "Anlegen" to create a measurement. Now on the second page, the app will show all the measurement features saved in DB.
 
-Second page  
+### Second page
+
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
 
 Users can click the button "Zeichnung öffnen" to see the image of the component. In this page, users are required to fill in the "IST-Wert" (actual value) for each feature.  
@@ -24,10 +27,13 @@ The app evaluates automatically the input actual value by checking whether it is
 If it is within the range, the column "Bewertung" (evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red. Users can also input remarks in the column "Bemerkung".
 Users can then click "Speichern" to save the measurement data. After clicking save, it goes to the final page. Or users can also click the button "Zurück" to go back to the previous page.
 
-Final page
+### Final page
+
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
 
 The final page shows the evaluated measurement results. Users can click "Schließen" to close it and users are directed to homepage and can create another measurement.
+
+## Application Flow 2
 
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
@@ -62,7 +68,7 @@ This app is sharing the same database (DB) with [Gühring Tool Management Softwa
 
 To use this app:
 
-1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" for a step by step guide to save the prerequisite measurement features and their tolerances in GTMS. The manual can be found in the folder D:\GTMS\Batueilpruefung.
+1. Refer to the user manual "Bauteilpruefung_GTMS-Anleitung" in the folder D:\GTMS\Batueilpruefung for a step by step guide to save the prerequisite measurement features and their tolerances in GTMS.
 
 2. Users can see the app on the following URL: http://localhost:7000/menu
 
@@ -74,17 +80,24 @@ To use this app:
 
 ## Environment Setup
 
-- [Node.js (version 18.15.0 or higher)](https://nodejs.org/en)
+- Node.js (version 18.15.0 or higher)
+  - Download and run the installer from [NodeJS WebSite](https://nodejs.org/en).
 
 ## ESLint and Prettier Setup
 
-[ESLint](https://eslint.org/docs/latest/use/configure/configuration-files) is a static code analysis tool for identifying problematic patterns found in JavaScript code.
+[ESLint](https://eslint.org) is a static code analysis tool for identifying problematic patterns found in JavaScript code.
 
-You can configure ESLint via .eslintrc.js file. It is in the root directory of this project.
+- Install ESLint locally according to [ESLint Website](https://eslint.org/docs/latest/use/getting-started):  
+  `npm init @eslint/config`
+- Then, configure ESLint via .eslintrc.js file.
+- Refer to the [Configure ESLint documentation](https://eslint.org/docs/latest/use/configure/) to learn how to add rules, environments, custom configurations, plugins, and more.
 
-[Prettier](https://prettier.io/docs/en/configuration.html) is an opinionated code formatter.
+[Prettier](https://prettier.io) is an opinionated code formatter.
 
-You can configure Prettier via .prettierrc.json file. It is in the root directory of this project.
+- Install Prettier locally accroding to [Prettier Website](https://prettier.io/docs/en/install.html):  
+  `npm install --save-dev --save-exact prettier`
+- Then, configure Prettier via .prettierrc.json file to let editors and other tools know you are using Prettier.
+- Refer to the [Configuration File documentation](https://prettier.io/docs/en/configuration.html) to learn more.
 
 ## Project Structure
 
@@ -128,6 +141,7 @@ You can configure Prettier via .prettierrc.json file. It is in the root director
 │ │ ├── Serialnummer/  
 │ │ │ ├── Serialnummer.js # The page after clicking the second button on homepage for creating a new serial number  
 │ │ │ ├── index.js  
+│ ├── .env.local # Configuration option for Backend API PORT  
 │ ├── App.js # App main component  
 │ ├── index.css # Standard CSS styling for app  
 │ ├── index.js # Entry point of app  
@@ -184,12 +198,12 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
          }
          ```
 
-   - Error Responses: - Code: 404 Not Found
+   - Error Responses: - Code: 500 Internal Server Error
      - Content:
        - json
          ```json
          {
-           "error": "The inspection number XXX does not exist. / Die Prüfplannummer XXX existiert nicht."
+           "error": "Error Message"
          }
          ```
 
