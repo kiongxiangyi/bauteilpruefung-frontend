@@ -6,7 +6,7 @@ Visit this link for more info about the research project: [AICoM](https://lernen
 
 ## Application Flow 1
 
-First function: Inspection of a component (Bauteilprüfung)
+First function: Inspection of a component
 
 ### Homepage
 
