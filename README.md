@@ -211,6 +211,33 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
          }
          ```
 
+2. Create Measurement Results
+
+   - URL: http://localhost:5000/AuftragPruefdaten/createNewRecords
+   - Method: POST
+   - Body Parameters:
+     - auftragPruefpositionen (required): Array of measurement features
+     - bauteilnummer (required): Serial number
+   - Success Response:
+
+     - Code: 200 OK
+     - Content:
+       - json
+         ```json
+         {
+           
+         }
+         ```
+
+   - Error Responses: - Code: 500 Internal Server Error
+     - Content:
+       - json
+         ```json
+         {
+           "error": "Error Message"
+         }
+         ```
+
 ## Styling
 
 Styling is done using [styled-components](https://styled-components.com/docs/basics#installation). It utilises tagged template literals to style the components.
