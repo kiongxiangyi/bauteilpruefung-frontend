@@ -6,19 +6,21 @@ Visit this link for more info about the research project: [AICoM](https://lernen
 
 ## Application Flow 1
 
+First function: Inspection of a component (Bauteilprüfung)
+
 ### Homepage
 
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
 
 On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspection of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
 
-### First page
+### First page - Selection of Inspection Number and Serial Number
 
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/ece2ebc1-a8c5-48b3-b257-90729ca1ed38)
 
 Users have to choose an inspection number and a serial number of the component, and click "Anlegen" to create a measurement. Now on the second page, the app will show all the measurement features saved in DB.
 
-### Second page
+### Second page - Input Actual Value for Measurement Features
 
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/7effe5e1-7f99-4de4-945d-874485a1e117)
 
@@ -27,13 +29,15 @@ The app evaluates automatically the input actual value by checking whether it is
 If it is within the range, the column "Bewertung" (evaluation) shows "i.O" (okay). If it is not within the range, "n.i.O" (not okay) is shown and the row is red. Users can also input remarks in the column "Bemerkung".
 Users can then click "Speichern" to save the measurement data. After clicking save, it goes to the final page. Or users can also click the button "Zurück" to go back to the previous page.
 
-### Final page
+### Final page - Presentation of Measurement Results
 
 ![grafik](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/196c1828-69a1-42cd-9eff-f3e6beb793d7)
 
 The final page shows the evaluated measurement results. Users can click "Schließen" to close it and users are directed to homepage and can create another measurement.
 
 ## Application Flow 2
+
+Second function: Create a serial number
 
 Homepage  
 ![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
