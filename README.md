@@ -170,73 +170,354 @@ This app consists of the following main UI components:
 
 Data is fetched from a backend API using Fetch API and displayed in the UI components.
 
-1. Fetch Measurement Features
+1.  Fetch measurement features
 
-   - URL: http://localhost:5000/AuftragPruefpositionen/:selectedPruefplannummer
-   - Method: GET
-   - URL Parameters:
-     - selectedPruefplannummer (required): The inspection number
-   - Success Response:
+    - URL: http://localhost:5000/AuftragPruefpositionen/:selectedPruefplannummer
+    - Method: GET
+    - URL Parameters:
+      - selectedPruefplannummer (required): The inspection number
+    - Success Response:
 
-     - Code: 200 OK
-     - Content:
-       - json
-         ```json
-         {
-           "ID": 17,
-           "Pruefplannummer": 1001,
-           "Position": 1,
-           "Positionstext": "1_1_1",
-           "Artikel": "6793",
-           "Bezeichnung": "45H7 (+0.025)",
-           "MinWert": "45,7",
-           "MaxWert": "45,725",
-           "Sollwert": "45,7",
-           "Endkontrolle": false,
-           "KeineWerteingabe": false,
-           "Zusatztext1": "Innenmessschraube",
-           "Zusatztext2": "",
-           "Zusatztext3": "",
-           "Zusatztext4": "",
-           "Zusatztext5": ""
-         }
-         ```
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          {
+            "ID": 17,
+            "Pruefplannummer": 1001,
+            "Position": 1,
+            "Positionstext": "1_1_1",
+            "Artikel": "6793",
+            "Bezeichnung": "45H7 (+0.025)",
+            "MinWert": "45,7",
+            "MaxWert": "45,725",
+            "Sollwert": "45,7",
+            "Endkontrolle": false,
+            "KeineWerteingabe": false,
+            "Zusatztext1": "Innenmessschraube",
+            "Zusatztext2": "",
+            "Zusatztext3": "",
+            "Zusatztext4": "",
+            "Zusatztext5": ""
+          }
+          ```
 
-   - Error Responses: - Code: 500 Internal Server Error
-     - Content:
-       - json
-         ```json
-         {
-           "error": "Error Message"
-         }
-         ```
+    - Error Responses: - Code: 500 Internal Server Error
+      - Content:
+        - json
+          ```json
+          {
+            "error": "Error Message"
+          }
+          ```
 
-2. Create Measurement Results
+2.  Fetch image of a component
 
-   - URL: http://localhost:5000/AuftragPruefdaten/createNewRecords
-   - Method: POST
-   - Body Parameters:
-     - auftragPruefpositionen (required): Array of measurement features
-     - bauteilnummer (required): Serial number
-   - Success Response:
+    - URL: http://localhost:5000/AuftragPruefplan/:selectedPruefplannummer
+    - Method: GET
+    - URL Parameters:
+      - selectedPruefplannummer (required): The inspection number
+    - Success Response:
 
-     - Code: 200 OK
-     - Content:
-       - json
-         ```json
-         {
-           
-         }
-         ```
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          {
+            "success": "Copy image file from C:\\pictures\\AICoM_Referenzbauteil1.JPG to D:\\GTMS\\aicom-mw-api\\bauteilpruefung-frontend\\public\\pictures\\1000.jpg successfully."
+          }
+          ```
 
-   - Error Responses: - Code: 500 Internal Server Error
-     - Content:
-       - json
-         ```json
-         {
-           "error": "Error Message"
-         }
-         ```
+    - Error Responses:
+
+      - Code: 404 Not Found
+        - Content:
+          - json
+            ```json
+            {
+              "error": "Image path doesn't exists."
+            }
+            ```
+      - Code: 404 Not Found
+
+        - Content:
+          - json
+            ```json
+            {
+              "error": "No such file or directory."
+            }
+            ```
+
+      - Code: 500 Internal Server Error
+        - Content:
+          - json
+            ```json
+            {
+              "error": "Error Message"
+            }
+            ```
+
+3.  Fetch logo
+
+    - URL: http://localhost:5000/readFile/config/logo
+    - Method: GET
+    - Success Response:
+
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          {
+            "success": "Copy logo file from C:\\pictures\\Aicom_logo.jpg to D:\\GTMS\\aicom-mw-api\\bauteilpruefung-frontend\\public\\pictures\\copiedLogo.jpg successfully."
+          }
+          ```
+
+    - Error Responses:
+
+      - Code: 404 Not Found
+        - Content:
+          - json
+            ```json
+            {
+              "error": "No logo path is found."
+            }
+            ```
+      - Code: 404 Not Found
+
+        - Content:
+          - json
+            ```json
+            {
+              "error": "No such file or directory for logo."
+            }
+            ```
+
+      - Code: 500 Internal Server Error
+        - Content:
+          - json
+            ```json
+            {
+              "error": "Error Message"
+            }
+            ```
+
+4.  Fetch website RGB Color Codes
+
+    - URL: http://localhost:5000/readFile/config/color
+    - Method: GET
+    - Success Response:
+
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          {
+            "HeaderRot": "12",
+            "HeaderGruen": "168",
+            "HeaderBlau": "206"
+          }
+          ```
+
+    - Error Responses:
+      - Code: 500 Internal Server Error
+        - Content:
+          - json
+            ```json
+            {
+              "error": "Error Message"
+            }
+            ```
+
+5.  Fetch serial numbers
+
+    - URL: http://localhost:5000/Serialnummern/:pruefplannummer
+    - Method: GET
+    - URL Parameters:
+      - pruefplannummer (required): The inspection number
+    - Success Response:
+
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          [
+            {
+              "ID": 8,
+              "Artikel": "6793",
+              "Serialnummer": "V130_2",
+              "RFIDCode": "",
+              "Anschaffungsdatum": "2023-08-14T08:27:18.407Z",
+              "Ausgangswert": 0,
+              "Ausgangswert2": 0,
+              "Restwert": 0,
+              "Restwert2": 0,
+              "AnzahlZyklen": 0,
+              "Restzyklen": 0,
+              "Artikelzustand": "",
+              "Lieferantnummer": "",
+              "Charge": "",
+              "LagerplatzID": 0,
+              "Bestand": 0,
+              "Stueckliste": "",
+              "Stuecklistenvariante": "",
+              "Maschine": "",
+              "Verschrottet": false,
+              "Verschrottungsdatum": null,
+              "Bemerkung": "",
+              "BuchungsID": 0,
+              "Krit1": "",
+              "Krit2": "",
+              "Krit3": "",
+              "Krit4": "",
+              "Krit5": "",
+              "Krit6": "",
+              "Krit7": "",
+              "Krit8": "",
+              "Krit9": "",
+              "Krit10": "",
+              "Krit11": "",
+              "Krit12": "",
+              "Krit13": "",
+              "Krit14": "",
+              "Krit15": "",
+              "Krit16": "",
+              "Krit17": "",
+              "Krit18": "",
+              "Krit19": "",
+              "Krit20": "",
+              "Einsatzzeit": 0,
+              "Testwerkzeug": false
+            }
+          ]
+          ```
+
+    - Error Responses: - Code: 500 Internal Server Error
+      - Content:
+        - json
+          ```json
+          {
+            "error": "Error Message"
+          }
+          ```
+
+6.  Create measurement results
+
+    - URL: http://localhost:5000/AuftragPruefdaten/createNewRecords
+    - Method: POST
+    - Body Parameters:
+      - auftragPruefpositionen (required): Array of measurement features
+      - bauteilnummer (required): Serial number
+    - Success Response:
+
+      - Code: 200 OK
+        - Content:
+          - json
+            ```json
+            [
+              {
+                "ID": 1,
+                "Pruefplannummer": 1000,
+                "Position": 1,
+                "Positionstext": "4_3_1",
+                "Artikel": "5768",
+                "Bezeichnung": "Nut 2mm",
+                "MinWert": "1,89",
+                "MaxWert": "2",
+                "Sollwert": "2",
+                "Endkontrolle": false,
+                "KeineWerteingabe": false,
+                "Zusatztext1": "",
+                "Zusatztext2": "",
+                "Zusatztext3": "",
+                "Zusatztext4": "",
+                "Zusatztext5": "",
+                "value": "2",
+                "bemerkung": "",
+                "bewertung": "i.O"
+              }
+            ]
+            ```
+
+    - Error Responses: - Code: 500 Internal Server Error
+      - Content:
+        - json
+          ```json
+          {
+            "error": "Error Message"
+          }
+          ```
+
+7.  Create a serial number
+
+    - URL: http://localhost:5000/Serialnummern/createNewRecord
+
+      - Method: POST
+
+        - Body Parameters:
+          - selectedBauteil (required): The name of component
+        - Success Response:
+
+          - Code: 200 OK
+            - Content:
+              - json
+                ```json
+                {
+                  "ID": 21,
+                  "Artikel": "5768",
+                  "Serialnummer": "TEST001",
+                  "RFIDCode": "",
+                  "Anschaffungsdatum": "2023-09-13T13:20:41.470Z",
+                  "Ausgangswert": 0,
+                  "Ausgangswert2": 0,
+                  "Restwert": 0,
+                  "Restwert2": 0,
+                  "AnzahlZyklen": 0,
+                  "Restzyklen": 0,
+                  "Artikelzustand": "",
+                  "Lieferantnummer": "",
+                  "Charge": "",
+                  "LagerplatzID": 0,
+                  "Bestand": 0,
+                  "Stueckliste": "",
+                  "Stuecklistenvariante": "",
+                  "Maschine": "",
+                  "Verschrottet": false,
+                  "Verschrottungsdatum": null,
+                  "Bemerkung": "",
+                  "BuchungsID": 0,
+                  "Krit1": "",
+                  "Krit2": "",
+                  "Krit3": "",
+                  "Krit4": "",
+                  "Krit5": "",
+                  "Krit6": "",
+                  "Krit7": "",
+                  "Krit8": "",
+                  "Krit9": "",
+                  "Krit10": "",
+                  "Krit11": "",
+                  "Krit12": "",
+                  "Krit13": "",
+                  "Krit14": "",
+                  "Krit15": "",
+                  "Krit16": "",
+                  "Krit17": "",
+                  "Krit18": "",
+                  "Krit19": "",
+                  "Krit20": "",
+                  "Einsatzzeit": 0,
+                  "Testwerkzeug": false
+                }
+                ```
+
+        - Error Responses: - Code: 500 Internal Server Error
+          - Content:
+            - json
+              ```json
+              {
+                "error": "Error Message"
+              }
+              ```
 
 ## Styling
 

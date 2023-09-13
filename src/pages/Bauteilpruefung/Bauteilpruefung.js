@@ -61,6 +61,7 @@ export default function Bauteilpruefung({
         );
         const results = await response.json();
         setSerialnummern(results);
+        console.log(results);
       } catch (err) {
         console.log(err);
       }

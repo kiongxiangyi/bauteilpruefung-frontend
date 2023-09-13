@@ -32,11 +32,11 @@ export default function Results({
   const [showImage, setShowImage] = useState(false);
 
   const handleClickOpenImage = () => {
-    if (picturePath === 'No path is found.') {
+    if (picturePath === "Image path doesn't exists.") {
       toast(
         (t) => (
           <ToastContent>
-           Keine Zeichnung vorhanden.
+            Keine Zeichnung vorhanden.
             <ButtonWrapper>
               <Button
                 size="small"

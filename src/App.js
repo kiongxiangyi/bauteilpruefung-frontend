@@ -272,11 +272,15 @@ function App() {
   useEffect(() => {
     fetch(`${API_URL}/readFile/config/logo`)
       .then((res) => res.json())
-      .then((res) => setLogoPath(res));
+      .then((res) => {
+        setLogoPath(res);
+      });
 
     fetch(`${API_URL}/readFile/config/color`)
       .then((res) => res.json())
-      .then((rgbColors) => setColor(rgbColors));
+      .then((rgbColors) => {
+        setColor(rgbColors);
+      });
   }, []);
 
   return (
