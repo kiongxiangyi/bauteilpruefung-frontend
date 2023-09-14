@@ -170,36 +170,37 @@ This app consists of the following main UI components:
 
 Data is fetched from a backend API using Fetch API and displayed in the UI components.
 
-1.  Fetch measurement features
+1.  Fetch inspection plans
 
-    - URL: http://localhost:5000/AuftragPruefpositionen/:selectedPruefplannummer
+    - URL: http://localhost:5000/AuftragPruefplan
     - Method: GET
-    - URL Parameters:
-      - selectedPruefplannummer (required): The inspection number
     - Success Response:
 
       - Code: 200 OK
       - Content:
         - json
           ```json
-          {
-            "ID": 17,
-            "Pruefplannummer": 1001,
-            "Position": 1,
-            "Positionstext": "1_1_1",
-            "Artikel": "6793",
-            "Bezeichnung": "45H7 (+0.025)",
-            "MinWert": "45,7",
-            "MaxWert": "45,725",
-            "Sollwert": "45,7",
-            "Endkontrolle": false,
-            "KeineWerteingabe": false,
-            "Zusatztext1": "Innenmessschraube",
+          [
+            {
+            "ID": 1,
+            "Pruefplannummer": 1000,
+            "Pruefplan": "AICoM Original",
+            "AnzahlPruefteile": 0,
+            "AnzahlPruefteileProzentual": 0,
+            "Teilung": 0,
+            "ErstUndLetztPruefung": false,
+            "Dokument1": "C:\\pictures\\AICoM_Referenzbauteil1.JPG",
+            "Dokument2": "",
+            "Zusatztext1": "",
             "Zusatztext2": "",
             "Zusatztext3": "",
             "Zusatztext4": "",
-            "Zusatztext5": ""
-          }
+            "Zusatztext5": "",
+            "AngelegtAm": null,
+            "AngelegtVon": ""
+            },
+            ......
+          ]
           ```
 
     - Error Responses: - Code: 500 Internal Server Error
@@ -211,7 +212,51 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           }
           ```
 
-2.  Fetch image of a component
+2.  Fetch measurement features
+
+    - URL: http://localhost:5000/AuftragPruefpositionen/:selectedPruefplannummer
+    - Method: GET
+    - URL Parameters:
+      - selectedPruefplannummer (required): The inspection number
+    - Success Response:
+
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          [
+            {
+              "ID": 17,
+              "Pruefplannummer": 1001,
+              "Position": 1,
+              "Positionstext": "1_1_1",
+              "Artikel": "6793",
+              "Bezeichnung": "45H7 (+0.025)",
+              "MinWert": "45,7",
+              "MaxWert": "45,725",
+              "Sollwert": "45,7",
+              "Endkontrolle": false,
+              "KeineWerteingabe": false,
+              "Zusatztext1": "Innenmessschraube",
+              "Zusatztext2": "",
+              "Zusatztext3": "",
+              "Zusatztext4": "",
+              "Zusatztext5": ""
+            },
+            ......
+          ]
+          ```
+
+    - Error Responses: - Code: 500 Internal Server Error
+      - Content:
+        - json
+          ```json
+          {
+            "error": "Error Message"
+          }
+          ```
+
+3.  Fetch image of a component
 
     - URL: http://localhost:5000/AuftragPruefplan/:selectedPruefplannummer
     - Method: GET
@@ -231,22 +276,23 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
     - Error Responses:
 
       - Code: 404 Not Found
-        - Content:
-          - json
-            ```json
-            {
-              "error": "Image path doesn't exists."
-            }
-            ```
-      - Code: 404 Not Found
 
-        - Content:
-          - json
-            ```json
-            {
-              "error": "No such file or directory."
-            }
-            ```
+        - Scenario: When trying to access an image which is not available.
+          - Content:
+            - json
+              ```json
+              {
+                "error": "Image path doesn't exists."
+              }
+              ```
+        - Scenario: When trying to access an image which is not available.
+          - Content: When trying to access a file that isn’t present.
+            - json
+              ```json
+              {
+                "error": "No such file or directory."
+              }
+              ```
 
       - Code: 500 Internal Server Error
         - Content:
@@ -257,7 +303,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
             }
             ```
 
-3.  Fetch logo
+4.  Fetch logo
 
     - URL: http://localhost:5000/readFile/config/logo
     - Method: GET
@@ -275,22 +321,23 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
     - Error Responses:
 
       - Code: 404 Not Found
-        - Content:
-          - json
-            ```json
-            {
-              "error": "No logo path is found."
-            }
-            ```
-      - Code: 404 Not Found
 
-        - Content:
-          - json
-            ```json
-            {
-              "error": "No such file or directory for logo."
-            }
-            ```
+        - Scenario: When trying to access an image which is not available.
+          - Content:
+            - json
+              ```json
+              {
+                "error": "Image path doesn't exists."
+              }
+              ```
+        - Scenario: When trying to access an image which is not available.
+          - Content: When trying to access a file that isn’t present.
+            - json
+              ```json
+              {
+                "error": "No such file or directory."
+              }
+              ```
 
       - Code: 500 Internal Server Error
         - Content:
@@ -301,7 +348,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
             }
             ```
 
-4.  Fetch website RGB Color Codes
+5.  Fetch website RGB color codes
 
     - URL: http://localhost:5000/readFile/config/color
     - Method: GET
@@ -328,7 +375,60 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
             }
             ```
 
-5.  Fetch serial numbers
+6.  Fetch components
+
+    - URL: http://localhost:5000/Bauteile
+    - Method: GET
+    - Success Response:
+
+      - Code: 200 OK
+      - Content:
+        - json
+          ```json
+          [
+            {
+            "ID": 1,
+            "Bauteil": "AICoM Original",
+            "Bauteilvariante": "",
+            "Bauteilnummer": "",
+            "Bauteiltyp": "",
+            "Artikel": "5768",
+            "Zeichnungsnummer": "",
+            "Zeichnung": "D:\\GTMS\\Bilder\\AICoM_Referenzbauteil1.JPG",
+            "Werkstoff": "",
+            "Preis": 0,
+            "WechselJahrMillionSoll": 0,
+            "BruecheJahrMillionSoll": 0,
+            "Bauteilplanung": false,
+            "BauteilGesamtstueckzahl": 0,
+            "BauteilGesamtkosten": 0,
+            "KostenProBauteilSoll": 0,
+            "Beschaffung": "",
+            "Verantwortlich": "Admin",
+            "AufbereitungIntern": false,
+            "EinstellungIntern": false,
+            "Zusatztext1": "Material: AlMg4,5Mn",
+            "Zusatztext2": "Geometrie: 200x200x30mm",
+            "Zusatztext3": "",
+            "Zusatztext4": "",
+            "Zusatztext5": "",
+            "AngelegtAm": "2022-03-15T11:39:25.540Z",
+            "AngelegtVon": "Admin"
+            },
+            ......
+          ]
+          ```
+
+    - Error Responses: - Code: 500 Internal Server Error
+      - Content:
+        - json
+          ```json
+          {
+            "error": "Error Message"
+          }
+          ```
+
+7.  Fetch serial numbers
 
     - URL: http://localhost:5000/Serialnummern/:pruefplannummer
     - Method: GET
@@ -387,7 +487,8 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
               "Krit20": "",
               "Einsatzzeit": 0,
               "Testwerkzeug": false
-            }
+            },
+            ......
           ]
           ```
 
@@ -400,7 +501,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           }
           ```
 
-6.  Create measurement results
+8.  Create measurement results
 
     - URL: http://localhost:5000/AuftragPruefdaten/createNewRecords
     - Method: POST
@@ -434,7 +535,8 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
                 "value": "2",
                 "bemerkung": "",
                 "bewertung": "i.O"
-              }
+              },
+              ......
             ]
             ```
 
@@ -447,7 +549,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           }
           ```
 
-7.  Create a serial number
+9.  Create a serial number
 
     - URL: http://localhost:5000/Serialnummern/createNewRecord
 

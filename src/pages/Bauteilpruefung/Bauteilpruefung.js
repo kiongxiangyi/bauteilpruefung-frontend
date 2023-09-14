@@ -51,6 +51,7 @@ export default function Bauteilpruefung({
 
   //lift the state up from children SelectMenu
   const handleSelectionChange = (pruefplannummer) => {
+    setBauteilnummer(''); //reset serial number when coming to Bauteilprüfung page
     setSelectedPruefplannummer(pruefplannummer);
 
     //find serial number according to selected option
@@ -61,7 +62,6 @@ export default function Bauteilpruefung({
         );
         const results = await response.json();
         setSerialnummern(results);
-        console.log(results);
       } catch (err) {
         console.log(err);
       }
@@ -111,6 +111,7 @@ export default function Bauteilpruefung({
           `${process.env.REACT_APP_API}/AuftragPruefplan`
         );
         const results = await response.json();
+
         setPruefplannummer(results);
       } catch (err) {
         console.log(err);

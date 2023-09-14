@@ -43,6 +43,7 @@ function App() {
     });
   };
 
+  console.log(bauteilnummer);
   const handleInputChange = (id, KeineWerteingabe, event, minWert, maxWert) => {
     setAuftragPruefpositionen(
       auftragPruefpositionen.map((input) => {

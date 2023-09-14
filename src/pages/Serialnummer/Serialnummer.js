@@ -57,9 +57,12 @@ const formatOptionLabel = ({ bauteil, artikel }) => (
   </StyleOptionLabel>
 );
 
-export default function Serialnummer({ createNewSerialnumber, setSelectedBauteil }) {
+export default function Serialnummer({
+  createNewSerialnumber,
+  setSelectedBauteil,
+}) {
   const [bauteile, setBauteile] = useState([]);
- 
+
   const navigate = useNavigate(); //hook for navigation
   const optionBauteile = []; //array for selected option
 
