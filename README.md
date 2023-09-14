@@ -203,7 +203,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           ]
           ```
 
-    - Error Responses: - Code: 500 Internal Server Error
+    - Error Response: - Code: 500 Internal Server Error
       - Content:
         - json
           ```json
@@ -247,7 +247,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           ]
           ```
 
-    - Error Responses: - Code: 500 Internal Server Error
+    - Error Response: - Code: 500 Internal Server Error
       - Content:
         - json
           ```json
@@ -365,7 +365,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           }
           ```
 
-    - Error Responses:
+    - Error Response:
       - Code: 500 Internal Server Error
         - Content:
           - json
@@ -419,7 +419,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           ]
           ```
 
-    - Error Responses: - Code: 500 Internal Server Error
+    - Error Response: - Code: 500 Internal Server Error
       - Content:
         - json
           ```json
@@ -492,7 +492,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
           ]
           ```
 
-    - Error Responses: - Code: 500 Internal Server Error
+    - Error Response: - Code: 500 Internal Server Error
       - Content:
         - json
           ```json
@@ -540,7 +540,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
             ]
             ```
 
-    - Error Responses: - Code: 500 Internal Server Error
+    - Error Response: - Code: 500 Internal Server Error
       - Content:
         - json
           ```json
@@ -612,7 +612,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
                 }
                 ```
 
-        - Error Responses: - Code: 500 Internal Server Error
+        - Error Response: - Code: 500 Internal Server Error
           - Content:
             - json
               ```json
