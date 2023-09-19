@@ -275,6 +275,7 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setLogoPath(res);
+        console.log(res);
       });
 
     fetch(`${API_URL}/readFile/config/color`)

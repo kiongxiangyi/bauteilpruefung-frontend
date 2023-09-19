@@ -2,7 +2,7 @@
 
 This project is a German web application developed for a research project Artificial Intelligence Controlled Milling (AICoM). The app is used for inspection of components in metalworking process for the manufacturing industry.
 
-Visit this link for more info about the research project: [AICoM](https://lernendewerkzeugmaschine.de/)
+Visit this link for more info about the research project: [AICoM](https://www.ptw.tu-darmstadt.de/forschung_ptw/tec/aktuelle_projekte_tec/aicom_1/index.en.jsp)
 
 ## Application Flow 1
 
@@ -172,7 +172,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 1.  Fetch inspection plans
 
-    - URL: http://localhost:5000/AuftragPruefplan
+    - URL: http://localhost:8003/AuftragPruefplan
     - Method: GET
     - Success Response:
 
@@ -214,7 +214,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 2.  Fetch measurement features
 
-    - URL: http://localhost:5000/AuftragPruefpositionen/:selectedPruefplannummer
+    - URL: http://localhost:8003/AuftragPruefpositionen/:selectedPruefplannummer
     - Method: GET
     - URL Parameters:
       - selectedPruefplannummer (required): The inspection number
@@ -258,7 +258,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 3.  Fetch image of a component
 
-    - URL: http://localhost:5000/AuftragPruefplan/:selectedPruefplannummer
+    - URL: http://localhost:8003/AuftragPruefplan/:selectedPruefplannummer
     - Method: GET
     - URL Parameters:
       - selectedPruefplannummer (required): The inspection number
@@ -305,7 +305,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 4.  Fetch logo
 
-    - URL: http://localhost:5000/readFile/config/logo
+    - URL: http://localhost:8003/readFile/config/logo
     - Method: GET
     - Success Response:
 
@@ -350,7 +350,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 5.  Fetch website RGB color codes
 
-    - URL: http://localhost:5000/readFile/config/color
+    - URL: http://localhost:8003/readFile/config/color
     - Method: GET
     - Success Response:
 
@@ -377,7 +377,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 6.  Fetch components
 
-    - URL: http://localhost:5000/Bauteile
+    - URL: http://localhost:8003/Bauteile
     - Method: GET
     - Success Response:
 
@@ -430,7 +430,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 7.  Fetch serial numbers
 
-    - URL: http://localhost:5000/Serialnummern/:pruefplannummer
+    - URL: http://localhost:8003/Serialnummern/:pruefplannummer
     - Method: GET
     - URL Parameters:
       - pruefplannummer (required): The inspection number
@@ -503,7 +503,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 8.  Create measurement results
 
-    - URL: http://localhost:5000/AuftragPruefdaten/createNewRecords
+    - URL: http://localhost:8003/AuftragPruefdaten/createNewRecords
     - Method: POST
     - Body Parameters:
       - auftragPruefpositionen (required): Array of measurement features
@@ -551,7 +551,7 @@ Data is fetched from a backend API using Fetch API and displayed in the UI compo
 
 9.  Create a serial number
 
-    - URL: http://localhost:5000/Serialnummern/createNewRecord
+    - URL: http://localhost:8003/Serialnummern/createNewRecord
 
       - Method: POST
 
