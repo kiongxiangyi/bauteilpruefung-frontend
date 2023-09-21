@@ -35,7 +35,7 @@ export default function Header({ color }) {
       blue={color.HeaderBlau}
     >
       <HeaderText>GTMS meets AICoM</HeaderText>
-      <Button onClick={() => navigate('/menu')}>
+      <Button onClick={() => navigate('/')}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </Button>
     </HeaderComponent>

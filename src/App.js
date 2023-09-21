@@ -64,22 +64,18 @@ function App() {
           event.target.name === 'value' &&
           KeineWerteingabe === false
         ) {
-          console.log(
-            event.target.value.replace(',', '.') >= minWert.replace(',', '.') &&
-              event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
-              ? 'i.O'
-              : 'n.i.O'
-          );
-          console.log('ist', event.target.value.replace(',', '.'));
-          console.log('min', minWert.replace(',', '.'));
-          console.log('max', maxWert.replace(',', '.'));
+          //after replace function is type string, to compare later need to change back to decimal
+          let currentStringValueWithDot = event.target.value.replace(',', '.');
+          let minStringValueWithDot = minWert.replace(',', '.');
+          let maxStringValueWithDot = maxWert.replace(',', '.');
           return {
             ...input,
             value: event.target.value,
             bewertung:
-              event.target.value.replace(',', '.') >=
-                minWert.replace(',', '.') &&
-              event.target.value.replace(',', '.') <= maxWert.replace(',', '.')
+              parseFloat(currentStringValueWithDot) >=
+                parseFloat(minStringValueWithDot) &&
+              parseFloat(currentStringValueWithDot) <=
+                parseFloat(maxStringValueWithDot)
                 ? 'i.O'
                 : 'n.i.O',
           };
@@ -298,7 +294,7 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/menu" element={<Menu />} />
+        <Route path="/" element={<Menu />} />
         <Route
           path="/bauteilpruefung"
           element={
