@@ -45,7 +45,7 @@ const BigButton = styled(ButtonBase)`
   padding: 0.5rem 1.25rem;
   border-radius: 2rem;
   color: black;
-  font-size: 3rem;
+  font-size: 2.5rem;
   letter-spacing: 0.15rem;
   height: 10rem;
   width: 30rem;

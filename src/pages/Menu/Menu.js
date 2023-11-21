@@ -67,6 +67,11 @@ export default function Menu() {
           Serialnummer anfordern
         </Button>
       </ButtonWrapper>
+      <ButtonWrapper>
+        <Button size="big" onClick={() => navigate('/synop-monitoring')}>
+          Synop-Überwachungs-Tool
+        </Button>
+      </ButtonWrapper>
     </>
   );
 }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import Bauteilpruefung from './pages/Bauteilpruefung';
 import Serialnummer from './pages/Serialnummer';
+import SynopMonitoring from './pages/SynopMonitoring';
 import Results from './pages/Results';
 import Layout from './layouts/Layout';
 import Finalpage from './pages/Finalpage';
@@ -315,6 +316,7 @@ function App() {
             />
           }
         />
+        <Route path="/synop-monitoring" element={<SynopMonitoring />} />
         {/* value of path should always be in small case according to the standard */}
         <Route
           path="/results"
