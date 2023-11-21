@@ -1,16 +1,10 @@
 # About The Project
-
 This project is a German web application developed for a research project Artificial Intelligence Controlled Milling (AICoM). The app is used for inspection of components in metalworking process for the manufacturing industry.
-
 Visit this link for more info about the research project: [AICoM](https://www.ptw.tu-darmstadt.de/forschung_ptw/tec/aktuelle_projekte_tec/aicom_1/index.en.jsp)
-
 ## Application Flow 1
-
 First function: Inspection of a component
-
 ### Homepage
-
-![image](https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f)
+<img src="https://github.com/kiongxiangyi/bauteilpruefung-frontend/assets/102138068/1c5a4b12-71ed-44d2-8025-6653c5dc061f" height="600">
 
 On every webpage of the app, there are a home button on the top right of the page. By clicking it, it goes to the homepage. On the homepage, there are two buttons "Bauteilprüfung" (inspection of a component) and "Serialnummer anfordern" (create a serial number). The first button "Bauteilprüfung" is used to inspect a component. By clicking it, users are directed to the first page.
 
