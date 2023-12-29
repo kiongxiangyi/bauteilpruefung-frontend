@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LightContainer = styled.div`
-  flex-direction: column;
-  align-items: left;
-  margin: 50px 100px;
+  margin-top: 3rem;
 `;
 
 const Light = styled.div`

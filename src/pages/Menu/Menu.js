@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 import Button from '../../components/UI/Button';
+import SynopBatchFileRunner from '../../components/SynopBatchFileRunner';
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -15,6 +16,33 @@ const ButtonWrapper = styled.div`
 export default function Menu() {
   const navigate = useNavigate(); //hook for navigation
   const [showSerialnumberMsg, setShowSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
+
+  // Handle click on Synop-Überwachungs-Tool button
+  const handleSynopMonitoringClick = async () => {
+    // Start loading toast
+    const loadingToast = toast.loading(
+      'Bitte warten Sie auf die Ausführung des Synop-Überwachungs-Tools...'
+    );
+
+    try {
+      // Execute SynopBatchFileRunner and wait for it to complete
+      await SynopBatchFileRunner();
+
+      // Display success toast
+      toast.success('Synop-Überwachungs-Tool wurde erfolgreich ausgeführt');
+
+      // Navigate to the Synop-Monitoring page
+      navigate('/synop-monitoring');
+    } catch (error) {
+      // Display error toast if an exception occurs during execution
+      toast.error(
+        'Bei der Ausführung des Synop-Überwachungs-Tools ist ein Fehler aufgetreten'
+      );
+    } finally {
+      // Dismiss the loading toast regardless of success or failure
+      toast.dismiss(loadingToast);
+    }
+  };
 
   /*  const promptSerialnummer = () => {
     toast(
@@ -68,7 +96,7 @@ export default function Menu() {
         </Button>
       </ButtonWrapper>
       <ButtonWrapper>
-        <Button size="big" onClick={() => navigate('/synop-monitoring')}>
+        <Button size="big" onClick={handleSynopMonitoringClick}>
           Synop-Überwachungs-Tool
         </Button>
       </ButtonWrapper>

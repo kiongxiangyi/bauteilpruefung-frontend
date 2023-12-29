@@ -15,9 +15,12 @@ const ChartContainer = styled.div`
 `;
 
 const LineChart = ({ arrAicomEreignisse }) => {
+  // Limit the dataset to the last 20 results
+  const limitedDataset = arrAicomEreignisse.slice(-20);
+
   const datasets = {};
 
-  arrAicomEreignisse.forEach((entry) => {
+  limitedDataset.forEach((entry) => {
     if (!datasets[entry.FeatureID]) {
       datasets[entry.FeatureID] = {
         label: entry.FeatureID,
@@ -46,9 +49,9 @@ const LineChart = ({ arrAicomEreignisse }) => {
       x: {
         type: 'time',
         time: {
-          unit: 'second',
+          unit: 'hour',
           displayFormats: {
-            second: 'YYYY-MM-DD HH:mm:ss.SSS',
+            hour: 'YYYY-MM-DD HH:mm:ss.SSS',
           },
         },
         position: 'bottom',
@@ -56,6 +59,18 @@ const LineChart = ({ arrAicomEreignisse }) => {
       y: {
         type: 'linear',
         position: 'left',
+      },
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.dataset.label || '';
+            const value = context.parsed.y;
+
+            return `${label}: ${value}`;
+          },
+        },
       },
     },
   };
