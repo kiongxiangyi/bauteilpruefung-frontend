@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import SynopBatchFileRunner from '../../components/SynopBatchFileRunner';
 import Button from '../../components/UI/Button';
+import SynopCSVtoGraph from '../../components/SynopCSVtoGraph';
 
 Chart.register(CategoryScale);
 
@@ -89,6 +90,7 @@ const SynopMonitoring = () => {
         </ButtonWrapper>
         <LineChart arrAicomEreignisse={arrAicomEreignisse} />
       </Container>
+      <SynopCSVtoGraph />
     </div>
   );
 };
