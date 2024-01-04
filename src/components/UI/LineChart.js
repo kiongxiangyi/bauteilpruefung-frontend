@@ -16,8 +16,8 @@ const ChartContainer = styled.div`
 
 const LineChart = ({ arrAicomEreignisse }) => {
   // Limit the dataset to the last 20 results
-  const limitedDataset = arrAicomEreignisse.slice(-20);
-
+  //const limitedDataset = arrAicomEreignisse.slice(-20);
+  const limitedDataset = arrAicomEreignisse;
   const datasets = {};
 
   limitedDataset.forEach((entry) => {

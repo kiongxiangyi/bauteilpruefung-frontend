@@ -13,7 +13,7 @@ const ButtonWrapper = styled.div`
   margin: 2rem;
 `;
 
-export default function Menu() {
+export default function Menu({ setFetchDataTrigger }) {
   const navigate = useNavigate(); //hook for navigation
   const [showSerialnumberMsg, setShowSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
 
@@ -27,7 +27,8 @@ export default function Menu() {
     try {
       // Execute SynopBatchFileRunner and wait for it to complete
       await SynopBatchFileRunner();
-
+      // Set fetch data trigger to true to initiate CSV data fetching
+      setFetchDataTrigger(true);
       // Display success toast
       toast.success('Synop-Überwachungs-Tool wurde erfolgreich ausgeführt');
 

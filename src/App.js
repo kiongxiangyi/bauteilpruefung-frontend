@@ -282,7 +282,123 @@ function App() {
       });
   }, []);
 
- 
+  const [fetchDataTrigger, setFetchDataTrigger] = useState(false);
+  const [csvData, setCsvData] = useState({ csvPath: '', csvContent: '' });
+  const [chartData, setChartData] = useState(null);
+
+  const [arrAicomEreignisse, setArrAicomEreignisse] = useState([]);
+  const [lastValueTrafficLight, setLastValueTrafficLight] = useState(null);
+
+  // useEffect hook to fetch data when the component mounts and fetchDataTrigger changes
+  useEffect(() => {
+    // Function to fetch CSV data from the server
+    const fetchCsvData = async () => {
+      try {
+        // Fetch CSV data from the server
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/readFile/config/csvdata`
+        );
+        const data = await response.json();
+        // Update CSV data state
+        setCsvData(data);
+
+        const lines = data.csvContent.trim().split('\n');
+        const headers = lines[0].split(';').slice(1);
+        const labels = [];
+        const datasets = [];
+
+        const millisecondsPerSecond = 1000;
+
+        // Loop through CSV data to extract timestamps, values, and create datasets
+        for (let i = 1; i < lines.length; i++) {
+          const row = lines[i].split(';');
+          const timestamp = row[0] / millisecondsPerSecond;
+          const values = row.slice(1).map(parseFloat);
+
+          labels.push(timestamp);
+
+          values.forEach((value, index) => {
+            // Initialize datasets for each header
+            if (!datasets[index]) {
+              datasets[index] = {
+                label: headers[index],
+                data: [],
+                fill: false,
+                borderColor: `rgba(${Math.floor(
+                  Math.random() * 128
+                )}, ${Math.floor(Math.random() * 128)}, ${Math.floor(
+                  Math.random() * 128
+                )}, 1)`,
+                //borderWidth: 1,
+                pointRadius: 0,
+              };
+            }
+            // Add values to the corresponding dataset
+            datasets[index].data.push(value);
+          });
+        }
+
+        // Downsample data for better performance
+        const downsampledData = downsampleData(labels, datasets, 800);
+        // Set chart data state
+        setChartData({
+          labels: downsampledData.labels,
+          datasets: downsampledData.datasets,
+        });
+      } catch (error) {
+        console.error('Error fetching CSV data:', error);
+      }
+    };
+
+    // Function to fetch data (can be an API call, etc.)
+    const fetchtblAicomEreignisse = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/AicomEreignisse`
+        );
+        const result = await response.json();
+        // Update AicomEreignisse state
+        setArrAicomEreignisse(result);
+        setLastValueTrafficLight(result[19].Stability); //last result is the 20th result, index start count from 0
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Function to downsample data for better performance
+    const downsampleData = (labels, datasets, factor) => {
+      const downsampledLabels = [];
+      const downsampledDatasets = [];
+
+      for (let i = 0; i < labels.length; i += factor) {
+        downsampledLabels.push(labels[i]);
+
+        datasets.forEach((dataset, index) => {
+          if (!downsampledDatasets[index]) {
+            downsampledDatasets[index] = {
+              label: dataset.label,
+              data: [],
+              fill: false,
+              borderColor: dataset.borderColor,
+              borderWidth: 1,
+              pointRadius: 1,
+            };
+          }
+          downsampledDatasets[index].data.push(dataset.data[i]);
+        });
+      }
+      return { labels: downsampledLabels, datasets: downsampledDatasets };
+    };
+
+    // Call fetchCsvData when fetchDataTrigger changes
+    if (fetchDataTrigger) {
+      fetchCsvData();
+      fetchtblAicomEreignisse();
+
+      // Reset the trigger after fetching data
+      setFetchDataTrigger(false);
+    }
+  }, [fetchDataTrigger]);
 
   return (
     <Layout color={color}>
@@ -297,7 +413,10 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/" element={<Menu />} />
+        <Route
+          path="/"
+          element={<Menu setFetchDataTrigger={setFetchDataTrigger} />}
+        />
         <Route
           path="/bauteilpruefung"
           element={
@@ -318,7 +437,17 @@ function App() {
             />
           }
         />
-        <Route path="/synop-monitoring" element={<SynopMonitoring />} />
+        <Route
+          path="/synop-monitoring"
+          element={
+            <SynopMonitoring
+              setFetchDataTrigger={setFetchDataTrigger}
+              chartData={chartData}
+              arrAicomEreignisse={arrAicomEreignisse}
+              lastValueTrafficLight={lastValueTrafficLight}
+            />
+          }
+        />
         {/* value of path should always be in small case according to the standard */}
         <Route
           path="/results"

@@ -10,17 +10,20 @@ const Light = styled.div`
   height: 100px;
   border-radius: 50%;
   margin: 5px;
+  border: 4px solid black; /* Add this line to set the black border */
 `;
 
 const TrafficLight = ({ value }) => {
   let lightColor;
 
-  if (value >= 0.7) {
+  if (value > 0.6) {
     lightColor = 'green';
-  } else if (value >= 0.5) {
+  } else if (value >= 0.3 && value <= 0.6) {
     lightColor = 'yellow';
-  } else {
+  } else if (value >= 0 && value <= 0.3) {
     lightColor = 'red';
+  } else {
+    lightColor = 'white';
   }
 
   return (
