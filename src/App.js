@@ -288,6 +288,7 @@ function App() {
 
   const [arrAicomEreignisse, setArrAicomEreignisse] = useState([]);
   const [lastValueTrafficLight, setLastValueTrafficLight] = useState(null);
+  const [commentFromDB, setCommentFromDB] = useState('');
 
   // useEffect hook to fetch data when the component mounts and fetchDataTrigger changes
   useEffect(() => {
@@ -360,6 +361,7 @@ function App() {
         // Update AicomEreignisse state
         setArrAicomEreignisse(result);
         setLastValueTrafficLight(result[19].Stability); //last result is the 20th result, index start count from 0
+        setCommentFromDB(result[19].Comment);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -445,6 +447,7 @@ function App() {
               chartData={chartData}
               arrAicomEreignisse={arrAicomEreignisse}
               lastValueTrafficLight={lastValueTrafficLight}
+              commentFromDB={commentFromDB}
             />
           }
         />

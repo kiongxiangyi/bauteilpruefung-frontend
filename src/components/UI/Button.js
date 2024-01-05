@@ -22,8 +22,8 @@ const Button = ({ size, children, onClick }) => {
 const ButtonBase = styled.button`
   background-color: #e7e7e7;
   color: black;
-  margin: 0 0.5rem;
-  font-size: 2rem;
+  margin: 0.5rem 0.5rem;
+  font-size: 30px;
   border: 2px solid;
   padding: 0.5rem 0.5rem;
   border-radius: 5px;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LightContainer = styled.div`
-  margin-top: 3rem;
+  margin: 0.5rem 0;
 `;
 
 const Light = styled.div`

@@ -23,15 +23,28 @@ const ButtonWrapper = styled.div`
   margin: 3rem 1rem;
 `;
 
+const P = styled.p`
+  text-align: center; /* Added to center the text horizontally */
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  font-size: 20px;
+`;
+
+const Textarea = styled.textarea`
+  margin: 0.5rem 0;
+  font-size: 20px;
+`;
+
 const SynopMonitoring = ({
   setFetchDataTrigger,
   chartData,
   arrAicomEreignisse,
   lastValueTrafficLight,
+  commentFromDB,
 }) => {
   const navigate = useNavigate();
 
-  // Handle click on Synop-Überwachungs-Tool button
+  // Handle click on Synop-Überwpm run devachungs-Tool button
   const handleSynopMonitoringClick = async () => {
     // Start loading toast
     const loadingToast = toast.loading(
@@ -58,6 +71,24 @@ const SynopMonitoring = ({
     }
   };
 
+  const [comment, setComment] = useState('');
+  const [showCommentBox, setShowCommentBox] = useState(false);
+
+  const handleCommentClick = () => {
+    setShowCommentBox(true);
+  };
+
+  const handleSaveComment = () => {
+    // Save or use the comment data as needed
+    toast.success(`Kommentar gespeichert!`, {
+      duration: 3000,
+    });
+
+    // Optionally, you can reset the comment and hide the comment box after saving
+    setComment('');
+    setShowCommentBox(false);
+  };
+
   return (
     <div>
       <Container>
@@ -66,6 +97,25 @@ const SynopMonitoring = ({
             Aktualisieren
           </Button>
           <TrafficLight value={lastValueTrafficLight}></TrafficLight>
+          {commentFromDB && <P>{commentFromDB}</P>}
+          {showCommentBox ? (
+            <>
+              <Textarea
+                rows={4}
+                cols={20}
+                placeholder="Geben Sie Ihren Kommentar hier ein."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></Textarea>
+              <Button size="small" onClick={handleSaveComment}>
+                Speichern
+              </Button>
+            </>
+          ) : (
+            <Button size="small" onClick={handleCommentClick}>
+              Kommentar
+            </Button>
+          )}
         </ButtonWrapper>
         <LineChart arrAicomEreignisse={arrAicomEreignisse} />
       </Container>
