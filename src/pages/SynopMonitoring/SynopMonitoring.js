@@ -20,7 +20,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem 1rem;
+  margin: 20px 1rem;
 `;
 
 const P = styled.p`
@@ -46,18 +46,14 @@ const SynopMonitoring = ({
 
   // Handle click on Synop-Überwpm run devachungs-Tool button
   const handleSynopMonitoringClick = async () => {
-    // Start loading toast
-    const loadingToast = toast.loading(
-      'Bitte warten Sie auf die Ausführung des Synop-Überwachungs-Tools...'
-    );
-
     try {
       // Execute SynopBatchFileRunner and wait for it to complete
       await SynopBatchFileRunner();
       // Set fetch data trigger to true to initiate CSV data fetching
       setFetchDataTrigger(true);
       // Display success toast
-      toast.success('Synop-Überwachungs-Tool wurde erfolgreich ausgeführt');
+      toast.success('Aktualisiert!');
+
       // Navigate to the Synop-Monitoring page
       navigate('/synop-monitoring');
     } catch (error) {
@@ -65,9 +61,6 @@ const SynopMonitoring = ({
       toast.error(
         'Bei der Ausführung des Synop-Überwachungs-Tools ist ein Fehler aufgetreten'
       );
-    } finally {
-      // Dismiss the loading toast regardless of success or failure
-      toast.dismiss(loadingToast);
     }
   };
 
@@ -89,6 +82,46 @@ const SynopMonitoring = ({
     setShowCommentBox(false);
   };
 
+  const SSEExample = () => {
+    const fetchtblAicomEreignisse = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API}/AicomEreignisse`
+        );
+        const result = await response.json();
+        // Update AicomEreignisse state
+        console.log('detect changes!!!');
+        /* setArrAicomEreignisse(result);
+        setLastValueTrafficLight(result[19].Stability);
+        setCommentFromDB(result[19].Comment); */
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    useEffect(() => {
+      const eventSource = new EventSource('/sse');
+
+      eventSource.onmessage = (event) => {
+        console.log('Received SSE update. Fetching data...');
+        // Call the function to fetch the latest data from the API
+        fetchtblAicomEreignisse();
+
+        // Close the SSE connection after the function is called
+        eventSource.close();
+      };
+
+      eventSource.onerror = (error) => {
+        console.error('Error with SSE:', error);
+      };
+
+      // Clean up the EventSource when the component unmounts
+      return () => {
+        eventSource.close();
+      };
+    }, [fetchtblAicomEreignisse]);
+  };
+  
   return (
     <div>
       <Container>

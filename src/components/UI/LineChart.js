@@ -12,26 +12,39 @@ const ChartContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 700px; /* Adjust the height as needed */
-  margin: 50px 0;
+  margin: 20px 20px;
 `;
 
 const LineChart = ({ arrAicomEreignisse }) => {
   // Receive the array of data as a prop
-
+  console.log(arrAicomEreignisse);
   // Extracting all data from the array
   const limitedDataset = arrAicomEreignisse;
 
   // Prepare an object to organize the data by FeatureID
   const datasets = {};
 
+  // Function to get a color based on index or FeatureID
+  function getLineColor(index) {
+    // Define an array of colors or use a color function
+    const colors = [
+      'rgba(0, 0, 128, 1)', //dark blue
+      'rgba(255, 0, 0, 1)', //red
+      'rgba(0, 128, 0, 1)', //green
+    ];
+
+    // Return a color based on the index (or FeatureID)
+    return colors[index % colors.length];
+  }
+
   // Loop through each entry in the dataset
-  limitedDataset.forEach((entry) => {
+  limitedDataset.forEach((entry, index) => {
     // If the FeatureID is not yet present in the datasets object, initialize it
     if (!datasets[entry.FeatureID]) {
       datasets[entry.FeatureID] = {
         label: entry.FeatureID,
         data: [], // Initialize an array to store data points
-        borderColor: 'rgba(0, 0, 128, 1)',
+        borderColor: getLineColor(index), // Assign dynamic borderColor
         fill: false,
       };
     }
@@ -55,6 +68,11 @@ const LineChart = ({ arrAicomEreignisse }) => {
       dbComment: dataset.data.map((dataPoint) => dataPoint.dbComment),
     })),
   };
+
+  // Sort data points by date within each FeatureID
+  Object.values(datasets).forEach((dataset) => {
+    dataset.data.sort((a, b) => a.x - b.x);
+  });
 
   // Chart.js options configuration
   const options = {
