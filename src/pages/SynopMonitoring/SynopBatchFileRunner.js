@@ -13,7 +13,7 @@ const executeBatchFiles = async () => {
 
     if (response.ok) {
       const result = await response.text();
-      console.log(result);
+      //console.log(result);
       //alert('Synop programs executed successfully');
     } else {
       const errorText = await response.text();

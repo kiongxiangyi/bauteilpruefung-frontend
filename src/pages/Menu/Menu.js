@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 import Button from '../../components/UI/Button';
-import SynopBatchFileRunner from '../../components/SynopBatchFileRunner';
+import SynopBatchFileRunner from '../SynopMonitoring/SynopBatchFileRunner';
 
 const ButtonWrapper = styled.div`
   display: flex;
