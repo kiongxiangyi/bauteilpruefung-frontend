@@ -22,8 +22,6 @@ export default function Menu({ setFetchDataTrigger }) {
     try {
       // Execute SynopBatchFileRunner and wait for it to complete
       await SynopBatchFileRunner();
-      // Set fetch data trigger to true to initiate CSV data fetching
-      setFetchDataTrigger(true);
 
       // Navigate to the Synop-Monitoring page
       navigate('/synop-monitoring');

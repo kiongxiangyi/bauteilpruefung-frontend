@@ -25,7 +25,7 @@ function LineChart2({ chartData }) {
                   type: 'linear',
                   position: 'bottom',
                   ticks: {
-                    maxTicksLimit: 100, // Adjust the number of ticks as needed
+                    //maxTicksLimit: 100, // Adjust the number of ticks as needed
                     stepSize: 1, // Display seconds in increments of 1
                     callback: (value) => `${value}s`,
                   },

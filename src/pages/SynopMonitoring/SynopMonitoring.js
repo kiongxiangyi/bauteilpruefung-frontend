@@ -125,13 +125,17 @@ const SynopMonitoring = () => {
     },
   });
 
+  //Set chart data state
+  /* setSecondGraphChartData({
+        datasets,
+      }); */
+
   const [secondGraphCsvData, setSecondGraphCsvData] = useState({
     csvPath: '',
     csvContent: '',
   });
   const [secondGraphChartData, setSecondGraphChartData] = useState(null);
 
-  // Function to fetch CSV data from the server
   const fetchSecondGraphData = async () => {
     try {
       // Fetch CSV data from the server
@@ -141,48 +145,61 @@ const SynopMonitoring = () => {
       const data = await response.json();
       // Update CSV data state
       setSecondGraphCsvData(data);
+      console.log(data);
 
       const lines = data.csvContent.trim().split('\n');
-      const headers = lines[0].split(';').slice(1);
-      const labels = [];
-      const datasets = [];
-
+      const headers = lines[0].split(';');
+      const datasetsMap = new Map(); // Map to store datasets for each serial number
       const millisecondsPerSecond = 1000;
 
       // Loop through CSV data to extract timestamps, values, and create datasets
       for (let i = 1; i < lines.length; i++) {
         const row = lines[i].split(';');
         const timestamp = row[0] / millisecondsPerSecond;
-        const values = row.slice(1).map(parseFloat);
+        const serialNumber = row[1]; // Assuming SERIALNR is in the second column
+        const values = row.slice(2).map(parseFloat); // Start from the third column
 
-        labels.push(timestamp);
+        if (!datasetsMap.has(serialNumber)) {
+          // Initialize dataset for each serial number
+          const borderColor =
+            datasetsMap.size === 0
+              ? 'rgba(255, 99, 132, 1)'
+              : 'rgba(54, 162, 235, 1)';
 
-        values.forEach((value, index) => {
-          // Initialize datasets for each header
-          if (!datasets[index]) {
-            datasets[index] = {
-              label: headers[index],
-              data: [],
-              fill: false,
-              borderColor: `rgba(${Math.floor(
-                Math.random() * 128
-              )}, ${Math.floor(Math.random() * 128)}, ${Math.floor(
-                Math.random() * 128
-              )}, 1)`,
-              //borderWidth: 1,
-              pointRadius: 0,
-            };
-          }
-          // Add values to the corresponding dataset
-          datasets[index].data.push(value);
+          datasetsMap.set(serialNumber, {
+            label: `SerialNr ${serialNumber}`,
+            data: [],
+            fill: false,
+            borderColor: borderColor,
+            borderWidth: 1,
+            pointRadius: 1,
+          });
+        }
+
+        // Add a unique data point for each SerialNr and timestamp combination
+        datasetsMap.get(serialNumber).data.push({
+          x: timestamp,
+          y: values[0], // Assuming ZActTrq is in the first column
         });
       }
 
-      // Downsample data for better performance
-      const downsampledData = downsampleData(labels, datasets, 800);
-      // Set chart data state
+      // Convert datasets map to an array
+      const datasets = Array.from(datasetsMap.values());
+
+      // Dynamically calculate downsampling factor for each serial number
+      const targetPoints = 10000;
+      const downsampledData = downsampleData(datasets, targetPoints);
+
+      // Log downsampling factors
+      console.log('Downsampling Factors:', downsampledData.downsamplingFactors);
+
+      // Log the actual number of target points for each unique serial number
+      console.log(
+        'Actual Target Points per Serial:',
+        downsampledData.actualTargetPointsPerSerial
+      );
+
       setSecondGraphChartData({
-        labels: downsampledData.labels,
         datasets: downsampledData.datasets,
       });
     } catch (error) {
@@ -190,34 +207,63 @@ const SynopMonitoring = () => {
     }
   };
 
-  // Function to downsample data by calculating the average value for every specified number of data points
-  const downsampleData = (labels, datasets, factor) => {
-    const downsampledLabels = [];
+  const downsampleData = (datasets, targetPoints) => {
     const downsampledDatasets = [];
-    console.log('labels.length', labels.length);
-    for (let i = 0; i < labels.length; i += factor) {
-      downsampledLabels.push(labels[i]);
 
-      datasets.forEach((dataset, index) => {
-        if (!downsampledDatasets[index]) {
-          downsampledDatasets[index] = {
-            label: dataset.label,
-            data: [],
-            fill: false,
-            borderColor: dataset.borderColor,
-            borderWidth: 1,
-            pointRadius: 1,
-          };
-        }
+    // Calculate downsampling factor for each serial number
+    const downsamplingFactors = calculateDownsampleFactors(
+      datasets,
+      targetPoints
+    );
 
-        // Calculate the average value for every 'factor' data points
-        const averageValue = calculateAverage(
-          dataset.data.slice(i, i + factor)
-        );
-        downsampledDatasets[index].data.push(averageValue);
+    for (const dataset of datasets) {
+      const factor = downsamplingFactors.get(dataset.label);
+      downsampledDatasets.push({
+        label: dataset.label,
+        data: [],
+        fill: false,
+        borderColor: dataset.borderColor,
+        borderWidth: 1,
+        pointRadius: 1,
       });
+
+      for (let i = 0; i < dataset.data.length; i += factor) {
+        const subset = dataset.data.slice(i, i + factor);
+        if (subset.length > 0) {
+          const averageValue = calculateAverage(subset.map((point) => point.y));
+          downsampledDatasets[downsampledDatasets.length - 1].data.push({
+            x: subset[0].x, // Use the timestamp of the first point in the subset
+            y: averageValue,
+          });
+        }
+      }
     }
-    return { labels: downsampledLabels, datasets: downsampledDatasets };
+
+    // Calculate the actual number of target points for each unique serial number
+    const actualTargetPointsPerSerial = {};
+    downsampledDatasets.forEach((dataset) => {
+      const serialNumber = dataset.label.split(' ')[1]; // Extract serial number
+      actualTargetPointsPerSerial[serialNumber] = dataset.data.length;
+    });
+
+    return {
+      datasets: downsampledDatasets,
+      downsamplingFactors,
+      actualTargetPointsPerSerial,
+    };
+  };
+
+  // Function to calculate downsampling factor for each serial number
+  const calculateDownsampleFactors = (datasets, targetPoints) => {
+    const downsamplingFactors = new Map();
+
+    for (const dataset of datasets) {
+      const totalPoints = dataset.data.length;
+      const factor = Math.ceil(totalPoints / targetPoints);
+      downsamplingFactors.set(dataset.label, factor);
+    }
+
+    return downsamplingFactors;
   };
 
   // Helper function to calculate the average value of an array

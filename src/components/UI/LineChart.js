@@ -26,33 +26,48 @@ const LineChart = ({ arrAicomEreignisse }) => {
     );
   }
 
-  // Group data by feature and program name
-  const dataByFeature = arrAicomEreignisse.reduce((acc, entry) => {
+  // Find the last data entry based on ProgramName and Feature
+  const lastKey = arrAicomEreignisse.reduce((lastKey, entry) => {
+    // Create a key based on ProgramName and Feature
     const key = `${entry.ProgramName}_${entry.Feature}`;
-    if (!acc[key]) {
-      acc[key] = [];
+
+    // Check if the current entry has a later FormattedStartTime than the previous lastKey
+    if (
+      !lastKey ||
+      entry.FormattedStartTime > lastKey.entry.FormattedStartTime
+    ) {
+      // If so, update lastKey to the current entry
+      return { key, entry };
     }
-    acc[key].push({
-      x: new Date(parseInt(entry.StartTime)),
+
+    // If not, keep the current lastKey
+    return lastKey;
+  }, null);
+
+  // Get the last 20 entries based on the last data found
+  const last20Entries = arrAicomEreignisse
+    // Filter entries that match the key of the last data found
+    .filter((entry) => `${entry.ProgramName}_${entry.Feature}` === lastKey.key)
+    // Get the last 20 entries
+    .slice(-20)
+    // Convert entries to the desired format
+    .map((entry) => ({
+      x: new Date(entry.FormattedStartTime),
       y: entry.Stability || 0,
       dbComment: entry.Comment || '',
-    });
-    return acc;
-  }, {});
+    }));
 
-  // Create datasets for each feature
-  const datasets = Object.entries(dataByFeature).map(([key, data]) => ({
-    label: key,
-    data,
+  // Create dataset for the last key
+  const dataset = {
+    label: lastKey.key,
+    data: last20Entries,
     borderColor: getRandomColor(), // Use a function to generate different colors
     fill: false,
-  }));
+  };
 
   // Show only the dataset corresponding to the last key
-  const lastKey = Object.keys(dataByFeature).pop();
-  const lastDataset = datasets.find((dataset) => dataset.label === lastKey);
   const chartData = {
-    datasets: [lastDataset], // Only include the dataset for the last key
+    datasets: [dataset], // Only include the dataset for the last key
   };
 
   /*Option
