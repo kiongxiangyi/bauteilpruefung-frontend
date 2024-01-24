@@ -1,5 +1,5 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useRef, useEffect, useState } from 'react';
+import { Line, getElementAtEvent } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -16,6 +16,14 @@ const ChartContainer = styled.div`
 
 // LineChart component
 const LineChart = ({ arrAicomEreignisse }) => {
+  const chartRef = useRef();
+  const onClick = (event) => {
+    const result = getElementAtEvent(chartRef.current, event);
+    if (result.length > 0) {
+      console.log(result[0].index);
+    }
+  };
+
   // Check if there is no data
   if (!arrAicomEreignisse || arrAicomEreignisse.length === 0) {
     // Render a message when there is no data
@@ -26,11 +34,11 @@ const LineChart = ({ arrAicomEreignisse }) => {
     );
   }
 
-  // Find the last data entry based on ProgramName and Feature
+  /*   // Find the last data entry based on ProgramName and Feature
   const lastKey = arrAicomEreignisse.reduce((lastKey, entry) => {
     // Create a key based on ProgramName and Feature
     const key = `${entry.ProgramName}_${entry.Feature}`;
-
+    console.log(key);
     // Check if the current entry has a later FormattedStartTime than the previous lastKey
     if (
       !lastKey ||
@@ -42,6 +50,15 @@ const LineChart = ({ arrAicomEreignisse }) => {
 
     // If not, keep the current lastKey
     return lastKey;
+  }, null); */
+
+  // Find the last data entry based on ProgramName and Feature
+  const lastKey = arrAicomEreignisse.reduce((lastKey, entry) => {
+    // Create a key based on ProgramName and Feature
+    const key = `${entry.ProgramName}_${entry.Feature}`;
+
+    // Always update lastKey to the current entry
+    return { key, entry };
   }, null);
 
   // Get the last 20 entries based on the last data found
@@ -65,16 +82,24 @@ const LineChart = ({ arrAicomEreignisse }) => {
     fill: false,
   };
 
-  // Show only the dataset corresponding to the last key
+  // Show only the dataset corresponding to the last key (show only one line)
   const chartData = {
     datasets: [dataset], // Only include the dataset for the last key
   };
 
   /*Option
-  // Show all datasets
+  // Show all datasets (show all line)
   const chartData = {
     datasets,
   }; */
+
+  // Calculate the time difference between the first and last data points
+  const timeDifference = moment(last20Entries[last20Entries.length - 1].x).diff(
+    moment(last20Entries[0].x)
+  );
+
+  // Determine the appropriate time unit based on the time difference
+  const dynamicTimeUnit = calculateTimeUnit(timeDifference);
 
   // Chart options
   const options = {
@@ -82,9 +107,11 @@ const LineChart = ({ arrAicomEreignisse }) => {
       x: {
         type: 'time',
         time: {
-          unit: 'hour',
+          unit: dynamicTimeUnit,
           displayFormats: {
-            hour: 'YYYY-MM-DD HH:mm:ss',
+            second: 'YYYY-MM-DD HH:mm:ss',
+            minute: 'YYYY-MM-DD HH:mm',
+            hour: 'YYYY-MM-DD HH:mm',
           },
         },
         position: 'bottom',
@@ -107,6 +134,10 @@ const LineChart = ({ arrAicomEreignisse }) => {
           },
         },
       },
+      legend: {
+        display: true,
+        position: 'top',
+      },
     },
   };
 
@@ -114,7 +145,12 @@ const LineChart = ({ arrAicomEreignisse }) => {
   return (
     <ChartContainer>
       <h2>Stabilität</h2>
-      <Line data={chartData} options={options} />
+      <Line
+        ref={chartRef}
+        data={chartData}
+        options={options}
+        onClick={onClick}
+      />
     </ChartContainer>
   );
 };
@@ -127,6 +163,20 @@ const getRandomColor = () => {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+};
+
+// Function to calculate the appropriate time unit based on the time difference
+const calculateTimeUnit = (timeDifference) => {
+  const seconds = moment.duration(timeDifference).asSeconds();
+  if (seconds < 60) {
+    //60s
+    return 'second';
+  } else if (seconds < 3600) {
+    //60mins
+    return 'minute';
+  } else {
+    return 'hour';
+  }
 };
 
 // Export the LineChart component

@@ -282,7 +282,7 @@ const SynopMonitoring = () => {
 
   useEffect(() => {
     fetchSecondGraphData();
-  }, []);
+  }, [sseData]);
 
   return (
     <div>
