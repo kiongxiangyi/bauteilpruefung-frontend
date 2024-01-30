@@ -14,13 +14,29 @@ const ChartContainer = styled.div`
   margin: 20px 20px;
 `;
 
-// LineChart component
-const LineChart = ({ arrAicomEreignisse }) => {
+// LineChart component receives props: arrAicomEreignisse and onKommentarButtonActivation
+const LineChart = ({
+  arrAicomEreignisse,
+  onKommentarButtonActivation,
+  setCommentID,
+}) => {
+  // Create a reference to the chart element using useRef
   const chartRef = useRef();
-  const onClick = (event) => {
+
+  // Function to handle clicks on the chart data points
+  const handleClickAPointOnGraph = (event) => {
+    // Get the clicked data point using the chart reference
     const result = getElementAtEvent(chartRef.current, event);
+
+    // Check if there is a clicked data point
     if (result.length > 0) {
-      console.log(result[0].index);
+      setCommentID(result[0].index);
+      //console.log('clickedIndex: ', result[0].index);
+      // If a data point is clicked, activate the Kommentar button in SynopMonitoring.js
+      onKommentarButtonActivation(true);
+    } else {
+      // If no data point is clicked, deactivate the Kommentar button in SynopMonitoring.js
+      onKommentarButtonActivation(false);
     }
   };
 
@@ -78,7 +94,8 @@ const LineChart = ({ arrAicomEreignisse }) => {
   const dataset = {
     label: lastKey.key,
     data: last20Entries,
-    borderColor: getRandomColor(), // Use a function to generate different colors
+    borderColor: '#00008B', //dark blue
+    //borderColor: getRandomColor(), // Use a function to generate different colors
     fill: false,
   };
 
@@ -149,7 +166,7 @@ const LineChart = ({ arrAicomEreignisse }) => {
         ref={chartRef}
         data={chartData}
         options={options}
-        onClick={onClick}
+        onClick={handleClickAPointOnGraph}
       />
     </ChartContainer>
   );
@@ -168,14 +185,19 @@ const getRandomColor = () => {
 // Function to calculate the appropriate time unit based on the time difference
 const calculateTimeUnit = (timeDifference) => {
   const seconds = moment.duration(timeDifference).asSeconds();
-  if (seconds < 60) {
+  //console.log(seconds);
+  if (seconds < 120) {
     //60s
     return 'second';
-  } else if (seconds < 3600) {
+  } else if (seconds >= 120 && seconds < 7200) {
+    // less than 120 minutes
     //60mins
     return 'minute';
-  } else {
+  } else if (seconds >= 7200 && seconds < 172800) {
+    // less than 2 days
     return 'hour';
+  } else {
+    return 'day';
   }
 };
 

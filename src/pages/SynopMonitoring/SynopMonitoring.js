@@ -57,26 +57,55 @@ const SynopMonitoring = () => {
       toast.error(
         'Bei der Ausführung des Synop-Überwachungs-Tools ist ein Fehler aufgetreten'
       );
+    } finally {
+      // Ensure the button is deactivated after SynopMonitoringClick
+      setIsKommentarButtonActive(false);
     }
   };
 
   // State and functions for handling comments
   const [comment, setComment] = useState('');
   const [showCommentBox, setShowCommentBox] = useState(false);
+  const [commentID, setCommentID] = useState('');
 
   const handleCommentClick = () => {
     setShowCommentBox(true);
   };
 
-  const handleSaveComment = () => {
-    // Save or use the comment data as needed
-    toast.success(`Kommentar gespeichert!`, {
-      duration: 3000,
-    });
+  const handleSaveComment = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API}/AicomEreignisse/${commentID}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            comment: comment, // Include the comment data
+            // Add any other fields you need to update
+          }),
+        }
+      );
 
-    // Optionally, you can reset the comment and hide the comment box after saving
-    setComment('');
-    setShowCommentBox(false);
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error(`Failed to update comment. Status: ${response.status}`);
+      }
+
+      // Reset the comment and hide the comment box after a successful update
+      setComment('');
+      setShowCommentBox(false);
+
+      // Display success toast
+      toast.success(`Kommentar gespeichert!`, {
+        duration: 3000,
+      });
+    } catch (error) {
+      // Handle errors, e.g., display an error toast
+      console.error('Error updating comment:', error);
+      toast.error('Fehler beim Speichern des Kommentars');
+    }
   };
 
   // State for AicomEreignisse data
@@ -284,6 +313,14 @@ const SynopMonitoring = () => {
     fetchSecondGraphData();
   }, [sseData]);
 
+  // State for controlling the Kommentar button activation
+  const [isKommentarButtonActive, setIsKommentarButtonActive] = useState(false);
+
+  // Callback function to set the state in SynopMonitoring.js
+  const handleKommentarButtonActivation = (isActive) => {
+    setIsKommentarButtonActive(isActive);
+  };
+
   return (
     <div>
       <Container>
@@ -309,19 +346,31 @@ const SynopMonitoring = () => {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               ></Textarea>
-              <Button size="small" onClick={handleSaveComment}>
+              <Button
+                size="small"
+                onClick={handleSaveComment}
+                disabled={!isKommentarButtonActive}
+              >
                 Speichern
               </Button>
             </>
           ) : (
-            <Button size="small" onClick={handleCommentClick}>
+            <Button
+              size="small"
+              onClick={handleCommentClick}
+              disabled={!isKommentarButtonActive}
+            >
               Kommentar
             </Button>
           )}
         </ButtonWrapper>
 
         {/* Display LineChart component */}
-        <LineChart arrAicomEreignisse={arrAicomEreignisse} />
+        <LineChart
+          arrAicomEreignisse={arrAicomEreignisse}
+          onKommentarButtonActivation={handleKommentarButtonActivation}
+          setCommentID={setCommentID}
+        />
       </Container>
 
       {/* Display LineChart2 component */}

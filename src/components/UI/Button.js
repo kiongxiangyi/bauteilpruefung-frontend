@@ -4,7 +4,7 @@ import styled from 'styled-components';
 //Tutorial: A single button component should be able to handle all types of button
 //https://codesandbox.io/s/jwc-button-exercise-solution-4dbpw?file=/src/Button.js
 
-const Button = ({ size, children, onClick }) => {
+const Button = ({ size, children, onClick, disabled }) => {
   let Component;
   if (size === 'small') {
     Component = SmallButton;
@@ -16,7 +16,11 @@ const Button = ({ size, children, onClick }) => {
     throw new Error(`Unrecognized Button size: ${size}`);
   }
 
-  return <Component onClick={onClick}>{children}</Component>;
+  return (
+    <Component onClick={onClick} disabled={disabled}>
+      {children}
+    </Component>
+  );
 };
 
 const ButtonBase = styled.button`
@@ -30,6 +34,13 @@ const ButtonBase = styled.button`
 
   &:hover {
     background-color: lightgray;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    color: #666;
+    border: 2px solid #aaa;
+    cursor: not-allowed;
   }
 `;
 
