@@ -154,15 +154,11 @@ const SynopMonitoring = () => {
     },
   });
 
-  //Set chart data state
-  /* setSecondGraphChartData({
-        datasets,
-      }); */
-
   const [secondGraphCsvData, setSecondGraphCsvData] = useState({
     csvPath: '',
     csvContent: '',
   });
+
   const [secondGraphChartData, setSecondGraphChartData] = useState(null);
 
   const fetchSecondGraphData = async () => {
@@ -216,9 +212,10 @@ const SynopMonitoring = () => {
       const datasets = Array.from(datasetsMap.values());
 
       // Dynamically calculate downsampling factor for each serial number
-      const targetPoints = 10000;
+      const targetPoints = 5000;
       const downsampledData = downsampleData(datasets, targetPoints);
 
+      console.log('datasets:', datasets);
       // Log downsampling factors
       console.log('Downsampling Factors:', downsampledData.downsamplingFactors);
 
@@ -259,10 +256,16 @@ const SynopMonitoring = () => {
       for (let i = 0; i < dataset.data.length; i += factor) {
         const subset = dataset.data.slice(i, i + factor);
         if (subset.length > 0) {
-          const averageValue = calculateAverage(subset.map((point) => point.y));
+          const minYValue = Math.min(...subset.map((point) => point.y));
+          const maxYValue = Math.max(...subset.map((point) => point.y));
+          const minXPoint = subset.find((point) => point.y === minYValue);
+          const maxXPoint = subset.find((point) => point.y === maxYValue);
+
           downsampledDatasets[downsampledDatasets.length - 1].data.push({
-            x: subset[0].x, // Use the timestamp of the first point in the subset
-            y: averageValue,
+            xMin: minXPoint.x, // Use the timestamp of the first point in the subset
+            yMin: minYValue, // Use the minimum Y value
+            yMax: maxYValue, // Use the maximum Y value
+            xMax: maxXPoint.x, // Use the x value corresponding to ymax
           });
         }
       }
@@ -293,15 +296,6 @@ const SynopMonitoring = () => {
     }
 
     return downsamplingFactors;
-  };
-
-  // Helper function to calculate the average value of an array
-  const calculateAverage = (arr) => {
-    if (arr.length === 0) {
-      return 0;
-    }
-    const sum = arr.reduce((total, value) => total + value, 0);
-    return sum / arr.length;
   };
 
   // Effect hook to fetch AicomEreignisse data on component mount and SSE updates

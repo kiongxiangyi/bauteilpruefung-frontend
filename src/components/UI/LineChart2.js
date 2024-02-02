@@ -18,7 +18,15 @@ function LineChart2({ chartData }) {
           <h2>Signalverläufe der Auffälligkeit</h2>
           {/* Line chart component */}
           <Line
-            data={chartData}
+            data={{
+              datasets: chartData.datasets.map((dataset) => ({
+                ...dataset,
+                data: dataset.data.flatMap((point) => [
+                  { x: point.xMin, y: point.yMin },
+                  { x: point.xMax, y: point.yMax },
+                ]),
+              })),
+            }}
             options={{
               scales: {
                 x: {
