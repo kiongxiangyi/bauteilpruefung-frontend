@@ -44,6 +44,25 @@ const SynopMonitoring = () => {
   // Function to handle the click on Synop Monitoring button
   const handleSynopMonitoringClick = async () => {
     try {
+      const responseStopSynopProgram = await fetch(
+        `${process.env.REACT_APP_API}/SynopProgram/stopSynopProgram`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!responseStopSynopProgram.ok) {
+        throw new Error(
+          `Failed to stop Synop program: ${responseStopSynopProgram.statusText}`
+        );
+      }
+
+      const data = await responseStopSynopProgram.text();
+      console.log(data); // Log response from the server
+
       // Execute SynopBatchFileRunner and wait for it to complete
       await SynopBatchFileRunner();
 
@@ -93,9 +112,10 @@ const SynopMonitoring = () => {
         throw new Error(`Failed to update comment. Status: ${response.status}`);
       }
 
-      // Reset the comment and hide the comment box after a successful update
+      // Reset the comment and hide the comment box after a successful update and deactivate the button
       setComment('');
       setShowCommentBox(false);
+      setIsKommentarButtonActive(false);
 
       // Display success toast
       toast.success(`Kommentar gespeichert!`, {
@@ -147,7 +167,7 @@ const SynopMonitoring = () => {
   };
 
   // Use SSE hook to subscribe to SSE updates
-  const sseData = useSSE(`${process.env.REACT_APP_API}/runSynopProgram/sse`, {
+  const sseData = useSSE(`${process.env.REACT_APP_API}/SynopProgram/sse`, {
     onData: handleSSEData,
     onError: (error) => {
       console.error('SSE Error:', error);
@@ -254,17 +274,33 @@ const SynopMonitoring = () => {
       });
 
       for (let i = 0; i < dataset.data.length; i += factor) {
+        // Extract a subset of data with a specific factor
         const subset = dataset.data.slice(i, i + factor);
-        if (subset.length > 0) {
-          const minYValue = Math.min(...subset.map((point) => point.y));
-          const maxYValue = Math.max(...subset.map((point) => point.y));
-          const minXPoint = subset.find((point) => point.y === minYValue);
-          const maxXPoint = subset.find((point) => point.y === maxYValue);
 
+        //To ensure that the xmin and xmax values are in chronological order
+        // Check if the subset has data
+        if (subset.length > 0) {
+          // Find the point with the minimum Y value in the subset
+          const minYPoint = subset.reduce((prev, current) =>
+            prev.y < current.y ? prev : current
+          );
+
+          // Find the point with the maximum Y value in the subset
+          const maxYPoint = subset.reduce((prev, current) =>
+            prev.y > current.y ? prev : current
+          );
+
+          // Determine the point with the minimum X value among minYPoint and maxYPoint
+          const minXPoint = minYPoint.x < maxYPoint.x ? minYPoint : maxYPoint;
+
+          // Determine the point with the maximum X value among minYPoint and maxYPoint
+          const maxXPoint = minYPoint.x < maxYPoint.x ? maxYPoint : minYPoint;
+
+          // Push a new data point to the downsampled dataset
           downsampledDatasets[downsampledDatasets.length - 1].data.push({
             xMin: minXPoint.x, // Use the timestamp of the first point in the subset
-            yMin: minYValue, // Use the minimum Y value
-            yMax: maxYValue, // Use the maximum Y value
+            yMin: minYPoint.y, // Use the minimum Y value
+            yMax: maxYPoint.y, // Use the maximum Y value
             xMax: maxXPoint.x, // Use the x value corresponding to ymax
           });
         }
@@ -320,9 +356,9 @@ const SynopMonitoring = () => {
       <Container>
         <ButtonWrapper>
           {/* Button to trigger Synop Monitoring */}
-          <Button size="small" onClick={handleSynopMonitoringClick}>
+          {/*   <Button size="small" onClick={handleSynopMonitoringClick}>
             Aktualisieren
-          </Button>
+          </Button> */}
 
           {/* Display TrafficLight component */}
           <TrafficLight value={lastValueTrafficLight}></TrafficLight>

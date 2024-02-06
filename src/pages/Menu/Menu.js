@@ -20,6 +20,24 @@ export default function Menu({ setFetchDataTrigger }) {
   // Handle click on Synop-Überwachungs-Tool button
   const handleSynopMonitoringClick = async () => {
     try {
+      const responseStopSynopProgram = await fetch(
+        `${process.env.REACT_APP_API}/SynopProgram/stopSynopProgram`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!responseStopSynopProgram.ok) {
+        throw new Error(
+          `Failed to stop Synop program: ${responseStopSynopProgram.statusText}`
+        );
+      }
+
+      const data = await responseStopSynopProgram.text();
+      console.log(data); // Log response from the server
       // Execute SynopBatchFileRunner and wait for it to complete
       await SynopBatchFileRunner();
 

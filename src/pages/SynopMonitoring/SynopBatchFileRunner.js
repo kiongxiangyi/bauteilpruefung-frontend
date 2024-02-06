@@ -1,7 +1,7 @@
 const executeBatchFiles = async () => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/runSynopProgram/executeBatchFiles`,
+      `${process.env.REACT_APP_API}/SynopProgram/executeBatchFiles`,
       {
         method: 'POST',
         headers: {
@@ -13,7 +13,7 @@ const executeBatchFiles = async () => {
 
     if (response.ok) {
       const result = await response.text();
-      //console.log(result);
+      console.log(result);
       //alert('Synop programs executed successfully');
     } else {
       const errorText = await response.text();
