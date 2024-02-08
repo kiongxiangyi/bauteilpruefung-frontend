@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import SynopBatchFileRunner from './SynopBatchFileRunner';
 import Button from '../../components/UI/Button';
 import useSSE from './useSSE';
+import Checkbox from '../../components/UI/Checbox';
 
 // Register CategoryScale for use in Chart.js
 Chart.register(CategoryScale);
@@ -34,8 +35,26 @@ const P = styled.p`
 `;
 
 const Textarea = styled.textarea`
-  margin: 0.5rem 0;
   font-size: 20px;
+  height: 100px;
+  width: 300px;
+`;
+
+const ComponentGroup = styled.div`
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside the box */
+  width: 300px; /* Set a fixed width for the box */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange items vertically */
+  align-items: center; /* Align items horizontally at the center */
+  margin-bottom: 20px;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange items vertically */
+  margin-bottom: 10px; /* Add margin below the checkbox */
 `;
 
 const SynopMonitoring = () => {
@@ -351,6 +370,11 @@ const SynopMonitoring = () => {
     setIsKommentarButtonActive(isActive);
   };
 
+  const [werkzeugbruchChecked, setWerkzeugbruchChecked] = useState(false);
+  const [geraeuscheChecked, setGeraeuscheChecked] = useState(false);
+  const [spanproblemeChecked, setSpanproblemeChecked] = useState(false);
+  const [sonstigeChecked, setSonstigeChecked] = useState(false);
+
   return (
     <div>
       <Container>
@@ -361,14 +385,44 @@ const SynopMonitoring = () => {
           </Button> */}
 
           {/* Display TrafficLight component */}
-          <TrafficLight value={lastValueTrafficLight}></TrafficLight>
+          <ComponentGroup>
+            <TrafficLight value={lastValueTrafficLight}></TrafficLight>
 
-          {/* Display comment from the database */}
-          {commentFromDB && <P>{commentFromDB}</P>}
+            {/* Display comment from the database */}
+            {commentFromDB && <P>{commentFromDB}</P>}
+          </ComponentGroup>
 
           {/* Conditionally render comment input box */}
           {showCommentBox ? (
             <>
+              <CheckboxContainer>
+                {/* Checkbox */}
+                <Checkbox
+                  id="Werkzeugbruch"
+                  label="Werkzeugbruch"
+                  checked={werkzeugbruchChecked}
+                  onChange={(e) => setWerkzeugbruchChecked(e.target.checked)}
+                />
+                <Checkbox
+                  id="Geräusche"
+                  label="Geräusche"
+                  checked={geraeuscheChecked}
+                  onChange={(e) => setGeraeuscheChecked(e.target.checked)}
+                />
+                <Checkbox
+                  id="Spanprobleme"
+                  label="Spanprobleme"
+                  checked={spanproblemeChecked}
+                  onChange={(e) => setSpanproblemeChecked(e.target.checked)}
+                />
+                <Checkbox
+                  id="Sonstige"
+                  label="Sonstige"
+                  checked={sonstigeChecked}
+                  onChange={(e) => setSonstigeChecked(e.target.checked)}
+                />
+              </CheckboxContainer>
+              {/* Comment Input Box */}
               <Textarea
                 rows={4}
                 cols={20}
@@ -394,7 +448,6 @@ const SynopMonitoring = () => {
             </Button>
           )}
         </ButtonWrapper>
-
         {/* Display LineChart component */}
         <LineChart
           arrAicomEreignisse={arrAicomEreignisse}
