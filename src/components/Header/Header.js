@@ -117,7 +117,7 @@ export default function Header({ color }) {
       green={color.HeaderGruen}
       blue={color.HeaderBlau}
     >
-      <HeaderText>GTMS meets AICoM</HeaderText>
+      <HeaderText>AICoM</HeaderText>
       <HomeButton onClick={handleClick}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </HomeButton>
