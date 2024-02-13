@@ -19,6 +19,7 @@ const LineChart = ({
   arrAicomEreignisse,
   onKommentarButtonActivation,
   setCommentID,
+  setTotalPointsOnGraph,
 }) => {
   // Create a reference to the chart element using useRef
   const chartRef = useRef();
@@ -31,7 +32,7 @@ const LineChart = ({
     // Check if there is a clicked data point
     if (result.length > 0) {
       setCommentID(result[0].index);
-      //console.log('clickedIndex: ', result[0].index);
+      console.log('clickedIndex: ', result[0]);
       // If a data point is clicked, activate the Kommentar button in SynopMonitoring.js
       onKommentarButtonActivation(true);
     } else {
@@ -90,6 +91,7 @@ const LineChart = ({
       dbComment: entry.Comment || '',
     }));
 
+  setTotalPointsOnGraph(last20Entries.length);
   // Create dataset for the last key
   const dataset = {
     label: lastKey.key,
@@ -97,6 +99,8 @@ const LineChart = ({
     borderColor: '#00008B', //dark blue
     //borderColor: getRandomColor(), // Use a function to generate different colors
     fill: false,
+    pointRadius: 5, // Adjust the point radius to make them bigger
+    hoverRadius: 8,
   };
 
   // Show only the dataset corresponding to the last key (show only one line)
@@ -104,8 +108,7 @@ const LineChart = ({
     datasets: [dataset], // Only include the dataset for the last key
   };
 
-  /*Option
-  // Show all datasets (show all line)
+  /* // Optional: Show all datasets (show all line)
   const chartData = {
     datasets,
   }; */
@@ -147,13 +150,19 @@ const LineChart = ({
             const dbComment = context.dataset.data[context.dataIndex].dbComment;
 
             // Tooltip content
-            return `Startzeit: ${x}; Stabilität: ${y}; Kommentar: ${dbComment}`;
+            // return `Startzeit: ${x}; Stabilität: ${y}; Kommentar: ${dbComment}`;
+            return `Stabilität: ${y}`;
           },
         },
       },
       legend: {
         display: true,
         position: 'top',
+        labels: {
+          font: {
+            size: 20,
+          },
+        },
       },
     },
   };

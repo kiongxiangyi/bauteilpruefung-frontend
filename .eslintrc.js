@@ -1,8 +1,8 @@
-module.exports = {
+ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true, //solve - [eslint] 'module' is not defined. (no-undef)
+    //node: false, //solve - [eslint] 'module' is not defined. (no-undef)
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   overrides: [],
@@ -15,5 +15,7 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'no-unused-vars': 'off',
+    'no-undef': 'off',
   },
 };
+ 

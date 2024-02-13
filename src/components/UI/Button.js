@@ -4,7 +4,7 @@ import styled from 'styled-components';
 //Tutorial: A single button component should be able to handle all types of button
 //https://codesandbox.io/s/jwc-button-exercise-solution-4dbpw?file=/src/Button.js
 
-const Button = ({ size, children, onClick, disabled }) => {
+const Button = ({ size, children, onClick, disabled = false }) => {
   let Component;
   if (size === 'small') {
     Component = SmallButton;

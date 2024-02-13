@@ -47,6 +47,15 @@ function LineChart2({ chartData }) {
                   radius: 1, // Adjust the pointRadius value
                 },
               },
+              plugins: {
+                legend: {
+                  labels: {
+                    font: {
+                      size: 20, // Set the font size for the legend labels
+                    },
+                  },
+                },
+              },
             }}
           />
         </div>

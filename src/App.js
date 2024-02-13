@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
 import toast, { Toaster } from 'react-hot-toast';
 import Bauteilpruefung from './pages/Bauteilpruefung';
 import Serialnummer from './pages/Serialnummer';
