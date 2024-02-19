@@ -107,6 +107,7 @@ const SynopMonitoring = () => {
           onKommentarButtonActivation={onKommentarButtonActivation}
         />
       </Container>
+      
       <AbnormalSignalGraph />
     </>
   );

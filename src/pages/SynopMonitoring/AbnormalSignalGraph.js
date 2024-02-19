@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import LineChart2 from '../../components/UI/LineChart2';
 import useSSE from './useSSE';
+import { memo } from 'react';
+import calculateDownsampleFactors from '../../utils/calculateDownsampleFactors ';
 
-const AbnormalSignalGraph = () => {
-  const [secondGraphCsvData, setSecondGraphCsvData] = useState({
-    csvPath: '',
-    csvContent: '',
-  });
+const AbnormalSignalGraph = memo(function AbnormalSignalGraph() {
+  const [abnormalSignals, setAbnormalSignals] = useState(null);
 
-  const [secondGraphChartData, setSecondGraphChartData] = useState(null);
-
-  const fetchSecondGraphData = async () => {
-    console.log('fetch second Graph data');
+  const fetchAbnormalSignal = async () => {
     try {
       // Fetch CSV data from the server
       const response = await fetch(
         `${process.env.REACT_APP_API}/readFile/config/csvdata`
       );
       const data = await response.json();
-      // Update CSV data state
-      setSecondGraphCsvData(data);
-      console.log(data);
 
       const lines = data.csvContent.trim().split('\n');
-      const headers = lines[0].split(';');
+      //const headers = lines[0].split(';');
       const datasetsMap = new Map(); // Map to store datasets for each serial number
       const millisecondsPerSecond = 1000;
 
@@ -65,17 +58,17 @@ const AbnormalSignalGraph = () => {
       const targetPoints = 5000;
       const downsampledData = downsampleData(datasets, targetPoints);
 
-      console.log('datasets:', datasets);
+      //console.log('datasets:', datasets);
       // Log downsampling factors
-      console.log('Downsampling Factors:', downsampledData.downsamplingFactors);
+      //console.log('Downsampling Factors:', downsampledData.downsamplingFactors);
 
       // Log the actual number of target points for each unique serial number
-      console.log(
+      /* console.log(
         'Actual Target Points per Serial:',
         downsampledData.actualTargetPointsPerSerial
-      );
+      ); */
 
-      setSecondGraphChartData({
+      setAbnormalSignals({
         datasets: downsampledData.datasets,
       });
     } catch (error) {
@@ -151,19 +144,6 @@ const AbnormalSignalGraph = () => {
     };
   };
 
-  // Function to calculate downsampling factor for each serial number
-  const calculateDownsampleFactors = (datasets, targetPoints) => {
-    const downsamplingFactors = new Map();
-
-    for (const dataset of datasets) {
-      const totalPoints = dataset.data.length;
-      const factor = Math.ceil(totalPoints / targetPoints);
-      downsamplingFactors.set(dataset.label, factor);
-    }
-
-    return downsamplingFactors;
-  };
-
   /* 
   // Function to handle SSE data updates
   const handleSSEData = (newSSEData) => {
@@ -184,16 +164,15 @@ const AbnormalSignalGraph = () => {
 
    // Effect hook to fetch AicomEreignisse data on component mount and SSE updates
   useEffect(() => {
-    fetchSecondGraphData();
+    fetchAbnormalSignal();
   }, [sseData]);
   */
 
   // Effect hook to fetch AicomEreignisse data on component mount and SSE updates
   useEffect(() => {
-    fetchSecondGraphData();
+    fetchAbnormalSignal();
   }, []);
 
-  return <LineChart2 chartData={secondGraphChartData}></LineChart2>;
-};
-
+  return <LineChart2 chartData={abnormalSignals}></LineChart2>;
+});
 export default AbnormalSignalGraph;

@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import toast, { Toaster } from 'react-hot-toast';
+//import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import SelectMenu from '../../components/UI/SelectMenu';
 import Button from '../../components/UI/Button';
-import { Navigate } from '../../../node_modules/react-router-dom/dist/index';
+//import { Navigate } from '../../../node_modules/react-router-dom/dist/index';
 
 const H2 = styled.h2`
   font-size: 2rem;
@@ -33,13 +33,13 @@ const StyleOptionLabel = styled.div`
     flex: 1;
   }
 `;
-
+/* 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 2rem;
-`;
+`; 
 
 const ToastContent = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const ToastContent = styled.div`
   gap: 1rem;
   padding: 3rem;
   margin: 5rem;
-`;
+`;*/
 
 //for custom option
 const formatOptionLabel = ({ bauteil, artikel }) => (

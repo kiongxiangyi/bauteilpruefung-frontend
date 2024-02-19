@@ -67,71 +67,64 @@ const CommentComponent = ({
     }
   };
 
-  return (
+  return showCommentBox ? (
     <>
-      {showCommentBox ? (
-        <>
-          <CheckboxContainer>
-            {/* Checkbox */}
-            <Checkbox
-              id="Werkzeugbruch"
-              label="Werkzeugbruch"
-              checked={werkzeugbruchChecked}
-              onChange={(e) => setWerkzeugbruchChecked(e.target.checked)}
-            />
-            <Checkbox
-              id="Geräusche"
-              label="Geräusche"
-              checked={geraeuscheChecked}
-              onChange={(e) => setGeraeuscheChecked(e.target.checked)}
-            />
-            <Checkbox
-              id="Spanprobleme"
-              label="Spanprobleme"
-              checked={spanproblemeChecked}
-              onChange={(e) => setSpanproblemeChecked(e.target.checked)}
-            />
-            <Checkbox
-              id="Sonstige"
-              label="Sonstige"
-              checked={sonstigeChecked}
-              onChange={(e) => setSonstigeChecked(e.target.checked)}
-            />
-            <Checkbox
-              id="Keine Auffälligkeiten"
-              label="Keine Auffälligkeiten"
-              checked={keineAuffaelligkeitenChecked}
-              onChange={(e) =>
-                setKeineAuffaelligkeitenChecked(e.target.checked)
-              }
-            />
-          </CheckboxContainer>
-          {/* Comment Input Box */}
-          <Textarea
-            rows={4}
-            cols={20}
-            placeholder="Geben Sie Ihren Kommentar hier ein."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          ></Textarea>
-          <Button
-            size="small"
-            onClick={handleSaveComment}
-            disabled={!isKommentarButtonActive}
-          >
-            Speichern
-          </Button>
-        </>
-      ) : (
-        <Button
-          size="small"
-          onClick={handleCommentClick}
-          disabled={!isKommentarButtonActive}
-        >
-          Beobachtung
-        </Button>
-      )}
+      <CheckboxContainer>
+        <Checkbox
+          id="Werkzeugbruch"
+          label="Werkzeugbruch"
+          checked={werkzeugbruchChecked}
+          onChange={(e) => setWerkzeugbruchChecked(e.target.checked)}
+        />
+        <Checkbox
+          id="Geräusche"
+          label="Geräusche"
+          checked={geraeuscheChecked}
+          onChange={(e) => setGeraeuscheChecked(e.target.checked)}
+        />
+        <Checkbox
+          id="Spanprobleme"
+          label="Spanprobleme"
+          checked={spanproblemeChecked}
+          onChange={(e) => setSpanproblemeChecked(e.target.checked)}
+        />
+        <Checkbox
+          id="Sonstige"
+          label="Sonstige"
+          checked={sonstigeChecked}
+          onChange={(e) => setSonstigeChecked(e.target.checked)}
+        />
+        <Checkbox
+          id="Keine Auffälligkeiten"
+          label="Keine Auffälligkeiten"
+          checked={keineAuffaelligkeitenChecked}
+          onChange={(e) => setKeineAuffaelligkeitenChecked(e.target.checked)}
+        />
+      </CheckboxContainer>
+      {/* Comment Input Box */}
+      <Textarea
+        rows={4}
+        cols={20}
+        placeholder="Geben Sie Ihren Kommentar hier ein."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <Button
+        size="small"
+        onClick={handleSaveComment}
+        disabled={!isKommentarButtonActive}
+      >
+        Speichern
+      </Button>
     </>
+  ) : (
+    <Button
+      size="small"
+      onClick={handleCommentClick}
+      disabled={!isKommentarButtonActive}
+    >
+      Beobachtung
+    </Button>
   );
 };
 
