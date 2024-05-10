@@ -222,7 +222,7 @@ function App() {
     }
   };
 
-  if (logoPath === 'No logo path is found.') {
+  /* if (logoPath === 'No logo path is found.') {
     toast(
       (t) => (
         <ToastContent>
@@ -264,7 +264,7 @@ function App() {
         duration: Infinity, //duration of toast appearance forever
       }
     );
-  }
+  } */
 
   useEffect(() => {
     fetch(`${API_URL}/readFile/config/logo`)
