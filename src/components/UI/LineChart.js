@@ -6,12 +6,19 @@ import moment from 'moment';
 
 // Styled component for the chart container
 const ChartContainer = styled.div`
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 700px;
-  margin: 20px 20px;
+  height: 100%;
+  position: relative; // Add relative positioning to allow absolute positioning of child elements
+`;
+
+const H1 = styled.h1`
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 // LineChart component receives props: arrAicomEreignisse and onKommentarButtonActivation
@@ -94,7 +101,7 @@ const LineChart = ({
   setTotalPointsOnGraph(last20Entries.length);
   // Create dataset for the last key
   const dataset = {
-    label: lastKey.key,
+    label: `Programm ${lastKey.entry.ProgramName} mit Formelement ${lastKey.entry.Feature}`,
     data: last20Entries,
     borderColor: '#00008B', //dark blue
     //borderColor: getRandomColor(), // Use a function to generate different colors
@@ -170,7 +177,7 @@ const LineChart = ({
   // Render the chart component
   return (
     <ChartContainer>
-      <h2>Stabilität</h2>
+      <H1>Stabilität</H1>
       <Line
         ref={chartRef}
         data={chartData}

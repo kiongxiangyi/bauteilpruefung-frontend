@@ -10,6 +10,8 @@ const StabilityGraph = ({
   setCommentFromSynop,
   setFeature,
   setTool,
+  setPredictedQuality,
+  setQualityComment,
 }) => {
   const [arrAicomEreignisse, setArrAicomEreignisse] = useState([]);
 
@@ -29,7 +31,9 @@ const StabilityGraph = ({
         setLastValueTrafficLight(lastResult.Stability);
         setCommentFromSynop(lastResult.Comment);
         setFeature(lastResult.Feature);
-        setTool('55');
+        setTool(lastResult.Tool);
+        setPredictedQuality(lastResult.PredictedQuality);
+        setQualityComment(lastResult.QualityComment);
       } else {
         // Handle the case when there is no data
         console.log('No data available');

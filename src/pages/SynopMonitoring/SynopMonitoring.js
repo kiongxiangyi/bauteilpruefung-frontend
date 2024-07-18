@@ -9,11 +9,13 @@ import {
   Container,
   LeftSubContainer,
   TrafficLightContainer,
+  GraphContainer,
 } from './StyledComponents';
 import CommentComponent from './CommentComponent';
 import StabilityGraph from './StabilityGraph';
 import AbnormalSignalGraph from './AbnormalSignalGraph';
 import InfoComponent from './InfoComponent';
+import InfoComponent2 from './InfoComponent2';
 
 // Register CategoryScale for use in Chart.js
 Chart.register(CategoryScale);
@@ -68,6 +70,8 @@ const SynopMonitoring = () => {
   const [feature, setFeature] = useState('');
   const [tool, setTool] = useState('');
   const [isKommentarButtonActive, setIsKommentarButtonActive] = useState(false);
+  const [predictedQuality, setPredictedQuality] = useState(0);
+  const [qualityComment, setQualityComment] = useState('');
 
   // Callback function to set the state in SynopMonitoring.js
   const onKommentarButtonActivation = (isActive) => {
@@ -83,31 +87,50 @@ const SynopMonitoring = () => {
             Aktualisieren
           </Button> */}
           <TrafficLightContainer>
+            <h1>Prozess Stabilität</h1>
             <TrafficLight value={lastValueTrafficLight}></TrafficLight>
             <InfoComponent
               tool={tool}
               commentFromSynop={commentFromSynop}
               feature={feature}
+              predictedQuality={predictedQuality}
+              qualityComment={qualityComment}
+            />
+            <CommentComponent
+              isKommentarButtonActive={isKommentarButtonActive}
+              setIsKommentarButtonActive={setIsKommentarButtonActive}
+              totalPointsOnGraph={totalPointsOnGraph}
+              commentID={commentID}
             />
           </TrafficLightContainer>
-          <CommentComponent
-            isKommentarButtonActive={isKommentarButtonActive}
-            setIsKommentarButtonActive={setIsKommentarButtonActive}
-            totalPointsOnGraph={totalPointsOnGraph}
-            commentID={commentID}
-          />
+
+          <TrafficLightContainer>
+            <h1>Prognose Qualität</h1>
+            <TrafficLight value={lastValueTrafficLight}></TrafficLight>
+            <InfoComponent2
+              tool={tool}
+              commentFromSynop={commentFromSynop}
+              feature={feature}
+              predictedQuality={predictedQuality}
+              qualityComment={qualityComment}
+            />
+          </TrafficLightContainer>
         </LeftSubContainer>
-        <StabilityGraph
-          setCommentID={setCommentID}
-          setTotalPointsOnGraph={setTotalPointsOnGraph}
-          setLastValueTrafficLight={setLastValueTrafficLight}
-          setCommentFromSynop={setCommentFromSynop}
-          setFeature={setFeature}
-          setTool={setTool}
-          onKommentarButtonActivation={onKommentarButtonActivation}
-        />
+        <GraphContainer>
+          <StabilityGraph
+            setCommentID={setCommentID}
+            setTotalPointsOnGraph={setTotalPointsOnGraph}
+            setLastValueTrafficLight={setLastValueTrafficLight}
+            setCommentFromSynop={setCommentFromSynop}
+            setFeature={setFeature}
+            setTool={setTool}
+            onKommentarButtonActivation={onKommentarButtonActivation}
+            setPredictedQuality={setPredictedQuality}
+            setQualityComment={setQualityComment}
+          />
+        </GraphContainer>
       </Container>
-      
+
       <AbnormalSignalGraph />
     </>
   );

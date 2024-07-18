@@ -8,6 +8,7 @@ import Button from '../UI/Button';
 const HeaderText = styled.h1`
   font-size: 36px;
   padding: 8px 8px;
+  flex-grow: 1; /* Allow the header text to grow */
 `;
 
 const HomeButton = styled.button`
@@ -24,8 +25,14 @@ const HeaderComponent = styled.header`
   background-color: ${({ red, green, blue }) =>
     `rgb(${red}, ${green}, ${blue})`};
   display: flex;
-  position: relative;
+  position: fixed; /* Make the header fixed */
+  top: 0; /* Stick to the top of the page */
+  left: 0; /* Stick to the left of the page */
+  width: 100%; /* Ensure the header takes up full width */
   border-radius: 5px;
+  z-index: 1000; /* Ensure the header is above other content */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  height: 60px; /* Set the height of the header */
 `;
 
 const ButtonWrapper = styled.div`
@@ -40,6 +47,18 @@ export default function Header({ color }) {
   const navigate = useNavigate(); //hook for navigation
   // Check the current pathname to determine which page you are on
   const currentPage = location.pathname;
+
+  const headerText = (() => {
+    switch (currentPage) {
+      case '/synop-monitoring':
+        return 'AICoM Feature-Prozess-Monitor';
+      case '/another-page':
+        return 'Another Page';
+      // Add more cases as needed
+      default:
+        return 'AICoM';
+    }
+  })();
 
   // Example: Check if the user is on the '/synop-monitoring' page
   const isOnSynopMonitoringPage = currentPage === '/synop-monitoring';
@@ -117,7 +136,7 @@ export default function Header({ color }) {
       green={color.HeaderGruen}
       blue={color.HeaderBlau}
     >
-      <HeaderText>AICoM</HeaderText>
+      <HeaderText>{headerText}</HeaderText>
       <HomeButton onClick={handleClick}>
         <img src="./pictures/home-btn.png" alt="home"></img>
       </HomeButton>

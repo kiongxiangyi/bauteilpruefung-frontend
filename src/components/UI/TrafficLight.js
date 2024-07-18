@@ -20,7 +20,7 @@ const TrafficLight = ({ value }) => {
     lightColor = '#00FF00';
   } else if (value >= 0.3 && value <= 0.6) {
     lightColor = 'yellow';
-  } else if (value >= 0 && value <= 0.3) {
+  } else if (value > 0 && value <= 0.3) {
     lightColor = 'red';
   } else {
     lightColor = 'white';

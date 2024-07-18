@@ -19,7 +19,7 @@ const getFeatureMeaning = (featureCode) => {
   return featureMappings[featureCategory] || 'Unknown';
 };
 
-const InfoComponent = ({
+const InfoComponent2 = ({
   commentFromSynop,
   feature,
   tool,
@@ -44,8 +44,23 @@ const InfoComponent = ({
           <b>Werkzeug:</b> {tool}
         </P>
       )}
+      {commentFromSynop && (
+        <P>
+          <b>Auffälligkeit:</b> {commentFromSynop}
+        </P>
+      )}
+      {predictedQuality && (
+        <P>
+          <b>Vorhergesagte Qualität:</b> {predictedQuality}
+        </P>
+      )}
+      {qualityComment && (
+        <P>
+          <b>Qualitätskommentar:</b> {qualityComment}
+        </P>
+      )}
     </InfoContainer>
   );
 };
 
-export default InfoComponent;
+export default InfoComponent2;
