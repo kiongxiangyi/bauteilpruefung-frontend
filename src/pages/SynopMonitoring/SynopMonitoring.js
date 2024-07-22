@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import TrafficLight from '../../components/UI/TrafficLight';
+import {
+  TrafficLightProzessStability,
+  TrafficLightPronoseQuality,
+} from '../../components/UI/TrafficLight';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import { useNavigate } from 'react-router-dom';
@@ -88,7 +91,9 @@ const SynopMonitoring = () => {
           </Button> */}
           <TrafficLightContainer>
             <h1>Prozess Stabilität</h1>
-            <TrafficLight value={lastValueTrafficLight}></TrafficLight>
+            <TrafficLightProzessStability
+              value={lastValueTrafficLight}
+            ></TrafficLightProzessStability>
             <InfoComponent
               tool={tool}
               commentFromSynop={commentFromSynop}
@@ -106,7 +111,9 @@ const SynopMonitoring = () => {
 
           <TrafficLightContainer>
             <h1>Prognose Qualität</h1>
-            <TrafficLight value={lastValueTrafficLight}></TrafficLight>
+            <TrafficLightPronoseQuality
+              value={predictedQuality}
+            ></TrafficLightPronoseQuality>
             <InfoComponent2
               tool={tool}
               commentFromSynop={commentFromSynop}

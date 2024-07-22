@@ -12,6 +12,7 @@ const StabilityGraph = ({
   setTool,
   setPredictedQuality,
   setQualityComment,
+  setPrognoseQuality,
 }) => {
   const [arrAicomEreignisse, setArrAicomEreignisse] = useState([]);
 

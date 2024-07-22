@@ -13,7 +13,7 @@ const Light = styled.div`
   border: 4px solid black; /* Add this line to set the black border */
 `;
 
-const TrafficLight = ({ value }) => {
+export const TrafficLightProzessStability = ({ value }) => {
   let lightColor;
 
   if (value > 0.6) {
@@ -33,4 +33,22 @@ const TrafficLight = ({ value }) => {
   );
 };
 
-export default TrafficLight;
+export const TrafficLightPronoseQuality = ({ value }) => {
+  let lightColor;
+
+  if (value >= 0) {
+    lightColor = '#00FF00';
+  } else if (value >= -0.8 && value < 0) {
+    lightColor = 'yellow';
+  } else if (value < -0.3) {
+    lightColor = 'red';
+  } else {
+    lightColor = 'white';
+  }
+
+  return (
+    <LightContainer>
+      <Light style={{ background: lightColor }}></Light>
+    </LightContainer>
+  );
+};
