@@ -12,6 +12,10 @@ const ButtonWrapper = styled.div`
   margin: 2rem;
 `;
 
+const Div = styled.div`
+  margin-top: 5rem;
+`;
+
 export default function Menu({ setFetchDataTrigger }) {
   const navigate = useNavigate(); //hook for navigation
   const [showSerialnumberMsg, setShowSerialnumberMsg] = useState(false); //useState to control the trigger of the toast
@@ -90,7 +94,7 @@ export default function Menu({ setFetchDataTrigger }) {
   }
 */
   return (
-    <>
+    <Div>
       <ButtonWrapper>
         <Button size="big" onClick={() => navigate('/bauteilpruefung')}>
           Bauteilprüfung
@@ -106,6 +110,6 @@ export default function Menu({ setFetchDataTrigger }) {
           Synop-Überwachungs-Tool
         </Button>
       </ButtonWrapper>
-    </>
+    </Div>
   );
 }

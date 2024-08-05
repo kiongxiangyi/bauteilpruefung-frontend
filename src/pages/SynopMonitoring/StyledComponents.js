@@ -63,6 +63,5 @@ export const GraphContainer = styled.div`
   margin: 20px 10px; /* Ensure consistent margin */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   width: 100%;
-  max-width: 1200px; /* Set a max-width to limit the container size */
   flex: 1;
 `;

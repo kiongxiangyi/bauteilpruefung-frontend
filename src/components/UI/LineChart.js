@@ -21,6 +21,12 @@ const H1 = styled.h1`
   left: 0;
 `;
 
+const Divider = styled.div`
+  width: 100%; /* Full width to match the container */
+  height: 50px; /* Adjust height as needed to create space */
+  background-color: transparent; /* Transparent background */
+`;
+
 // LineChart component receives props: arrAicomEreignisse and onKommentarButtonActivation
 const LineChart = ({
   arrAicomEreignisse,
@@ -177,7 +183,8 @@ const LineChart = ({
   // Render the chart component
   return (
     <ChartContainer>
-      <H1>Stabilität</H1>
+      <H1>Stabilitätshistorie des Formelements</H1>
+      <Divider />
       <Line
         ref={chartRef}
         data={chartData}
