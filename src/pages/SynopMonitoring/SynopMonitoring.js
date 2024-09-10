@@ -73,9 +73,9 @@ const SynopMonitoring = () => {
   const [feature, setFeature] = useState('');
   const [tool, setTool] = useState('');
   const [isKommentarButtonActive, setIsKommentarButtonActive] = useState(false);
-  const [predictedQuality, setPredictedQuality] = useState(0);
+  const [predictedQuality, setPredictedQuality] = useState(null);
   const [qualityComment, setQualityComment] = useState('');
-
+  console.log('predictedQuality', predictedQuality);
   // Callback function to set the state in SynopMonitoring.js
   const onKommentarButtonActivation = (isActive) => {
     setIsKommentarButtonActive(isActive);

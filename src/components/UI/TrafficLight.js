@@ -36,11 +36,11 @@ export const TrafficLightProzessStability = ({ value }) => {
 export const TrafficLightPronoseQuality = ({ value }) => {
   let lightColor;
 
-  if (value >= 0) {
+  if (value > 0) {
     lightColor = '#00FF00';
   } else if (value >= -0.8 && value < 0) {
     lightColor = 'yellow';
-  } else if (value < -0.3) {
+  } else if (value < -0.8) {
     lightColor = 'red';
   } else {
     lightColor = 'white';
